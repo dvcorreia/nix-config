@@ -46,7 +46,7 @@
         wsl = true;
       };
 
-      darwinConfigurations.macbook-pro-university = mkSystem "macbook-pro-intel" {
+      darwinConfigurations.macbook-pro-intel = mkSystem "macbook-pro-intel" {
         system = "x86_64-darwin";
         user = "dvcorreia";
         darwin = true;
