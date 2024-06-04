@@ -8,6 +8,7 @@
       "visual-studio-code"
       "transmission"
       "vlc"
+      "stremio"
       "discord"
       "chromium"
       "istat-menus"
