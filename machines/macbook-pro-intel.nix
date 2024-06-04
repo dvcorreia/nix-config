@@ -10,6 +10,11 @@
       experimental-features = nix-command flakes
       extra-platforms = x86_64-darwin
     '';
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
   };
 
   # zsh is the default shell on Mac and we want to make sure that we're
@@ -22,4 +27,61 @@
     zsh
     fish
   ];
+
+  system = {
+    defaults = {
+      NSGlobalDomain = {
+        NSAutomaticWindowAnimationsEnabled = false;
+      };
+
+      dock = {
+        autohide = false;
+        mru-spaces = false;
+        orientation = "bottom";
+        showhidden = true;
+      };
+
+      finder = {
+        AppleShowAllFiles = true;
+        AppleShowAllExtensions = true;
+        QuitMenuItem = true;
+        ShowStatusBar = true;
+        ShowPathbar = true;
+        FXEnableExtensionChangeWarning = false;
+        FXDefaultSearchScope = "SCcf"; # when performing a search, search the current folder by default
+        FXPreferredViewStyle = "Nlsv"; # use list view in all Finder windows by default
+      };
+
+      screencapture = {
+        location = "~/Desktop";
+        type = "png";
+        disable-shadow = true;
+      };
+
+      screensaver = {
+        # require password immediately after sleep or screen saver begins
+        askForPassword = true;
+        askForPasswordDelay = 0;
+      };
+
+      CustomUserPreferences = {
+        "com.apple.finder" = {
+          WarnOnEmptyTrash = false;
+          OpenWindowForNewRemovableDisk = true;
+        };
+
+        "com.apple.frameworks.diskimages" = {
+          # automatically open a new Finder window when a volume is mounted
+          auto-open-ro-root = true;
+          auto-open-rw-root = true;
+        };
+
+        "com.apple.desktopservices" = {
+          # avoid creating .DS_Store files on network or USB volumes
+          DSDontWriteNetworkStores = true;
+          DSDontWriteUSBStores = true;
+        };
+      };
+    };
+  };
 }

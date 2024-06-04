@@ -5,6 +5,7 @@
     enable = true;
     casks  = [
       "telegram"
+      "visual-studio-code"
       "transmission"
       "vlc"
       "discord"
@@ -12,6 +13,7 @@
       "istat-menus"
       "rectangle"
       "spotify"
+      "stats"
     ];
   };
 
