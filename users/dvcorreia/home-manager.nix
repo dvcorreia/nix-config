@@ -50,6 +50,8 @@ in {
 
     programs.direnv.enable = true;
 
+    programs.go.enable = true;
+
     programs.fish = {
       enable = true;
 

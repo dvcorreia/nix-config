@@ -39,6 +39,12 @@
         mru-spaces = false;
         orientation = "bottom";
         showhidden = true;
+        tilesize = 44;
+        mineffect = "scale";
+        # persistent-apps = [
+        #   ""
+        # ];
+        show-recents = false;
       };
 
       finder = {
@@ -67,13 +73,13 @@
       CustomUserPreferences = {
         "com.apple.finder" = {
           WarnOnEmptyTrash = false;
-          OpenWindowForNewRemovableDisk = true;
+          OpenWindowForNewRemovableDisk = true; # not working!
         };
 
         "com.apple.frameworks.diskimages" = {
           # automatically open a new Finder window when a volume is mounted
-          auto-open-ro-root = true;
-          auto-open-rw-root = true;
+          "auto-open-ro-root" = true;
+          "auto-open-rw-root" = true;
         };
 
         "com.apple.desktopservices" = {
