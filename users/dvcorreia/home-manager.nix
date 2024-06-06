@@ -33,6 +33,17 @@ in {
 
       shellAliases = {
         ls = "ls --color=auto -F";
+        ll = "ls -lha --color=auto -F";
+      };
+    };
+
+    programs.zsh = {
+      enable = true;
+
+      shellAliases = {
+        ".." = "cd ..";
+        ls = "ls --color=auto -F";
+        ll = "ls -lha --color=auto -F";
       };
     };
 
@@ -48,7 +59,12 @@ in {
       };
     };
 
-    programs.direnv.enable = true;
+    programs.direnv = {
+      enable = true;
+      enableZshIntegration = true;
+      enableFishIntegration = true;
+      nix-direnv.enable = true;
+    };
 
     programs.go.enable = true;
 
@@ -57,6 +73,7 @@ in {
 
       shellAliases = {
         ls = "ls --color=auto -F";
+        ll = "ls -lha --color=auto -F";
       };
     };
 }
