@@ -67,12 +67,11 @@ in {
 
     programs.go.enable = true;
 
-    programs.fish = {
-      enable = true;
+    programs.kitty = {
+      enable = !isWSL;
+    };
 
-      shellAliases = {
-        ls = "ls --color=auto -F";
-        ll = "ls -lha --color=auto -F";
-      };
+    programs.neovim = {
+      enable = true;
     };
 }
