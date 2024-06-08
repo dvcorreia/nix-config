@@ -13,13 +13,16 @@ in {
     # Packages I always want installed. Most packages I install using
     # per-project flakes sourced with direnv and nix-shell, so this is
     # not a huge list.
-    home.packages = [
-      pkgs.wget
-      pkgs.htop
-      pkgs.jq
-      pkgs.ripgrep
-      pkgs.tree
-      pkgs.watch
+    home.packages = with pkgs; [
+      wget
+      htop
+      jq
+      ripgrep
+      tree
+      watch
+
+      nodePackages.typescript
+      nodejs
     ];
 
     #---------------------------------------------------------------------

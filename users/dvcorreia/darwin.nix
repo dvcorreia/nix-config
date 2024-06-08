@@ -26,4 +26,12 @@
   };
 
   environment.shells = with pkgs; [ bashInteractive zsh ];
+
+  fonts = {
+    fontDir.enable = true;
+
+    fonts = [
+      pkgs.monaspace
+    ];
+  };
 }
