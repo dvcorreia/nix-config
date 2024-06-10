@@ -10,6 +10,8 @@ in {
     # originally installed. DO NOT CHANGE!
     home.stateVersion = "24.05";
 
+    xdg.enable = true;
+
     # Packages I always want installed. Most packages I install using
     # per-project flakes sourced with direnv and nix-shell, so this is
     # not a huge list.
@@ -23,7 +25,18 @@ in {
 
       nodePackages.typescript
       nodejs
-    ];
+    ] ++ (lib.optionals isDarwin [
+
+    ]) ++ (lib.optionals (isLinux && !isWSL) [
+      chromium
+    ]);
+
+    #---------------------------------------------------------------------
+    # Env vars and dotfiles
+    #---------------------------------------------------------------------
+    home.sessionVariables = {
+      EDITOR = "nvim";
+    };
 
     #---------------------------------------------------------------------
     # Programs
@@ -56,8 +69,10 @@ in {
       userEmail = "dv_correia@hotmail.com";
 
       extraConfig = {
+        branch.autosetuprebase = "always"; # rebase on git pull
         color.ui = true;
         github.user = "dvcorreia";
+        push.default = "upstream"; # push the current branch to its upstream branch
         init.defaultBranch = "main";
       };
     };

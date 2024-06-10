@@ -32,6 +32,8 @@
 
     fonts = [
       pkgs.monaspace
+      pkgs.jetbrains-mono
+      pkgs.mononoki
     ];
   };
 }
