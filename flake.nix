@@ -40,16 +40,21 @@
       mkSystem = import ./lib/mksystem.nix { inherit overlays nixpkgs inputs; };
     in
     {
-      nixosConfigurations.wsl = mkSystem "wsl" {
+      nixosConfigurations.proart-7950x = mkSystem "proart-7950x" rec {
         system = "x86_64-linux";
-        user = "dvcorreia";
-        wsl = true;
+        user   = "dvcorreia";
       };
 
       darwinConfigurations.macbook-pro-intel = mkSystem "macbook-pro-intel" {
         system = "x86_64-darwin";
         user = "dvcorreia";
         darwin = true;
+      };
+
+      nixosConfigurations.wsl = mkSystem "wsl" {
+        system = "x86_64-linux";
+        user = "dvcorreia";
+        wsl = true;
       };
     };
 }

@@ -2,7 +2,7 @@ NIX_USER ?= dvcorreia
 
 # The name of the nixosConfiguration in the flake
 # you can find darwin host name with: scutil --get LocalHostName
-NIXNAME ?= macbook-pro-intel
+NIXNAME ?= 
 
 # We need to do some OS switching below.
 UNAME := $(shell uname)
