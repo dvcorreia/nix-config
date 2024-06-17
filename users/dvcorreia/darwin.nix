@@ -10,11 +10,14 @@
       "vlc"
       "stremio"
       "discord"
-      "chromium"
       "istat-menus"
       "rectangle"
       "spotify"
       "stats"
+
+      # work related stuff
+      "google-chrome"
+      "slack"
     ];
   };
 

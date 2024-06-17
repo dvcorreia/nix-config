@@ -23,12 +23,13 @@ in {
       tree
       watch
 
+      python312
       nodePackages.typescript
       nodejs
     ] ++ (lib.optionals isDarwin [
 
     ]) ++ (lib.optionals (isLinux && !isWSL) [
-      chromium
+      # chromium # why is this being installed on darwin?
     ]);
 
     #---------------------------------------------------------------------
