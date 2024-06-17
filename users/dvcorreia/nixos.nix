@@ -6,16 +6,10 @@
 
     # Define a user account. Don't forget to set a password with ‘passwd’.
     users.users.dvcorreia = {
-        isNormalUser = true;
-        description = "Diogo Correia";
-        extraGroups = [ "networkmanager" "wheel" ];
-        packages = with pkgs; [
-          unzip
-          wget
-          vscode
-          ungoogled-chromium
-          telegram-desktop
-        ];
+      isNormalUser = true;
+      description = "Diogo Correia";
+      extraGroups = [ "networkmanager" "wheel" ];
+      shell = pkgs.fish;
     };
 
     fonts = {

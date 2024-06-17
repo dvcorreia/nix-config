@@ -29,7 +29,11 @@ in {
     ] ++ (lib.optionals isDarwin [
 
     ]) ++ (lib.optionals (isLinux && !isWSL) [
-      # chromium # why is this being installed on darwin?
+      ungoogled-chromium
+      telegram-desktop
+      spotify
+
+      vscode
     ]);
 
     #---------------------------------------------------------------------
