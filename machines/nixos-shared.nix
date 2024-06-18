@@ -8,6 +8,9 @@
 }:
 
 {
+  # Be careful updating this (fixes Logitech MX Brio webcam issues)
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   nix = {
     # We need to enable flakes
     extraOptions = ''
@@ -60,6 +63,7 @@
     gnumake
     killall
     xclip
+    usbutils # contains lsusb command
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
