@@ -73,12 +73,15 @@ in {
       userName = "Diogo Correia";
       userEmail = "dv_correia@hotmail.com";
 
+      lfs.enable = true;
+
       extraConfig = {
         branch.autosetuprebase = "always"; # rebase on git pull
         color.ui = true;
         github.user = "dvcorreia";
         push.default = "upstream"; # push the current branch to its upstream branch
         init.defaultBranch = "main";
+        core.editor = "nvim";
       };
     };
 
