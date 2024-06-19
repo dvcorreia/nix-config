@@ -29,7 +29,6 @@ in {
     ] ++ (lib.optionals isDarwin [
 
     ]) ++ (lib.optionals (isLinux && !isWSL) [
-      ungoogled-chromium
       telegram-desktop
       spotify
 
@@ -104,5 +103,16 @@ in {
         vim.opt.number = true
         vim.opt.relativenumber = true
       '';
+    };
+
+    programs.chromium = {
+      enable = true;
+
+      dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
+
+      extensions = [
+        { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
+        { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+      ];
     };
 }
