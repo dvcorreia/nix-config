@@ -8,7 +8,7 @@
     users.users.dvcorreia = {
       isNormalUser = true;
       description = "Diogo Correia";
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "docker" "networkmanager" "wheel" ];
       shell = pkgs.fish;
     };
 

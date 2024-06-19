@@ -35,6 +35,22 @@
   # Set your time zone.
   time.timeZone = "Europe/Lisbon";
 
+  virtualisation = {
+    # Enable common container config files in /etc/containers
+    containers.enable = true;
+
+    docker = {
+      enable = true;
+
+      rootless = {
+        enable = true;
+
+        # Sets the DOCKER_HOST variable to the rootless Docker instance for normal users by default
+        setSocketVariable = true;
+      };
+    };
+  };
+
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
