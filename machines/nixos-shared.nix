@@ -54,6 +54,11 @@
   # Select internationalisation properties.
   i18n = {
     defaultLocale = "en_US.UTF-8";
+    supportedLocales = [
+      "C.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
+      "pt_PT.UTF-8/UTF-8"
+    ];
     extraLocaleSettings = {
       LC_ADDRESS = "pt_PT.UTF-8";
       LC_IDENTIFICATION = "pt_PT.UTF-8";
