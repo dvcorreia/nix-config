@@ -82,6 +82,19 @@ in {
         init.defaultBranch = "main";
         core.editor = "nvim";
       };
+
+      includes = [
+        {
+          condition = "gitdir:~/Desktop/metacell/";
+          contentSuffix = "metacell";
+          contents = {
+            user = {
+              email = "diogo@metacell.us";
+              name = "Diogo Correia";
+            };
+          };
+        }
+      ];
     };
 
     programs.direnv = {
