@@ -21,4 +21,6 @@
         pkgs.mononoki
       ];
     };
+
+    services.transmission.enable = true;
 }
