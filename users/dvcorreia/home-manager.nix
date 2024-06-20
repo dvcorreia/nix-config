@@ -31,6 +31,7 @@ in {
     ]) ++ (lib.optionals (isLinux && !isWSL) [
       telegram-desktop
       spotify
+      transmission_4-gtk
 
       vscode
     ]);
