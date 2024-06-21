@@ -122,7 +122,7 @@ in {
     };
 
     programs.chromium = {
-      enable = true;
+      enable = isLinux && !isWSL;
 
       dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
 
