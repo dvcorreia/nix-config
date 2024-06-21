@@ -23,10 +23,6 @@ in {
       tree
       watch
 
-      (python312.withPackages (ps: with ps; [
-        pip
-      ]))
-
       nodePackages.typescript
       nodejs
     ] ++ (lib.optionals isDarwin [
