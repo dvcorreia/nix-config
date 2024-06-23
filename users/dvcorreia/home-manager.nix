@@ -82,6 +82,7 @@ in {
         color.ui = true;
         github.user = "dvcorreia";
         push.default = "upstream"; # push the current branch to its upstream branch
+        push.autoSetupRemote = true; # sets up new branch to track remote branch with same name
         init.defaultBranch = "main";
         core.editor = "nvim";
       };
