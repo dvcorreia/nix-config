@@ -67,15 +67,24 @@ in {
 
     programs.zsh = {
       enable = true;
+      enableCompletion = true;
+      autosuggestion.enable = true;
+      syntaxHighlighting.enable = true;
 
       shellAliases = {
         ".." = "cd ..";
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
+        k = "kubectl";
       } // (if isLinux then {
         pbcopy = "xclip";
         pbpaste = "xclip -o";
       } else {});
+
+      history = {
+        size = 10000;
+        path = "${config.xdg.dataHome}/zsh/history";
+      };
     };
 
     programs.git = {
