@@ -16,6 +16,7 @@ in {
     # per-project flakes sourced with direnv and nix-shell, so this is
     # not a huge list.
     home.packages = with pkgs; [
+      fzf
       wget
       htop
       jq
@@ -57,7 +58,10 @@ in {
       shellAliases = {
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
-      };
+      } // (if isLinux then {
+        pbcopy = "xclip";
+        pbpaste = "xclip -o";
+      } else {});
     };
 
     programs.zsh = {
@@ -67,7 +71,10 @@ in {
         ".." = "cd ..";
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
-      };
+      } // (if isLinux then {
+        pbcopy = "xclip";
+        pbpaste = "xclip -o";
+      } else {});
     };
 
     programs.git = {
@@ -85,6 +92,7 @@ in {
         push.autoSetupRemote = true; # sets up new branch to track remote branch with same name
         init.defaultBranch = "main";
         core.editor = "nvim";
+        url."git@github.com:".insteadOf = "https://github.com/";
       };
 
       includes = [
