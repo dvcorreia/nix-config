@@ -25,6 +25,16 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
+  ];
+
+  # K3s cluster configuration
+  services.k3s.enable = true;
+  services.k3s.role = "server";
+  services.k3s.extraFlags = toString [
+    #"--write.kubeconfig-mode=644" # allow kubeconfig to be read by other unprivileged users on the host
+  ];
 
   # Enable sound with pipewire.
   sound.enable = true;

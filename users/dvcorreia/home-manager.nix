@@ -58,6 +58,7 @@ in {
       shellAliases = {
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
+        k = "kubectl";
       } // (if isLinux then {
         pbcopy = "xclip";
         pbpaste = "xclip -o";
