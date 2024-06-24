@@ -143,6 +143,8 @@ in {
       extensions = [
         { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
         { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
+        { id = "fmkadmapgofadopljbjfkapdkoienihi"; } # react developer tools
+        { id = "lmhkpmbekcpmknklioeibfkpmmfibljd"; } # redux devtools
       ];
     };
 }
