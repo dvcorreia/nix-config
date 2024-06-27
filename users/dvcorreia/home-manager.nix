@@ -27,7 +27,7 @@ in {
       nodePackages.typescript
       nodejs
     ] ++ (lib.optionals isDarwin [
-
+      tailscale
     ]) ++ (lib.optionals (isLinux && !isWSL) [
       telegram-desktop
       spotify

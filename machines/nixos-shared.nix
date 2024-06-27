@@ -84,6 +84,10 @@
 
   console.keyMap = "pt-latin1";
 
+  # Enable tailscale. I manually authenticate when we want
+  # with "sudo tailscale up".
+  services.tailscale.enable = true;
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
