@@ -134,13 +134,13 @@ in {
 
       keybindings = {
         # Clipboard
-        "super+v" = "paste_from_clipboard";
-        "super+c" = "copy_or_interrupt";
+        "ctrl+v" = "paste_from_clipboard";
+        "ctrl+c" = "copy_or_interrupt";
 
         # Miscellaneous
-        "super+plus" = "increase_font_size";
-        "super+minus" = "decrease_font_size";
-        "super+0" = "restore_font_size";
+        "ctrl+plus" = "increase_font_size";
+        "ctrl+minus" = "decrease_font_size";
+        "ctrl+0" = "restore_font_size";
       };
     };
 
