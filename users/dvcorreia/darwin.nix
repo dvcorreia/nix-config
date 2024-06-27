@@ -19,6 +19,11 @@
       "google-chrome"
       "slack"
     ];
+
+    # MAS apps must have been installed or bought before on your Apple ID
+    masApps = {
+      Tailscale = 1475387142;
+    };
   };
 
   # The user should already exist, but we need to set this up so Nix knows
