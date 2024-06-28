@@ -91,6 +91,7 @@ in {
       enable = true;
       userName = "Diogo Correia";
       userEmail = "dv_correia@hotmail.com";
+      ignores = [ "**/.vscode/settings.json" "**/.direnv/" "**/.DS_Store" ];
 
       lfs.enable = true;
 
