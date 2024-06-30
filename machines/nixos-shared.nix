@@ -98,6 +98,7 @@
     killall
     xclip
     usbutils # contains lsusb command
+    openssh
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

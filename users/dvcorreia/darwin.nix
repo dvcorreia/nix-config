@@ -35,6 +35,11 @@
 
   environment.shells = with pkgs; [ bashInteractive zsh ];
 
+  environment.systemPackages = with pkgs; [
+    gnumake
+    openssh
+  ];
+
   fonts = {
     fontDir.enable = true;
 
