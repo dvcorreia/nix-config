@@ -33,7 +33,8 @@
   services.k3s.enable = true;
   services.k3s.role = "server";
   services.k3s.extraFlags = toString [
-    #"--write.kubeconfig-mode=644" # allow kubeconfig to be read by other unprivileged users on the host
+    "--tls-san 100.96.133.89" # tailscale IP
+    #"--write.kubeconfig-mode 644" # allow kubeconfig to be read by other unprivileged users on the host
   ];
 
   # Enable sound with pipewire.
