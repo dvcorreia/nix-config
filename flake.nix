@@ -51,6 +51,12 @@
         darwin = true;
       };
 
+      darwinConfiguration.macbook-m3-pro = mkSystem "macbook-m3-pro" {
+        system = "aarch64-darwin";
+        user = "dvcorreia";
+        darwin = true;
+      };
+
       nixosConfigurations.wsl = mkSystem "wsl" {
         system = "x86_64-linux";
         user = "dvcorreia";
