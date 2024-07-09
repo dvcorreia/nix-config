@@ -3,7 +3,7 @@
 {
   homebrew = {
     enable = true;
-    casks  = [
+    casks = [
       "telegram"
       "visual-studio-code"
       "transmission"
@@ -33,7 +33,10 @@
     shell = pkgs.zsh;
   };
 
-  environment.shells = with pkgs; [ bashInteractive zsh ];
+  environment.shells = with pkgs; [
+    bashInteractive
+    zsh
+  ];
 
   environment.systemPackages = with pkgs; [
     gnumake

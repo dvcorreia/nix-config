@@ -42,7 +42,7 @@
     {
       nixosConfigurations.proart-7950x = mkSystem "proart-7950x" rec {
         system = "x86_64-linux";
-        user   = "dvcorreia";
+        user = "dvcorreia";
       };
 
       darwinConfigurations.macbook-pro-intel = mkSystem "macbook-pro-intel" {
