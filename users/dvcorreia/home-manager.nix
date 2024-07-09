@@ -23,6 +23,7 @@ in {
       ripgrep
       tree
       watch
+      nixfmt-rfc-style
 
       nodePackages.typescript
       nodejs
