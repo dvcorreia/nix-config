@@ -28,6 +28,19 @@
   networking.firewall.allowedTCPPorts = [
     6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
   ];
+  networking.hosts = {
+    "192.168.1.71" = [
+      "registry.metacell.local"
+      "whoami.metacell.local"
+      "metacell.local"
+    ];
+  };
+
+  # Set private container registry
+  #services.dockerRegistry = {
+  #  enable = true;
+  #  listenAddress = "0.0.0.0";
+  #};
 
   # K3s cluster configuration
   services.k3s.enable = true;
@@ -36,6 +49,16 @@
     "--tls-san 100.96.133.89" # tailscale IP
     #"--write.kubeconfig-mode 644" # allow kubeconfig to be read by other unprivileged users on the host
   ];
+
+  # configure k3s private docker registry
+  environment.etc."rancher/k3s/registries.yaml" = {
+    text = ''
+      mirrors:
+        registry.metacell.local:
+          endpoint:
+            - "http://registry.metacell.local"
+    '';
+  };
 
   # Enable sound with pipewire.
   sound.enable = true;

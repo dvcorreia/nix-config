@@ -37,16 +37,30 @@
 
   virtualisation = {
     # Enable common container config files in /etc/containers
-    containers.enable = true;
+    containers = {
+      enable = true;
+      policy = {
+        default = [ { type = "insecureAcceptAnything"; } ];
+        transports = {
+          docker-daemon = {
+            "" = [ { type = "insecureAcceptAnything"; } ];
+          };
+        };
+      };
+    };
+
+    oci-containers.backend = "docker";
 
     docker = {
       enable = true;
-
       rootless = {
         enable = true;
 
         # Sets the DOCKER_HOST variable to the rootless Docker instance for normal users by default
         setSocketVariable = true;
+      };
+      daemon.settings = {
+        insecure-registries = ["registry.metacell.local"];
       };
     };
   };
@@ -99,6 +113,9 @@
     xclip
     usbutils # contains lsusb command
     openssh
+    lsof
+
+    cachix
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

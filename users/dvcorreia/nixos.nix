@@ -16,8 +16,15 @@
     shell = pkgs.zsh;
   };
 
+<<<<<<< Updated upstream
   fonts = {
     fontDir.enable = true;
+=======
+    nix.settings.trusted-users = [ "root" "dvcorreia" ]; # cachix requirement
+
+    fonts = {
+      fontDir.enable = true;
+>>>>>>> Stashed changes
 
     packages = [
       pkgs.monaspace

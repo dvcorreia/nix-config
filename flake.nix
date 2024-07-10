@@ -23,6 +23,11 @@
       url = "github:LnL7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # microvm = {
+    #   url = "github:astro/microvm.nix";
+    #   inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
   };
 
   outputs =
@@ -31,6 +36,7 @@
       nixpkgs,
       home-manager,
       darwin,
+      # microvm,
       ...
     }@inputs:
     let
