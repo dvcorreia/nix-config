@@ -32,6 +32,8 @@ in
       tree
       watch
       nixfmt-rfc-style
+      unzip
+      glow # markdown reader
 
       nodePackages.typescript
       nodejs
