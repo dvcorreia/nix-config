@@ -29,6 +29,7 @@ in
       wget
       htop
       jq
+      bat # cat w/ sintax highlighting
       ripgrep
       tree
       watch
@@ -75,6 +76,7 @@ in
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
         k = "kubectl";
+        cat = "bat";
       }
       // (
         if isLinux then
@@ -99,6 +101,7 @@ in
         ls = "ls --color=auto -F";
         ll = "ls -lha --color=auto -F";
         k = "kubectl";
+        cat = "bat";
       }
       // (
         if isLinux then
