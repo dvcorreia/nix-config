@@ -19,10 +19,13 @@
   fonts = {
     fontDir.enable = true;
 
-    packages = [
-      pkgs.monaspace
-      pkgs.jetbrains-mono
-      pkgs.mononoki
+    packages = with pkgs; [
+      monaspace
+      jetbrains-mono
+      mononoki
+      (nerdfonts.override { fonts = [
+        "DejaVuSansMono"
+      ]; })
     ];
   };
 }

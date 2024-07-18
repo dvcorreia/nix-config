@@ -25,6 +25,7 @@ in
     with pkgs;
     [
       fzf
+      lsof # lsof -n -i :80 | grep LISTEN
       wget
       htop
       jq
