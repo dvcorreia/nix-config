@@ -47,8 +47,6 @@ in
       transmission_4-gtk
       stremio
 
-      vscode
-
       # For work
       slack
     ]);
@@ -205,4 +203,49 @@ in
       { id = "lmhkpmbekcpmknklioeibfkpmmfibljd"; } # redux devtools
     ];
   };
+
+  programs.vscode = {
+    enable = isLinux && !isWSL;
+    package = pkgs.vscodium;
+
+    extensions = with pkgs.vscode-extensions; [
+      bbenoist.nix
+
+      golang.go
+
+      ms-python.python
+      ms-python.vscode-pylance
+
+      tsandall.opa
+
+      ms-azuretools.vscode-docker
+
+      # tooling
+      yzhang.markdown-all-in-one
+      editorconfig.editorconfig
+
+      # themes
+      github.github-vscode-theme
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+      {
+        name = "vscode-styra";
+        publisher = "styra";
+        version = "2.1.0";
+        sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
+      }
+    ];
+
+    userSettings = {
+      "workbench.colorTheme" = "GitHub Dark Default";
+      "editor.fontFamily" = lib.concatStringsSep ", " [
+        "SFMode-Regular"
+        "'DejaVuSansM Nerd Font Mono'"
+        "'Monaspace Neon'"
+        "'Droid Sans Mono'"
+        "monospace"
+      ];
+      "[nix]"."editor.tabSize" = 2;
+    };
+  };
+
 }
