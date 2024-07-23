@@ -45,6 +45,7 @@ in
       telegram-desktop
       spotify
       transmission_4-gtk
+      stremio
 
       vscode
 
