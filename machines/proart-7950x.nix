@@ -34,6 +34,7 @@
   services.k3s.role = "server";
   services.k3s.extraFlags = toString [
     "--tls-san 100.96.133.89" # tailscale IP
+    "--write-kubeconfig-mode \"0644\""
     #"--write.kubeconfig-mode 644" # allow kubeconfig to be read by other unprivileged users on the host
   ];
 
