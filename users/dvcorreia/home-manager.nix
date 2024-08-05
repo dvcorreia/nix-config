@@ -185,6 +185,28 @@ in
   programs.neovim = {
     enable = true;
 
+    plugins = with pkgs.vimPlugins; [
+      (nvim-treesitter.withPlugins (
+        p: with p; [
+          bash
+          c
+          diff
+          html
+          markdown
+          markdown_inline
+          query
+          vim
+          vimdoc
+
+          go
+          nix
+          python
+          javascript
+          typescript
+        ]
+      ))
+    ];
+
     extraLuaConfig = ''
       vim.g.mapleader = ' '
       vim.g.maplocalleader = ' '
