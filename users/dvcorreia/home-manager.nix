@@ -288,6 +288,9 @@ in
         "'Droid Sans Mono'"
         "monospace"
       ];
+      "search.exclude" = {
+        ".direnv" = true;
+      };
       "[nix]"."editor.tabSize" = 2;
     };
   };
