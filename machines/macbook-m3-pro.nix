@@ -10,6 +10,7 @@
       auto-optimise-store = false # not true because of https://github.com/NixOS/nix/issues/7273
       experimental-features = nix-command flakes
       extra-platforms = x86_64-darwin
+      sandbox = true
     '';
 
     gc = {
