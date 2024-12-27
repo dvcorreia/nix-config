@@ -43,13 +43,9 @@
     openssh
   ];
 
-  fonts = {
-    fontDir.enable = true;
-
-    fonts = [
-      pkgs.monaspace
-      pkgs.jetbrains-mono
-      pkgs.mononoki
-    ];
-  };
+  fonts.packages = [
+    pkgs.monaspace
+    pkgs.jetbrains-mono
+    pkgs.mononoki
+  ];
 }

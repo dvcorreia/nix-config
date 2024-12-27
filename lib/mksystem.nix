@@ -30,6 +30,7 @@ let
 in
 systemFunc rec {
   inherit system;
+  
 
   modules = [
     # Apply our overlays. Overlays are keyed by system type so we have
@@ -39,6 +40,9 @@ systemFunc rec {
 
     # Allow unfree packages.
     { nixpkgs.config.allowUnfree = true; }
+
+    # Seems to be needed for nix-darwin.
+    (if darwin then { system.stateVersion = 5; } else {})
 
     # Bring in WSL if this is a WSL build
     (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })

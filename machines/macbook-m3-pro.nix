@@ -14,30 +14,30 @@
     '';
 
     gc = {
+      # user = "root";
       automatic = true;
       options = "--delete-older-than 14d";
     };
   };
 
-  # networking.hosts not supported on nix darwin (see: PR #939 and #807)
-  environment.etc."hosts" = {
-    enable = true;
-    copy = true;
-    text = ''
-      ##
-      # Host Database
-      #
-      # localhost is used to configure the loopback interface
-      # when the system is booting. Do not change this entry.
-      ##
-      127.0.0.1	localhost
-      255.255.255.255	broadcasthost
-      ::1             localhost
+  # # networking.hosts not supported on nix darwin (see: PR #939 and #807)
+  # environment.etc."hosts" = {
+  #   enable = true;
+  #   text = ''
+  #     ##
+  #     # Host Database
+  #     #
+  #     # localhost is used to configure the loopback interface
+  #     # when the system is booting. Do not change this entry.
+  #     ##
+  #     127.0.0.1	localhost
+  #     255.255.255.255	broadcasthost
+  #     ::1             localhost
 
-      # proart-7950x tailscale IP
-      100.96.133.89 proart-7950x.local
-    '';
-  };
+  #     # proart-7950x tailscale IP
+  #     100.96.133.89 proart-7950x.local
+  #   '';
+  # };
 
   # zsh is the default shell on Mac and we want to make sure that we're
   # configuring the rc correctly with nix-darwin paths.
