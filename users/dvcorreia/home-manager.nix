@@ -33,6 +33,7 @@ in
       ripgrep
       tree
       watch
+      ffmpeg
       nixfmt-rfc-style
       unzip
       glow # markdown reader
