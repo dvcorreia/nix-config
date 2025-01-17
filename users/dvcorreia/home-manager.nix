@@ -141,6 +141,7 @@ in
       push.autoSetupRemote = true; # sets up new branch to track remote branch with same name
       init.defaultBranch = "main";
       core.editor = "nvim";
+      core.autocrlf = "input";
       url."git@github.com:".insteadOf = "https://github.com/";
     };
 
