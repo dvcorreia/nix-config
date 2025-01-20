@@ -3,7 +3,13 @@
 {
   homebrew = {
     enable = true;
+    onActivation = {
+      autoUpdate = true;
+      cleanup = "uninstall";
+      upgrade = true;
+    };
     casks = [
+      "ghostty"
       "telegram"
       "visual-studio-code"
       "transmission"
