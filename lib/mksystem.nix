@@ -1,9 +1,7 @@
-# This function creates a NixOS system based on our VM setup for a
-# particular architecture.
 {
   nixpkgs,
-  overlays,
   inputs,
+  overlays ? [ ],
 }:
 
 name:
@@ -11,64 +9,58 @@ name:
   system,
   user,
   darwin ? false,
-  wsl ? false,
+  modules ? [ ],
+  includeHomeManager ? true,
 }:
-
 let
-  # True if this is a WSL system.
-  isWSL = wsl;
+  hostConfig = ../hosts/${name}/configuration.nix;
+  userOSConfig = if darwin then ../users/${user}/darwin.nix else ../users/${user}/nixos.nix;
+  userHomeManagerConfig = ../users/${user}/home-manager.nix;
 
-  # The config files for this system.
-  machineConfig = ../machines/${name}.nix;
-  userOSConfig = ../users/${user}/${if darwin then "darwin" else "nixos"}.nix;
-  userHMConfig = ../users/${user}/home-manager.nix;
-
-  # NixOS vs nix-darwin functionst
-  systemFunc = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
-  home-manager =
+  mkSystem = if darwin then inputs.darwin.lib.darwinSystem else nixpkgs.lib.nixosSystem;
+  homeManagerModule =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
+
+  specialArgs = {
+    inherit inputs;
+    currentSystem = system;
+    currentSystemName = name;
+    currentSystemUSer = user;
+  };
 in
-systemFunc rec {
-  inherit system;
-  
+mkSystem {
+  inherit system specialArgs;
 
-  modules = [
-    # Apply our overlays. Overlays are keyed by system type so we have
-    # to go through and apply our system type. We do this first so
-    # the overlays are available globally.
-    { nixpkgs.overlays = overlays; }
+  modules =
+    [
+      # define overlays first so they are available globally
+      { nixpkgs.overlays = overlays; }
+      { nixpkgs.config.allowUnfree = true; }
 
-    # Allow unfree packages.
-    { nixpkgs.config.allowUnfree = true; }
+      # nix-darwin seems to need this
+      (if darwin then { system.stateVersion = 5; } else { })
 
-    # Seems to be needed for nix-darwin.
-    (if darwin then { system.stateVersion = 5; } else {})
+      # hostname is the name of the system by default
+      { networking.hostName = name; }
 
-    # Bring in WSL if this is a WSL build
-    (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
-
-    machineConfig
-    userOSConfig
-    home-manager.home-manager
-    {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.users.${user} = import userHMConfig {
-        isWSL = isWSL;
-        inputs = inputs;
-      };
-    }
-
-    # We expose some extra arguments so that our modules can parameterize
-    # better based on these values.
-    {
-      config._module.args = {
-        currentSystem = system;
-        currentSystemName = name;
-        currentSystemUser = user;
-        isWSL = isWSL;
-        inputs = inputs;
-      };
-    }
-  ];
+      hostConfig
+      userOSConfig
+    ]
+    ++ (
+      if includeHomeManager then
+        [
+          homeManagerModule
+          {
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              extraSpecialArgs = specialArgs;
+              users.${user} = import userHomeManagerConfig { inherit inputs; };
+            };
+          }
+        ]
+      else
+        [ ]
+    )
+    ++ modules;
 }
