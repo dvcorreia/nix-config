@@ -167,7 +167,6 @@ in
 
   programs.kitty = {
     enable = isLinux;
-    theme = "GitHub Dark";
     shellIntegration.enableZshIntegration = true;
 
     keybindings = {

@@ -49,7 +49,7 @@ mkSystem {
     ++ (
       if includeHomeManager then
         [
-          homeManagerModule
+          homeManagerModule.home-manager
           {
             home-manager = {
               useGlobalPkgs = true;
