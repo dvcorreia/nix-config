@@ -7,7 +7,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’
   users.users.dvcorreia = {
     isNormalUser = true;
-    description = "Diogo Correia";
+    home = "/home/dvcorreia";
     extraGroups = [
       "docker"
       "networkmanager"
@@ -23,9 +23,11 @@
       monaspace
       jetbrains-mono
       mononoki
-      (nerdfonts.override { fonts = [
-        "DejaVuSansMono"
-      ]; })
+      (nerdfonts.override {
+        fonts = [
+          "DejaVuSansMono"
+        ];
+      })
     ];
   };
 }

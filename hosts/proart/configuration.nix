@@ -6,8 +6,8 @@
 }:
 {
   imports = [
-    ./nixos-shared.nix
-    ./hardware/proart-7950x.nix
+    ../nixos-shared.nix
+    ./hardware-configuration.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

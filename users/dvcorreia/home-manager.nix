@@ -1,4 +1,4 @@
-{ isWSL, inputs, ... }:
+{ inputs, ... }:
 
 {
   config,
@@ -41,15 +41,13 @@ in
       nodePackages.typescript
       nodejs
     ]
-    ++ (lib.optionals isDarwin [ tailscale ])
-    ++ (lib.optionals (isLinux && !isWSL) [
+    ++ (lib.optionals isDarwin [ ])
+    ++ (lib.optionals isLinux [
+      slack
       telegram-desktop
       spotify
       transmission_4-gtk
       stremio
-
-      # For work
-      slack
     ]);
 
   #---------------------------------------------------------------------
@@ -168,8 +166,7 @@ in
   programs.go.enable = true;
 
   programs.kitty = {
-    enable = !isWSL;
-    theme = "GitHub Dark";
+    enable = isLinux;
     shellIntegration.enableZshIntegration = true;
 
     keybindings = {
@@ -238,7 +235,7 @@ in
   };
 
   programs.chromium = {
-    enable = isLinux && !isWSL;
+    enable = isLinux;
 
     dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
 
@@ -251,35 +248,38 @@ in
   };
 
   programs.vscode = {
-    enable = isLinux && !isWSL;
+    enable = isLinux;
     package = pkgs.vscodium;
 
-    extensions = with pkgs.vscode-extensions; [
-      bbenoist.nix
+    extensions =
+      with pkgs.vscode-extensions;
+      [
+        bbenoist.nix
 
-      golang.go
+        golang.go
 
-      ms-python.python
-      ms-python.vscode-pylance
+        ms-python.python
+        ms-python.vscode-pylance
 
-      tsandall.opa
+        tsandall.opa
 
-      ms-azuretools.vscode-docker
+        ms-azuretools.vscode-docker
 
-      # tooling
-      yzhang.markdown-all-in-one
-      editorconfig.editorconfig
+        # tooling
+        yzhang.markdown-all-in-one
+        editorconfig.editorconfig
 
-      # themes
-      github.github-vscode-theme
-    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-      {
-        name = "vscode-styra";
-        publisher = "styra";
-        version = "2.1.0";
-        sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
-      }
-    ];
+        # themes
+        github.github-vscode-theme
+      ]
+      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+        {
+          name = "vscode-styra";
+          publisher = "styra";
+          version = "2.1.0";
+          sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
+        }
+      ];
 
     userSettings = {
       "workbench.colorTheme" = "GitHub Dark Default";
