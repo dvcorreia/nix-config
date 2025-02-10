@@ -6,7 +6,6 @@
   nix.useDaemon = true;
 
   nix = {
-    # We need to enable flakes
     extraOptions = ''
       auto-optimise-store = false # not true because of https://github.com/NixOS/nix/issues/7273
       experimental-features = nix-command flakes
@@ -30,7 +29,7 @@
     zsh
   ];
 
-  # Add ability to used TouchID for sudo authentication
+  # add ability to used TouchID for sudo authentication
   security.pam.enableSudoTouchIdAuth = true;
 
   # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
@@ -41,7 +40,7 @@
   '';
 
   system.defaults = {
-    menuExtraClock.Show24Hour = true;  # show 24 hour clock
+    menuExtraClock.Show24Hour = true; # show 24 hour clock
 
     dock = {
       autohide = false;
@@ -73,27 +72,27 @@
     };
 
     trackpad = {
-      TrackpadRightClick = true;  # enable two finger right click
-      TrackpadThreeFingerDrag = false;  # disable three finger drag
+      TrackpadRightClick = true; # enable two finger right click
+      TrackpadThreeFingerDrag = false; # disable three finger drag
     };
 
     NSGlobalDomain = {
-      "com.apple.swipescrolldirection" = true;  # enable natural scrolling(default to true)
-      AppleInterfaceStyle = "Dark";  # dark mode
-      AppleKeyboardUIMode = 3;  # Mode 3 enables full keyboard control.
-      ApplePressAndHoldEnabled = true;  # enable press and hold
+      "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
+      AppleInterfaceStyle = "Dark"; # dark mode
+      AppleKeyboardUIMode = 3; # mode 3 enables full keyboard control.
+      ApplePressAndHoldEnabled = true; # enable press and hold
 
       # sets how long it takes before it starts repeating.
-      InitialKeyRepeat = 15;  # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
+      InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
       # sets how fast it repeats once it starts.
-      KeyRepeat = 3;  # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
+      KeyRepeat = 3; # normal minimum is 2 (30 ms), maximum is 120 (1800 ms)
 
-      NSAutomaticCapitalizationEnabled = false;  # disable auto capitalization
-      NSAutomaticDashSubstitutionEnabled = false;  # disable auto dash substitution
-      NSAutomaticPeriodSubstitutionEnabled = false;  # disable auto period substitution
-      NSAutomaticQuoteSubstitutionEnabled = false;  # disable auto quote substitution
-      NSAutomaticSpellingCorrectionEnabled = false;  # disable auto spelling correction
-      NSNavPanelExpandedStateForSaveMode = true;  # expand save panel by default
+      NSAutomaticCapitalizationEnabled = false; # disable auto capitalization
+      NSAutomaticDashSubstitutionEnabled = false; # disable auto dash substitution
+      NSAutomaticPeriodSubstitutionEnabled = false; # disable auto period substitution
+      NSAutomaticQuoteSubstitutionEnabled = false; # disable auto quote substitution
+      NSAutomaticSpellingCorrectionEnabled = false; # disable auto spelling correction
+      NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
       NSNavPanelExpandedStateForSaveMode2 = true;
     };
 
@@ -116,7 +115,7 @@
       };
 
       "com.apple.finder".WarnOnEmptyTrash = false;
-      "com.apple.finder".OpenWindowForNewRemovableDisk = true; # not working!
+      "com.apple.finder".OpenWindowForNewRemovableDisk = true; # TODO: not working!
     };
 
     screencapture = {
