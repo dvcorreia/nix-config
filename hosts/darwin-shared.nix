@@ -80,7 +80,7 @@
       "com.apple.swipescrolldirection" = true; # enable natural scrolling(default to true)
       AppleInterfaceStyle = "Dark"; # dark mode
       AppleKeyboardUIMode = 3; # mode 3 enables full keyboard control.
-      ApplePressAndHoldEnabled = true; # enable press and hold
+      ApplePressAndHoldEnabled = false; # enable key repetition
 
       # sets how long it takes before it starts repeating.
       InitialKeyRepeat = 15; # normal minimum is 15 (225 ms), maximum is 120 (1800 ms)
