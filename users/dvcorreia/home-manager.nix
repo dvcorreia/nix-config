@@ -251,50 +251,53 @@ in
     enable = isLinux;
     package = pkgs.vscodium;
 
-    extensions =
-      with pkgs.vscode-extensions;
-      [
-        bbenoist.nix
+    profiles.default = {
+      extensions =
+        with pkgs.vscode-extensions;
+        [
+          bbenoist.nix
 
-        golang.go
+          golang.go
 
-        ms-python.python
-        ms-python.vscode-pylance
+          ms-python.python
+          ms-python.vscode-pylance
 
-        tsandall.opa
+          tsandall.opa
 
-        ms-azuretools.vscode-docker
+          ms-azuretools.vscode-docker
 
-        # tooling
-        yzhang.markdown-all-in-one
-        editorconfig.editorconfig
+          # tooling
+          yzhang.markdown-all-in-one
+          editorconfig.editorconfig
 
-        # themes
-        github.github-vscode-theme
-      ]
-      ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "vscode-styra";
-          publisher = "styra";
-          version = "2.1.0";
-          sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
-        }
-      ];
+          # themes
+          github.github-vscode-theme
+        ]
+        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+          {
+            name = "vscode-styra";
+            publisher = "styra";
+            version = "2.1.0";
+            sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
+          }
+        ];
 
-    userSettings = {
-      "workbench.colorTheme" = "GitHub Dark Default";
-      "editor.fontFamily" = lib.concatStringsSep ", " [
-        "SFMode-Regular"
-        "'DejaVuSansM Nerd Font Mono'"
-        "'Monaspace Neon'"
-        "'Droid Sans Mono'"
-        "monospace"
-      ];
-      "search.exclude" = {
-        ".direnv" = true;
+      userSettings = {
+        "workbench.colorTheme" = "GitHub Dark Default";
+        "editor.fontFamily" = lib.concatStringsSep ", " [
+          "SFMode-Regular"
+          "'DejaVuSansM Nerd Font Mono'"
+          "'Monaspace Neon'"
+          "'Droid Sans Mono'"
+          "monospace"
+        ];
+        "search.exclude" = {
+          ".direnv" = true;
+        };
+        "[nix]"."editor.tabSize" = 2;
       };
-      "[nix]"."editor.tabSize" = 2;
     };
+
   };
 
 }
