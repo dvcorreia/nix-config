@@ -23,11 +23,7 @@
       monaspace
       jetbrains-mono
       mononoki
-      (nerdfonts.override {
-        fonts = [
-          "DejaVuSansMono"
-        ];
-      })
+      #nerdfonts.deja-vu-sans-mono
     ];
   };
 }

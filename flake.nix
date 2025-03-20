@@ -42,7 +42,7 @@
     in
     {
       # desktop ProArt motherboard w/ AMD 7950x 64GB RAM and 2x1TB SDD
-      nixosConfigurations.proart = mkSystem "proart" rec {
+      nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
         system = "x86_64-linux";
         user = "dvcorreia";
       };
