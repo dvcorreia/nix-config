@@ -49,9 +49,11 @@
     openssh
   ];
 
-  fonts.packages = [
-    pkgs.monaspace
-    pkgs.jetbrains-mono
-    pkgs.mononoki
+  fonts.packages = with pkgs; [
+    monaspace
+    jetbrains-mono
+    mononoki
+    fira
+    iosevka
   ];
 }
