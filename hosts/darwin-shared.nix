@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  # We install Nix using a separate installer so we don't want nix-darwin
-  # to manage it for us. This tells nix-darwin to just use whatever is running.
-  nix.useDaemon = true;
-
   nix = {
     extraOptions = ''
       auto-optimise-store = false # not true because of https://github.com/NixOS/nix/issues/7273
@@ -30,7 +26,7 @@
   ];
 
   # add ability to used TouchID for sudo authentication
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
   system.activationScripts.postUserActivation.text = ''
