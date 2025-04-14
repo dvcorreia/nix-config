@@ -41,20 +41,17 @@
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
     in
     {
-      # desktop ProArt motherboard w/ AMD 7950x 64GB RAM and 2x1TB SDD
       nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
         system = "x86_64-linux";
         user = "dvcorreia";
       };
 
-      # university macbook pro 13" 2018 w/ ???
       darwinConfigurations.macbook-pro-intel = mkSystem "macbook-pro-intel" {
         system = "x86_64-darwin";
         user = "dvcorreia";
         darwin = true;
       };
 
-      # macbook pro 14" 2023 w/ M3 Pro CPU 36GB RAM and 1TB SSD
       darwinConfigurations.macbook-m3-pro = mkSystem "macbook-m3-pro" {
         system = "aarch64-darwin";
         user = "dvcorreia";
