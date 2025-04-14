@@ -33,6 +33,8 @@ let
       else
         { }
     );
+
+    dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
 in
 {
   # The state version is required and should stay at the version you
@@ -101,9 +103,7 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases = shellAliases // {
-      ".." = "cd ..";
-    };
+    shellAliases = shellAliases // dotAliases;
 
     history = {
       size = 10000;
