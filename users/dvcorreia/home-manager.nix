@@ -10,6 +10,29 @@
 let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
+
+  shellAliases =
+    {
+      ga = "git add";
+      gc = "git commit";
+      gco = "git checkout";
+      gp = "git push";
+      gs = "git status";
+
+      ls = "ls --color=auto -F";
+      ll = "ls -lha --color=auto -F";
+      k = "kubectl";
+      cat = "bat";
+    }
+    // (
+      if isLinux then
+        {
+          pbcopy = "xclip";
+          pbpaste = "xclip -o";
+        }
+      else
+        { }
+    );
 in
 {
   # The state version is required and should stay at the version you
@@ -69,22 +92,7 @@ in
       "ignorespace"
     ];
 
-    shellAliases =
-      {
-        ls = "ls --color=auto -F";
-        ll = "ls -lha --color=auto -F";
-        k = "kubectl";
-        cat = "bat";
-      }
-      // (
-        if isLinux then
-          {
-            pbcopy = "xclip";
-            pbpaste = "xclip -o";
-          }
-        else
-          { }
-      );
+    inherit shellAliases;
   };
 
   programs.zsh = {
@@ -93,23 +101,9 @@ in
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
 
-    shellAliases =
-      {
-        ".." = "cd ..";
-        ls = "ls --color=auto -F";
-        ll = "ls -lha --color=auto -F";
-        k = "kubectl";
-        cat = "bat";
-      }
-      // (
-        if isLinux then
-          {
-            pbcopy = "xclip";
-            pbpaste = "xclip -o";
-          }
-        else
-          { }
-      );
+    shellAliases = shellAliases // {
+      ".." = "cd ..";
+    };
 
     history = {
       size = 10000;
