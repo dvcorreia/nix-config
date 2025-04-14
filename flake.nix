@@ -70,12 +70,11 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               git
-              nixfmt-rfc-style
             ];
           };
         }
       );
 
-      formatter = forAllSystems (system: (nixpkgsFor.${system}).nixfmt-rfc-style);
+      formatter = forAllSystems (system: (nixpkgsFor.${system}).nixfmt-tree);
     };
 }
