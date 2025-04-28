@@ -5,9 +5,13 @@
     enable = true;
     onActivation = {
       autoUpdate = true;
-      cleanup = "uninstall";
+      cleanup = "zap";
       upgrade = true;
     };
+    taps = [
+      "homebrew/core"
+      "homebrew/cask"
+    ];
     casks = [
       "ghostty"
       "telegram"

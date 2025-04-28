@@ -47,6 +47,26 @@ mkSystem {
       userOSConfig
     ]
     ++ (
+      if darwin then
+        [
+          inputs.nix-homebrew.darwinModules.nix-homebrew
+          {
+            nix-homebrew = {
+              enable = true;
+              enableRosetta = true;
+              mutableTaps = true;
+              user = "${user}";
+              taps = with inputs; {
+                "homebrew/homebrew-core" = homebrew-core;
+                "homebrew/homebrew-cask" = homebrew-cask;
+              };
+            };
+          }
+        ]
+      else
+        [ ]
+    )
+    ++ (
       if includeHomeManager then
         [
           homeManagerModule.home-manager
