@@ -26,7 +26,7 @@ let
     HOSTNAME="$1"
 
     # set the computer hostname
-    CURR_HOSTNAME="$(scutil --get HostName 2> /dev/null)"
+    CURR_HOSTNAME="$(scutil --get HostName 2> /dev/null || echo "")"
     if [ "$CURR_HOSTNAME" != "$HOSTNAME" ]; then
       log "setting hostname"
       scutil --set HostName "$HOSTNAME"
