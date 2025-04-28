@@ -44,6 +44,14 @@ let
       logskip "xcode command line tools"
     fi
 
+    # install rosetta 2
+    if [ "$(arch)" = "arm64" ] && ! /usr/bin/pgrep -q oahd; then
+      log "installing rosetta 2"
+      softwareupdate --install-rosetta --agree-to-license
+    else
+      logskip "rosetta 2 installation"
+    fi
+
     log "done, should be good to go"
   '';
 in

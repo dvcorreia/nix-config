@@ -2,15 +2,16 @@
 
 {
   nix = {
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+    };
     extraOptions = ''
       auto-optimise-store = false # not true because of https://github.com/NixOS/nix/issues/7273
-      experimental-features = nix-command flakes
       extra-platforms = x86_64-darwin
       sandbox = true
     '';
 
     gc = {
-      # user = "root";
       automatic = true;
       options = "--delete-older-than 14d";
     };
@@ -30,7 +31,6 @@
 
   # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
   system.activationScripts.postUserActivation.text = ''
-    softwareupdate --install-rosetta --agree-to-license
     # activateSettings -u will reload the settings from the database and apply them to the current session,
     # so we do not need to logout and login again to make the changes take effect.
     /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
