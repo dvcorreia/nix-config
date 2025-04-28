@@ -14,20 +14,17 @@
     ];
     casks = [
       "ghostty"
+      "google-chrome"
       "telegram"
       "visual-studio-code"
       "transmission"
       "vlc"
       "stremio"
       "discord"
-      "istat-menus"
       "rectangle"
       "spotify"
       "stats"
-
-      # work related stuff
-      "google-chrome"
-      "slack"
+      "netnewswire"
     ];
 
     # MAS apps must have been installed or bought before on your Apple ID
