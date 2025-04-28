@@ -242,30 +242,18 @@ in
   };
 
   programs.vscode = {
-    enable = isLinux;
-    package = pkgs.vscodium;
+    enable = true;
 
     profiles.default = {
       extensions =
         with pkgs.vscode-extensions;
         [
           bbenoist.nix
-
           golang.go
-
           ms-python.python
           ms-python.vscode-pylance
-
           tsandall.opa
-
-          ms-azuretools.vscode-docker
-
-          # tooling
-          yzhang.markdown-all-in-one
           editorconfig.editorconfig
-
-          # themes
-          github.github-vscode-theme
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
@@ -277,17 +265,17 @@ in
         ];
 
       userSettings = {
-        "workbench.colorTheme" = "GitHub Dark Default";
+        # default fonts
         "editor.fontFamily" = lib.concatStringsSep ", " [
-          "SFMode-Regular"
-          "'DejaVuSansM Nerd Font Mono'"
-          "'Monaspace Neon'"
-          "'Droid Sans Mono'"
+          "Menlo"
+          "Monaco"
+          "'Courier New'"
           "monospace"
         ];
         "search.exclude" = {
           ".direnv" = true;
         };
+        "workbench.startupEditor" = "none";
         "[nix]"."editor.tabSize" = 2;
       };
     };

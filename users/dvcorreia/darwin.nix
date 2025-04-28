@@ -16,7 +16,6 @@
       "ghostty"
       "google-chrome"
       "telegram"
-      "visual-studio-code"
       "transmission"
       "vlc"
       "stremio"
