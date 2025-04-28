@@ -46,9 +46,18 @@
       showhidden = true;
       tilesize = 44;
       mineffect = "scale";
-      # persistent-apps = [
-      #   ""
-      # ];
+      persistent-apps = [
+        "/Applications/Safari.app"
+        "/Applications/Google Chrome.app"
+        "/System/Applications/Mail.app"
+        "/System/Applications/Calendar.app"
+        "/System/Applications/Reminders.app"
+        "/System/Applications/Notes.app"
+        "/Applications/NetNewsWire.app"
+        "/Applications/Spotify.app"
+        "/Applications/Telegram.app"
+        "/Applications/Discord.app"
+      ];
       show-recents = false;
 
       wvous-tl-corner = 2; # top-left - Mission Control
