@@ -22,5 +22,6 @@ sudo bootstrap-darwin-system <hostname>
 
 ## References
 
-- https://github.com/redyf/nixdots
+- https://github.com/MatthewCroughan/nixcfg
 - https://github.com/mitchellh/nixos-config
+- https://github.com/redyf/nixdots
