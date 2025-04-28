@@ -34,7 +34,7 @@ let
         { }
     );
 
-    dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
+  dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
 in
 {
   # The state version is required and should stay at the version you
