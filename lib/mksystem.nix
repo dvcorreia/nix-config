@@ -27,6 +27,8 @@ let
     currentSystemName = name;
     currentSystemUSer = user;
   };
+
+  isAarch64 = builtins.match "aarch64-.*" system != null;
 in
 mkSystem {
   inherit system specialArgs;
@@ -53,7 +55,7 @@ mkSystem {
           {
             nix-homebrew = {
               enable = true;
-              enableRosetta = true;
+              enableRosetta = isAarch64;
               mutableTaps = true;
               user = "${user}";
               taps = with inputs; {
