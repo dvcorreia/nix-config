@@ -6,7 +6,10 @@ in
 {
   nix = {
     settings = {
-      experimental-features = [ "nix-command" "flakes" ];
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
     };
     extraOptions = ''
       auto-optimise-store = false # not true because of https://github.com/NixOS/nix/issues/7273
