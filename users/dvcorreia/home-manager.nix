@@ -49,10 +49,8 @@ in
   home.packages =
     with pkgs;
     [
-      fzf
       lsof # lsof -n -i :80 | grep LISTEN
       wget
-      htop
       jq
       bat # cat w/ sintax highlighting
       ripgrep
@@ -110,6 +108,24 @@ in
       path = "${config.xdg.dataHome}/zsh/history";
     };
   };
+
+  programs.fzf = {
+    enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+    tmux.enableShellIntegration = true;
+  };
+
+  programs.tmux = {
+    enable = true;
+  };
+
+  programs.htop = {
+    enable = true;
+    settings.show_program_path = true;
+  };
+
+  programs.lf.enable = true;
 
   programs.git = {
     enable = true;
