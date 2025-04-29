@@ -35,6 +35,8 @@ let
     );
 
   dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
+
+  ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   # The state version is required and should stay at the version you
@@ -194,7 +196,7 @@ in
   programs.ghostty = {
     enable = true;
 
-    package = if isLinux then pkgs.ghostty else null;
+    package = if isLinux then ghosttyPackage else null;
 
     enableBashIntegration = true;
     enableZshIntegration = true;
