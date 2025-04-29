@@ -23,6 +23,11 @@
       flake = false;
     };
 
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
   };
 
@@ -33,6 +38,7 @@
       nixpkgs-stable,
       home-manager,
       darwin,
+      agenix,
       ...
     }@inputs:
     let
@@ -68,6 +74,9 @@
         system = "aarch64-darwin";
         user = "dvcorreia";
         darwin = true;
+        modules = [
+          agenix.nixosModules.default
+        ];
       };
 
       devShells = forAllSystems (
@@ -79,6 +88,7 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               git
+              agenix.packages.${system}.default
             ];
           };
         }
