@@ -24,6 +24,7 @@
       "spotify"
       "stats"
       "netnewswire"
+      "pika"
     ];
 
     # MAS apps must have been installed or bought before on your Apple ID
