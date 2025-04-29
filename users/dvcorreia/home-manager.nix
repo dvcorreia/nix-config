@@ -191,6 +191,26 @@ in
     };
   };
 
+  programs.ghostty = {
+    enable = true;
+
+    package = if isLinux then pkgs.ghostty else null;
+
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+
+    settings = {
+      theme = "Github-Dark-Default";
+      font-thicken = isDarwin;
+      window-padding-x = 8;
+      window-padding-y = 4;
+      window-padding-balance = true;
+      window-padding-color = "extend";
+      window-decoration = "auto";
+      window-theme = "system";
+    };
+  };
+
   programs.neovim = {
     enable = true;
 
