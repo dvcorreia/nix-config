@@ -61,7 +61,10 @@ in
     };
 
     dock = {
-      autohide = false;
+      autohide = true;
+      autohide-delay = 0.0;
+      autohide-time-modifier = 0.0;
+
       mru-spaces = false;
       orientation = "bottom";
       showhidden = true;
