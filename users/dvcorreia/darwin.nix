@@ -1,4 +1,9 @@
-{ inputs, pkgs, ... }:
+{
+  inputs,
+  sshKeys,
+  pkgs,
+  ...
+}:
 
 {
   homebrew = {
@@ -38,6 +43,8 @@
   users.users.dvcorreia = {
     home = "/Users/dvcorreia";
     shell = pkgs.zsh;
+
+    openssh.authorizedKeys.keys = sshKeys.users;
   };
 
   environment.shells = with pkgs; [
