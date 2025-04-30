@@ -18,6 +18,8 @@ let
       gco = "git checkout";
       gp = "git push";
       gs = "git status";
+      gd = "git diff";
+      gds = "git diff --staged";
 
       ls = "ls --color=auto -F";
       ll = "ls -lha --color=auto -F";
