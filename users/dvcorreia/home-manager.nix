@@ -212,6 +212,9 @@ in
       window-padding-color = "extend";
       window-decoration = "auto";
       window-theme = "system";
+
+      # just don't like the graphical indication
+      macos-secure-input-indication = false;
     };
   };
 
