@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, inputs, sshKeys, ... }:
 
 {
   # Since we're using zsh as our shell
@@ -14,6 +14,7 @@
       "wheel" # enable ‘sudo’ for the user
     ];
     shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = sshKeys.users;
   };
 
   fonts = {
