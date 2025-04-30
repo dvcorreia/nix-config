@@ -51,7 +51,14 @@ in
   '';
 
   system.defaults = {
-    menuExtraClock.Show24Hour = true; # show 24 hour clock
+    # show 24 hour clock
+    menuExtraClock.Show24Hour = true;
+
+    # show sound and bluetooth icon in menubar
+    controlcenter = {
+      Sound = true;
+      Bluetooth = true;
+    };
 
     dock = {
       autohide = false;
