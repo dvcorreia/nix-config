@@ -11,8 +11,11 @@ name:
   darwin ? false,
   modules ? [ ],
   includeHomeManager ? true,
+  wsl ? false,
 }:
 let
+  isWSL = wsl;
+
   hostConfig = ../hosts/${name}/configuration.nix;
   userOSConfig = if darwin then ../users/${user}/darwin.nix else ../users/${user}/nixos.nix;
   userHomeManagerConfig = ../users/${user}/home-manager.nix;
@@ -40,6 +43,8 @@ mkSystem {
       # define overlays first so they are available globally
       { nixpkgs.overlays = overlays; }
       { nixpkgs.config.allowUnfree = true; }
+
+      (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
 
       # nix-darwin seems to need this
       (if darwin then { system.stateVersion = 5; } else { })
@@ -79,7 +84,7 @@ mkSystem {
               useGlobalPkgs = true;
               useUserPackages = true;
               extraSpecialArgs = specialArgs;
-              users.${user} = import userHomeManagerConfig { inherit inputs; };
+              users.${user} = import userHomeManagerConfig { inherit inputs isWSL; };
             };
           }
         ]

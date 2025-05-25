@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ isWSL, inputs, ... }:
 
 {
   config,
@@ -69,7 +69,7 @@ in
       nodejs
     ]
     ++ (lib.optionals isDarwin [ ])
-    ++ (lib.optionals isLinux [
+    ++ (lib.optionals (isLinux && !isWSL) [
       slack
       telegram-desktop
       spotify
@@ -180,7 +180,7 @@ in
   programs.go.enable = true;
 
   programs.kitty = {
-    enable = isLinux;
+    enable = isLinux && !isWSL;
     shellIntegration.enableZshIntegration = true;
 
     keybindings = {
@@ -196,7 +196,7 @@ in
   };
 
   programs.ghostty = {
-    enable = true;
+    enable = !isWSL;
 
     package = if isLinux then ghosttyPackage else null;
 
@@ -272,7 +272,7 @@ in
   };
 
   programs.chromium = {
-    enable = isLinux;
+    enable = isLinux && !isWSL;
 
     dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
 
@@ -285,7 +285,7 @@ in
   };
 
   programs.vscode = {
-    enable = true;
+    enable = !isWSL;
 
     profiles.default = {
       extensions =
