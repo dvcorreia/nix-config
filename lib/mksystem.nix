@@ -29,7 +29,6 @@ let
   specialArgs = {
     inherit inputs sshKeys;
     currentSystem = system;
-    currentSystemName = name;
     currentSystemUSer = user;
   };
 
@@ -44,7 +43,7 @@ mkSystem {
       { nixpkgs.overlays = overlays; }
       { nixpkgs.config.allowUnfree = true; }
 
-      (if isWSL then inputs.nixos-wsl.nixosModules.wsl else {})
+      (if isWSL then inputs.nixos-wsl.nixosModules.wsl else { })
 
       # nix-darwin seems to need this
       (if darwin then { system.stateVersion = 5; } else { })

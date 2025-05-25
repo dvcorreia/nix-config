@@ -47,21 +47,15 @@
       ...
     }@inputs:
     let
-      supportedSystems = [
-        "x86_64-linux"
-        "x86_64-darwin"
-        "aarch64-linux"
-        "aarch64-darwin"
-      ];
-
-      # helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'
-      forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-      # nixpkgs instantiated for supported system types
-      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+      # utility functions to // todo description
+      syslib = import ./lib/systems.nix { inherit nixpkgs; };
+      inherit (syslib) forAllSystems nixpkgsFor;
 
       # function to create a nixos or darwin system
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+
+      # function to create home manager configurations from other distros
+      mkHome = import ./lib/mkhome.nix { inherit nixpkgs inputs; };
     in
     {
       nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
@@ -89,6 +83,8 @@
         user = "dvcorreia";
         wsl = true;
       };
+
+      homeConfigurations.dvcorreia = mkHome.forAllSystems "dvcorreia" { };
 
       devShells = forAllSystems (
         system:
