@@ -10,7 +10,7 @@ Repo contains configuration for personal machines.
 
 ## Bootstrap a system
 
-For a Darwin machine:
+### Darwin
 
 ```console
 # install nix
@@ -19,6 +19,10 @@ sh <(curl -L https://nixos.org/nix/install)
 nix-shell
 sudo bootstrap-darwin-system <hostname>
 ```
+
+### WSL
+
+Follow the instructions on [NixOS WSL documentation](https://nix-community.github.io/NixOS-WS), with special attention to [how-to/change-username](https://nix-community.github.io/NixOS-WSL/how-to/change-username.html).
 
 ## References
 
