@@ -1,4 +1,9 @@
-{ pkgs, inputs, sshKeys, ... }:
+{
+  pkgs,
+  inputs,
+  sshKeys,
+  ...
+}:
 
 {
   # Since we're using zsh as our shell
