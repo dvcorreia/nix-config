@@ -1,6 +1,8 @@
 { isWSL, inputs, ... }:
 
 {
+  currentSystem,
+  currentSystemUser,
   config,
   lib,
   pkgs,
@@ -41,9 +43,14 @@ let
   ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
-  # The state version is required and should stay at the version you
-  # originally installed. DO NOT CHANGE!
-  home.stateVersion = "24.05";
+  home = {
+    username = currentSystemUser;
+    homeDirectory = if isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
+
+    # The state version is required and should stay at the version you
+    # originally installed. DO NOT CHANGE!
+    stateVersion = "24.05";
+  };
 
   xdg.enable = true;
 
@@ -70,12 +77,13 @@ in
     ]
     ++ (lib.optionals isDarwin [ ])
     ++ (lib.optionals (isLinux && !isWSL) [
-      slack
       telegram-desktop
-      spotify
       transmission_4-gtk
       stremio
-    ]);
+    ] ++ (lib.optionals (currentSystem != "aarch64-linux") [
+      slack
+      spotify
+    ]));
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles

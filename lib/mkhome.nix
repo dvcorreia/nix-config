@@ -26,21 +26,24 @@ let
       specialArgs = {
         inherit inputs sshKeys;
         currentSystem = system;
-        currentSystemUSer = user;
+        currentSystemUser = user;
       };
     in
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
       modules = [
+        { programs.home-manager.enable = true; }
         (import userHomeManagerConfig { inherit inputs isWSL; })
       ];
 
       extraSpecialArgs = specialArgs;
     };
 in
-mkHome
-// {
+{
+  __functor = self: mkHome;
+  inherit mkHome;
+
   # Generate home configs for all systems with user@system format
   allSystems =
     user:

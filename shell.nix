@@ -54,12 +54,41 @@ let
 
     log "done, should be good to go"
   '';
+
+  bootstrap-home-manager = pkgs.writeScriptBin "bootstrap-home-manager" ''
+    #!/usr/bin/env bash
+    set -euo pipefail
+
+    log() { echo "--> $1"; }
+    usage() {
+      echo "usage: sudo bootstrap-home-manager <username>"
+    }
+    panic() { echo "error: $1! $(usage)" >&2; exit 1; }
+
+    if [ $# -eq 0 ]; then
+      panic "no username provided"
+    fi
+
+    USERNAME="$1"
+    SYSTEM=$(nix eval --impure --raw --expr 'builtins.currentSystem')
+    TARGET="''${USERNAME}@''${SYSTEM}"
+
+    log "building home manager configuration for ''${TARGET}"
+    nix run ".#homeConfigurations.\"''${USERNAME}@''${SYSTEM}\".activationPackage"
+
+    # log "activating home manager configuration"
+    # ./result/activate
+
+    log "done, should be good to go"
+    log "restart your shell or run 'exec ''${SHELL} -l'"
+  '';
 in
 pkgs.mkShell {
   buildInputs = [
     pkgs.git
     pkgs.gnumake
     bootstrap-darwin-system
+    bootstrap-home-manager
   ];
 
   shellHook = ''
@@ -68,8 +97,9 @@ pkgs.mkShell {
     }
 
     hr
-    echo "to bootstrap a darwin machine, run:"
+    echo "bootstrap a machine by running the appropriate script:"
     echo "$ sudo bootstrap-darwin-system <hostname>"
+    echo "$ bootstrap-home-manager <username>"
     hr
   '';
 }

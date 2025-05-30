@@ -29,7 +29,7 @@ let
   specialArgs = {
     inherit inputs sshKeys;
     currentSystem = system;
-    currentSystemUSer = user;
+    currentSystemUser = user;
   };
 
   isAarch64 = builtins.match "aarch64-.*" system != null;

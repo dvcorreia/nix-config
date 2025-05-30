@@ -84,7 +84,10 @@
         wsl = true;
       };
 
-      homeConfigurations.dvcorreia = mkHome.forAllSystems "dvcorreia" { };
+      # homeConfigurations.dvcorreia = mkHome.allSystems "dvcorreia" { };
+      homeConfigurations.dvcorreia = mkHome "dvcorreia" {
+        system = "aarch64-linux";
+      };
 
       devShells = forAllSystems (
         system:
