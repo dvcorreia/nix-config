@@ -8,16 +8,31 @@ Repo contains configuration for personal machines.
 | `macbook-pro-intel` | MacOS Sonoma  | Backup college laptop that also helps me test x86 things | Macbook Pro 13" 2018 w/ 2.3 GHz Quad-core Intel i5 CPU 8GB LPDDR3 RAM and 256GB SSD                    |
 | `proart-7950x`      | NixOS         | Desktop computer that surely will be a server someday    | ProArt X670E-Creator WiFi motherboard w/ AMD 7950x 2x32GB 6000MHz CL30 RAM and 1TB SDD Samsung 990 Pro |
 
+And a few others like:
+
+- `wsl` target for setting my NixOS configuration in Windows WSL
+- Home manager configurations for `dvcorreia` accross different systems
+
 ## Bootstrap a system
 
-For a Darwin machine:
+First and foremost, you will need to [install Nix](https://nixos.org/download/#nix-install-macos).
+
+> [!NOTE]
+> If your distro has selinux enabled by default, Nix will warn you about not supporting it.
+> Turn if off by setting `SELINUX=disabled` in `/etc/selinux/config`.
+
+### Darwin
 
 ```console
-# install nix
-sh <(curl -L https://nixos.org/nix/install)
-
 nix-shell
 sudo bootstrap-darwin-system <hostname>
+```
+
+### Home Manager
+
+```console
+nix-shell
+sudo bootstrap-home-manager <username>
 ```
 
 ## References

@@ -43,6 +43,22 @@ let
   ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
+  nix = {
+    package = pkgs.nix;
+
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
+  };
+
   home = {
     username = currentSystemUser;
     homeDirectory = if isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
@@ -204,7 +220,7 @@ in
   };
 
   programs.ghostty = {
-    enable = !isWSL;
+    enable = !isWSL && (currentSystem != "aarch64-linux");
 
     package = if isLinux then ghosttyPackage else null;
 

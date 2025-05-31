@@ -84,10 +84,7 @@
         wsl = true;
       };
 
-      # homeConfigurations.dvcorreia = mkHome.allSystems "dvcorreia" { };
-      homeConfigurations.dvcorreia = mkHome "dvcorreia" {
-        system = "aarch64-linux";
-      };
+      homeConfigurations = mkHome.allSystems "dvcorreia" { };
 
       devShells = forAllSystems (
         system:
@@ -98,6 +95,7 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               git
+              gnumake
               agenix.packages.${system}.default
             ];
           };

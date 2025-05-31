@@ -4,7 +4,7 @@
 }:
 
 let
-  syslib = import ./lib/systems.nix { inherit nixpkgs; };
+  syslib = import ./systems.nix { inherit nixpkgs; };
   inherit (syslib) forAllSystems;
 
   mkHome =
@@ -42,16 +42,14 @@ let
 in
 {
   __functor = self: mkHome;
-  inherit mkHome;
 
-  # Generate home configs for all systems with user@system format
+  # Generate user home manager configurations for all systems
   allSystems =
     user:
     {
       isWSL ? false,
     }:
-    nixpkgs.lib.mapAttrs' (system: config: {
-      name = "${user}@${system}";
-      value = config;
-    }) (forAllSystems (system: mkHome user { inherit system isWSL; }));
+    forAllSystems ( system: {
+      ${user} = mkHome user { inherit system isWSL; };
+    });
 }

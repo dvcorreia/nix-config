@@ -70,17 +70,18 @@ let
     fi
 
     USERNAME="$1"
-    SYSTEM=$(nix eval --impure --raw --expr 'builtins.currentSystem')
-    TARGET="''${USERNAME}@''${SYSTEM}"
 
-    log "building home manager configuration for ''${TARGET}"
-    nix run ".#homeConfigurations.\"''${USERNAME}@''${SYSTEM}\".activationPackage"
+    NIX_OPTS="--extra-experimental-features nix-command --extra-experimental-features flakes"
+    SYSTEM=$(nix $NIX_OPTS eval --impure --raw --expr 'builtins.currentSystem')
+    TARGET="$SYSTEM.$USERNAME"
+
+    log "building home manager configuration for $TARGET"
+    nix $NIX_OPTS run ".#homeConfigurations.$TARGET.activationPackage"
 
     # log "activating home manager configuration"
     # ./result/activate
 
-    log "done, should be good to go"
-    log "restart your shell or run 'exec ''${SHELL} -l'"
+    log "done, restart your shell and should be good to go"
   '';
 in
 pkgs.mkShell {
