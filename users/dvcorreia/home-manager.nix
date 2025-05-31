@@ -1,6 +1,8 @@
 { isWSL, inputs, ... }:
 
 {
+  currentSystem,
+  currentSystemUser,
   config,
   lib,
   pkgs,
@@ -41,9 +43,30 @@ let
   ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
-  # The state version is required and should stay at the version you
-  # originally installed. DO NOT CHANGE!
-  home.stateVersion = "24.05";
+  nix = {
+    package = pkgs.nix;
+
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 14d";
+    };
+  };
+
+  home = {
+    username = currentSystemUser;
+    homeDirectory = if isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
+
+    # The state version is required and should stay at the version you
+    # originally installed. DO NOT CHANGE!
+    stateVersion = "24.05";
+  };
 
   xdg.enable = true;
 
@@ -69,13 +92,17 @@ in
       nodejs
     ]
     ++ (lib.optionals isDarwin [ ])
-    ++ (lib.optionals (isLinux && !isWSL) [
-      slack
-      telegram-desktop
-      spotify
-      transmission_4-gtk
-      stremio
-    ]);
+    ++ (
+      lib.optionals (isLinux && !isWSL) [
+        telegram-desktop
+        transmission_4-gtk
+        stremio
+      ]
+      ++ (lib.optionals (currentSystem != "aarch64-linux") [
+        slack
+        spotify
+      ])
+    );
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles
@@ -196,7 +223,7 @@ in
   };
 
   programs.ghostty = {
-    enable = !isWSL;
+    enable = !isWSL && (currentSystem != "aarch64-linux");
 
     package = if isLinux then ghosttyPackage else null;
 

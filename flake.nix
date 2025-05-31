@@ -62,6 +62,9 @@
 
       # function to create a nixos or darwin system
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
+
+      # function to create home manager configurations from other distros
+      mkHome = import ./lib/mkhome.nix { inherit nixpkgs inputs; };
     in
     {
       nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
@@ -90,6 +93,10 @@
         wsl = true;
       };
 
+      packages = forAllSystems (system: {
+        homeConfigurations.dvcorreia = mkHome "dvcorreia" { inherit system; };
+      });
+
       devShells = forAllSystems (
         system:
         let
@@ -99,6 +106,7 @@
           default = pkgs.mkShell {
             buildInputs = with pkgs; [
               git
+              gnumake
               agenix.packages.${system}.default
             ];
           };
