@@ -73,10 +73,9 @@ let
 
     NIX_OPTS="--extra-experimental-features nix-command --extra-experimental-features flakes"
     SYSTEM=$(nix $NIX_OPTS eval --impure --raw --expr 'builtins.currentSystem')
-    TARGET="$SYSTEM.$USERNAME"
 
-    log "building home manager configuration for $TARGET"
-    nix $NIX_OPTS run ".#homeConfigurations.$TARGET.activationPackage"
+    log "building $USERNAME home manager configuration for $SYSTEM"
+    nix $NIX_OPTS run ".#packages.$SYSTEM.homeConfigurations.$USERNAME.activationPackage"
 
     # log "activating home manager configuration"
     # ./result/activate

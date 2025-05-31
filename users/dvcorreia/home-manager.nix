@@ -92,14 +92,17 @@ in
       nodejs
     ]
     ++ (lib.optionals isDarwin [ ])
-    ++ (lib.optionals (isLinux && !isWSL) [
-      telegram-desktop
-      transmission_4-gtk
-      stremio
-    ] ++ (lib.optionals (currentSystem != "aarch64-linux") [
-      slack
-      spotify
-    ]));
+    ++ (
+      lib.optionals (isLinux && !isWSL) [
+        telegram-desktop
+        transmission_4-gtk
+        stremio
+      ]
+      ++ (lib.optionals (currentSystem != "aarch64-linux") [
+        slack
+        spotify
+      ])
+    );
 
   #---------------------------------------------------------------------
   # Env vars and dotfiles

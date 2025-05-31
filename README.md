@@ -15,11 +15,11 @@ And a few others like:
 
 ## Bootstrap a system
 
-First and foremost, you will need to [install Nix](https://nixos.org/download/#nix-install-macos).
+First and foremost, you will need to [install Nix](https://nixos.org/download/).
 
 > [!NOTE]
-> If your distro has selinux enabled by default, Nix will warn you about not supporting it.
-> Turn if off by setting `SELINUX=disabled` in `/etc/selinux/config`.
+> If your Linux distro has selinux enabled by default, Nix will warn about not supporting it.
+> Turn it off by setting `SELINUX=disabled` in `/etc/selinux/config`.
 
 ### Darwin
 
@@ -33,6 +33,12 @@ sudo bootstrap-darwin-system <hostname>
 ```console
 nix-shell
 sudo bootstrap-home-manager <username>
+```
+
+Then, you will be able to switch generations with:
+
+```console
+home-manager switch --flake .
 ```
 
 ## References

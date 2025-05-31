@@ -19,7 +19,7 @@ else
 endif
 
 switch-home:
-	home-manager switch --flake .#$(shell nix eval --impure --raw --expr 'builtins.currentSystem').dvcorreia
+	home-manager switch --flake .
 
 format:
 	nix-shell -p nixfmt-rfc-style --command "nixfmt **/*.nix"
