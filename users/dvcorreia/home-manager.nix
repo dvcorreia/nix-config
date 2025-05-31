@@ -346,6 +346,7 @@ in
           ".direnv" = true;
         };
         "workbench.startupEditor" = "none";
+        "workbench.sideBar.location" = "right";
         "[nix]"."editor.tabSize" = 2;
       };
     };

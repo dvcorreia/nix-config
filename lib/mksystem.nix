@@ -53,6 +53,18 @@ mkSystem {
 
       hostConfig
       userOSConfig
+
+      # we expose some extra arguments so that our modules can parameterize
+      # better based on these values.
+      {
+        config._module.args = {
+          currentSystem = system;
+          currentSystemName = name;
+          currentSystemUser = user;
+          isWSL = isWSL;
+          inputs = inputs;
+        };
+      }
     ]
     ++ (
       if darwin then

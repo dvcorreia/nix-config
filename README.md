@@ -15,7 +15,8 @@ And a few others like:
 
 ## Bootstrap a system
 
-First and foremost, you will need to [install Nix](https://nixos.org/download/).
+First and foremost, if you are not using NixOS
+you will need to [install Nix](https://nixos.org/download/).
 
 > [!NOTE]
 > If your Linux distro has selinux enabled by default, Nix will warn about not supporting it.
@@ -27,6 +28,10 @@ First and foremost, you will need to [install Nix](https://nixos.org/download/).
 nix-shell
 sudo bootstrap-darwin-system <hostname>
 ```
+
+### WSL
+
+Follow the instructions in the [NixOS WSL documentation](https://nix-community.github.io/NixOS-WS), with special attention to [how-to/change-username](https://nix-community.github.io/NixOS-WSL/how-to/change-username.html).
 
 ### Home Manager
 
