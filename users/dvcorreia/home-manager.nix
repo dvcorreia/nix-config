@@ -99,7 +99,6 @@ in
         stremio
       ]
       ++ (lib.optionals (currentSystem != "aarch64-linux") [
-        slack
         spotify
       ])
     );
