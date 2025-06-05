@@ -185,11 +185,11 @@ in
 
     includes = [
       {
-        condition = "gitdir:~/Desktop/metacell/";
-        contentSuffix = "metacell";
+        condition = "gitdir:~/siemens/";
+        contentSuffix = "siemens";
         contents = {
           user = {
-            email = "diogo@metacell.us";
+            email = "diogo.correia@siemens.com";
             name = "Diogo Correia";
           };
         };
