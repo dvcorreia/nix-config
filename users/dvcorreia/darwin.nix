@@ -31,6 +31,7 @@
       "netnewswire"
       "pika"
       "reminders-menubar"
+      "freecad"
     ];
 
     # MAS apps must have been installed or bought before on your Apple ID
