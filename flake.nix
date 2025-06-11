@@ -94,7 +94,13 @@
       };
 
       packages = forAllSystems (system: {
-        homeConfigurations.dvcorreia = mkHome "dvcorreia" { inherit system; };
+        homeConfigurations = {
+          dvcorreia = mkHome "dvcorreia" { inherit system; };
+          dvcorreia-wsl = mkHome "dvcorreia" {
+            inherit system;
+            isWSL = true;
+          };
+        };
       });
 
       devShells = forAllSystems (
