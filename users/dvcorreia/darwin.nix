@@ -20,6 +20,7 @@
     casks = [
       "ghostty"
       "google-chrome"
+      "brave-browser"
       "telegram"
       "transmission"
       "vlc"
