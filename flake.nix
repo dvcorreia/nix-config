@@ -103,6 +103,10 @@
         };
       });
 
+      lib = {
+        inherit mkSystem mkHome;
+      };
+
       devShells = forAllSystems (
         system:
         let
