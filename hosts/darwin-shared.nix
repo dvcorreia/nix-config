@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ currentSystemUser, config, pkgs, ... }:
 
 let
   wallpaper = ./wallpaper.jpg;
@@ -35,10 +35,12 @@ in
   # add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
 
+  system.primaryUser = currentSystemUser;
+
   # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-  system.activationScripts.postUserActivation.text = ''
+  system.activationScripts.postActivation.text = ''
     # setup desktop wallpaper
-    osascript -e '
+    sudo -u "${currentSystemUser}" osascript -e '
       set desktopImage to POSIX file "${wallpaper}"
       tell application "Finder"
         set desktop picture to desktopImage
