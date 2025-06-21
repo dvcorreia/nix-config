@@ -34,6 +34,7 @@
       "reminders-menubar"
       "freecad"
       "kicad"
+      "docker"
     ];
 
     # MAS apps must have been installed or bought before on your Apple ID
