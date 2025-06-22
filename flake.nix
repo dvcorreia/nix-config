@@ -96,6 +96,7 @@
       };
 
       packages = forAllSystems (system: {
+        docs = (nixpkgsFor.${system}).callPackage ./modules/docs.nix { };
         homeConfigurations = {
           dvcorreia = mkHome "dvcorreia" { inherit system; };
           dvcorreia-wsl = mkHome "dvcorreia" {

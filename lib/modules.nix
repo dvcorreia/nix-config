@@ -21,8 +21,7 @@ let
     foldAttrs
     ;
   inherit (lib.filesystem) listFilesRecursive;
-in
-{
+
   generateModules =
     folder: prefix:
     let
@@ -34,6 +33,9 @@ in
       );
     in
     listToAttrs zippedList;
+in
+{
+  inherit generateModules;
 
   generateModulesAuto =
     root:
