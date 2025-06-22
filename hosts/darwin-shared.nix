@@ -1,4 +1,9 @@
-{ currentSystemUser, config, pkgs, ... }:
+{
+  currentSystemUser,
+  config,
+  pkgs,
+  ...
+}:
 
 let
   wallpaper = ./wallpaper.jpg;
