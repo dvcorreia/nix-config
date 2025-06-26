@@ -1,5 +1,20 @@
-_: {
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
+
+let
+  inherit (inputs.self) nixosModules;
+in
+{
   imports = [
-    ../darwin-shared.nix
+    nixosModules.nix
+    nixosModules.shells
+    nixosModules.darwin-dock
+    nixosModules.darwin-system
+    nixosModules.darwin-wallpaper
   ];
 }
+
