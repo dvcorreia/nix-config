@@ -99,7 +99,7 @@
         docs = (nixpkgsFor.${system}).callPackage ./modules/docs.nix { };
         homeConfigurations = {
           dvcorreia = mkHome "dvcorreia" { inherit system; };
-          dvcorreia-wsl = mkHome "dvcorreia" {
+          "dvcorreia@wsl" = mkHome "dvcorreia@wsl" {
             inherit system;
             isWSL = true;
           };
