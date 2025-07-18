@@ -2,10 +2,8 @@
 name: System
 
 on:
-  push:
-    branches:
-      - main
-  pull_request:
+  schedule:
+    - cron: '0 20 * * 5'  # runs every Friday at 8pm UTC
 
 jobs:
   linux:
