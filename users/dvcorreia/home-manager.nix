@@ -13,36 +13,16 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
-  shellAliases =
-    {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gp = "git push";
-      gs = "git status";
-      gd = "git diff";
-      gds = "git diff --staged";
-
-      ls = "ls --color=auto -F";
-      ll = "ls -lha --color=auto -F";
-      k = "kubectl";
-      cat = "bat";
-    }
-    // (
-      if isLinux && !isWSL then
-        {
-          pbcopy = "xclip";
-          pbpaste = "xclip -o";
-        }
-      else
-        { }
-    );
-
-  dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
+  inherit (inputs.self) nixosModules;
 
   ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
+  imports = [
+    nixosModules.home-vscode
+    nixosModules.home-shells
+  ];
+
   nix = {
     package = lib.mkDefault pkgs.nix;
 
@@ -116,30 +96,8 @@ in
   # Programs
   #---------------------------------------------------------------------
 
-  programs.bash = {
-    enable = true;
-    shellOptions = [ ];
-    historyControl = [
-      "ignoredups"
-      "ignorespace"
-    ];
-
-    inherit shellAliases;
-  };
-
-  programs.zsh = {
-    enable = true;
-    enableCompletion = true;
-    autosuggestion.enable = true;
-    syntaxHighlighting.enable = true;
-
-    shellAliases = shellAliases // dotAliases;
-
-    history = {
-      size = 10000;
-      path = "${config.xdg.dataHome}/zsh/history";
-    };
-  };
+  programs.bash.enable = true;
+  programs.zsh.enable = true;
 
   programs.fzf = {
     enable = true;
@@ -312,46 +270,5 @@ in
     ];
   };
 
-  programs.vscode = {
-    enable = !isWSL;
-
-    profiles.default = {
-      extensions =
-        with pkgs.vscode-extensions;
-        [
-          bbenoist.nix
-          golang.go
-          ms-python.python
-          ms-python.vscode-pylance
-          tsandall.opa
-          editorconfig.editorconfig
-        ]
-        ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-          {
-            name = "vscode-styra";
-            publisher = "styra";
-            version = "2.1.0";
-            sha256 = "sha256-WBMBj0ZBHVf6wDuXoNgkvDdDZZZLtaRipydmO7x9DP4=";
-          }
-        ];
-
-      userSettings = {
-        # default fonts
-        "editor.fontFamily" = lib.concatStringsSep ", " [
-          "Menlo"
-          "Monaco"
-          "'Courier New'"
-          "monospace"
-        ];
-        "search.exclude" = {
-          ".direnv" = true;
-        };
-        "workbench.startupEditor" = "none";
-        "workbench.sideBar.location" = "right";
-        "[nix]"."editor.tabSize" = 2;
-      };
-    };
-
-  };
-
+  programs.vscode.enable = !isWSL;
 }
