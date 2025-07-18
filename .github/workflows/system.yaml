@@ -4,6 +4,7 @@ name: System
 on:
   schedule:
     - cron: '0 20 * * 5'  # runs every Friday at 8pm UTC
+  workflow_dispatch:
 
 jobs:
   linux:
