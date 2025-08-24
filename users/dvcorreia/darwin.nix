@@ -36,6 +36,7 @@
       "kicad"
       "docker"
       "signal"
+      "jordanbaird-ice" # menu bar management tool
     ];
 
     # MAS apps must have been installed or bought before on your Apple ID
