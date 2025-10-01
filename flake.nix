@@ -33,6 +33,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
   };
 
@@ -93,6 +98,15 @@
         system = "x86_64-linux";
         user = "dvcorreia";
         wsl = true;
+      };
+
+      nixosConfigurations.sines = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+
+        modules = [
+          ./hosts/sines/configuration.nix
+          inputs.disko.nixosModules.disko
+        ];
       };
 
       packages = forAllSystems (system: {
