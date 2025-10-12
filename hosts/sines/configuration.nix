@@ -2,12 +2,10 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 
-let
-  sshKeys = import ../../secrets/ssh-keys.nix { };
-in
 {
   imports = [
     ./hardware-configuration.nix
@@ -34,17 +32,35 @@ in
     };
   };
 
-  users.users.root.openssh.authorizedKeys.keys = [
-    sshKeys.dvcorreia
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
+  environment.systemPackages = with pkgs; [
+    gnumake
+    git
   ];
-  users.users.dvcorreia = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" ];
-    initialHashedPassword = "$y$j9T$2DyEjQxPoIjTkt8zCoWl.0$3mHxH.fqkCgu53xa0vannyu4Cue3Q7xL4CrUhMxREKC"; # Password.123
 
-    openssh.authorizedKeys.keys = [
-      sshKeys.dvcorreia
-    ];
+  users.users =
+    let
+      sshKeys = import ../../secrets/ssh-keys.nix { };
+    in
+    {
+      root.openssh.authorizedKeys.keys = [
+        sshKeys.dvcorreia
+      ];
+
+      dvcorreia = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+
+        openssh.authorizedKeys.keys = [
+          sshKeys.dvcorreia
+        ];
+      };
+    };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
   };
 
   services.openssh = {
@@ -55,13 +71,33 @@ in
     };
   };
 
-  # Enable tailscale. I manually authenticate when we want
-  # with "sudo tailscale up".
-  services.tailscale.enable = true;
-
-  programs.neovim = {
+  services.nginx = {
     enable = true;
-    defaultEditor = true;
+
+    virtualHosts."dvcorreia.com" = {
+      addSSL = true;
+      enableACME = true;
+
+      root = "${inputs.dvcorreia-website.packages.${pkgs.system}.default}/share/dvcorreia-website";
+
+      locations."/" = {
+        index = "index.html";
+        tryFiles = "$uri $uri/ =404";
+        extraConfig = ''
+          error_page 404 /404.html;
+        '';
+      };
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
+
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = "dv_correia@hotmail.com";
   };
 
   system.stateVersion = "24.11";
