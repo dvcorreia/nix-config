@@ -39,6 +39,8 @@
     };
 
     ghostty.url = "github:ghostty-org/ghostty";
+
+    dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";
   };
 
   outputs =
@@ -102,11 +104,11 @@
 
       nixosConfigurations.sines = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-
         modules = [
           ./hosts/sines/configuration.nix
           inputs.disko.nixosModules.disko
         ];
+        specialArgs = { inherit inputs; };
       };
 
       packages = forAllSystems (system: {
