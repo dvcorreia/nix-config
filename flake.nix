@@ -61,16 +61,10 @@
         "aarch64-darwin"
       ];
 
-      # helper function to generate an attrset '{ x86_64-linux = f "x86_64-linux"; ... }'
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-
-      # nixpkgs instantiated for supported system types
       nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
 
-      # function to create a nixos or darwin system
       mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
-
-      # function to create home manager configurations from other distros
       mkHome = import ./lib/mkhome.nix { inherit nixpkgs inputs; };
     in
     {
