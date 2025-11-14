@@ -130,6 +130,7 @@
             buildInputs = with pkgs; [
               git
               gnumake
+              opentofu
               agenix.packages.${system}.default
             ];
           };

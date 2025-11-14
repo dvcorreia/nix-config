@@ -2,5 +2,6 @@ let
   keys = import ./ssh-keys.nix { };
 in
 {
-  "secret1.age".publicKeys = keys.users ++ keys.systems;
+  "cloudflare-dns-token.age".publicKeys = [ keys.dvcorreia ];
+  "hetzner-homelab-api-token.age".publicKeys = [ keys.dvcorreia ];
 }
