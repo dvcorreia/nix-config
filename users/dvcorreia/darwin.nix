@@ -17,6 +17,9 @@
       "homebrew/core"
       "homebrew/cask"
     ];
+    brews = [
+      "cookcli"
+    ];
     casks = [
       "ghostty"
       "google-chrome"
