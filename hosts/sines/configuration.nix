@@ -44,16 +44,18 @@
       sshKeys = import ../../secrets/ssh-keys.nix { };
     in
     {
-      root.openssh.authorizedKeys.keys = [
-        sshKeys.dvcorreia
+      root.openssh.authorizedKeys.keys = with sshKeys; [
+        dvcorreia
+        yubikey1-ed25519-sk
       ];
 
       dvcorreia = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];
 
-        openssh.authorizedKeys.keys = [
-          sshKeys.dvcorreia
+        openssh.authorizedKeys.keys = with sshKeys; [
+          dvcorreia
+          yubikey1-ed25519-sk
         ];
       };
     };
