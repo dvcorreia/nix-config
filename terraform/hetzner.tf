@@ -1,6 +1,6 @@
 resource "hcloud_ssh_key" "default" {
-  name       = "hetzner_key"
-  public_key = file(var.ssh_pub_key)
+  name       = "fido2-yubikey"
+  public_key = var.ssh_pub_key
 }
 
 # datacenters list:
@@ -13,7 +13,7 @@ data "hcloud_datacenter" "helsinki_datacenter" {
 # ----------- sines ----------- #
 
 resource "hcloud_primary_ip" "sines_primary_ip" {
-  name          = "sines_primary_ip"
+  name          = "sines-primary-ip"
   datacenter    = data.hcloud_datacenter.helsinki_datacenter.name
   type          = "ipv4"
   assignee_type = "server"
@@ -21,7 +21,7 @@ resource "hcloud_primary_ip" "sines_primary_ip" {
 }
 
 resource "hcloud_primary_ip" "sines_primary_ipv6" {
-  name          = "sines_primary_ipv6"
+  name          = "sines-primary-ipv6"
   datacenter    = data.hcloud_datacenter.helsinki_datacenter.name
   type          = "ipv6"
   assignee_type = "server"

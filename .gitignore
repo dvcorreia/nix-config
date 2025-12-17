@@ -1,4 +1,4 @@
 .DS_Store
 result
-.direnv
 .terraform
+*.tfstate.backup

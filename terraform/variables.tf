@@ -1,3 +1,8 @@
+variable "passphrase" {
+  sensitive = true
+  description = "OpenTofu state/plan passphrase"
+}
+
 variable "cloudflare_api_token" {
   type        = string
   description = "Cloudflare API token with access to the required zones"
