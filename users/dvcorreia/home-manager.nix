@@ -13,30 +13,29 @@ let
   isDarwin = pkgs.stdenv.isDarwin;
   isLinux = pkgs.stdenv.isLinux;
 
-  shellAliases =
-    {
-      ga = "git add";
-      gc = "git commit";
-      gco = "git checkout";
-      gp = "git push";
-      gs = "git status";
-      gd = "git diff";
-      gds = "git diff --staged";
+  shellAliases = {
+    ga = "git add";
+    gc = "git commit";
+    gco = "git checkout";
+    gp = "git push";
+    gs = "git status";
+    gd = "git diff";
+    gds = "git diff --staged";
 
-      ls = "ls --color=auto -F";
-      ll = "ls -lha --color=auto -F";
-      k = "kubectl";
-      cat = "bat";
-    }
-    // (
-      if isLinux && !isWSL then
-        {
-          pbcopy = "xclip";
-          pbpaste = "xclip -o";
-        }
-      else
-        { }
-    );
+    ls = "ls --color=auto -F";
+    ll = "ls -lha --color=auto -F";
+    k = "kubectl";
+    cat = "bat";
+  }
+  // (
+    if isLinux && !isWSL then
+      {
+        pbcopy = "xclip";
+        pbpaste = "xclip -o";
+      }
+    else
+      { }
+  );
 
   dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
 
