@@ -33,6 +33,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix-shell.url = "github:aciceri/agenix-shell";
+
     disko = {
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -116,10 +118,6 @@
         };
       });
 
-      lib = {
-        inherit mkSystem mkHome;
-      };
-
       devShells = forAllSystems (
         system:
         let
@@ -127,11 +125,15 @@
         in
         {
           default = pkgs.mkShell {
-            buildInputs = with pkgs; [
+            packages = with pkgs; [
               git
               gnumake
               agenix.packages.${system}.default
             ];
+          };
+
+          infra = import ./shells/infra.nix {
+            inherit pkgs system inputs;
           };
         }
       );
