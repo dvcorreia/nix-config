@@ -2,26 +2,33 @@
   lib,
   runCommand,
   nixosOptionsDoc,
+  mdformat,
   ...
 }:
 
 let
-  moduleLib = import ../lib/modules.nix { inherit lib; };
-  inherit (moduleLib) generateModulesAuto;
+  inherit (builtins) attrValues;
+  modules = import ./. { inherit lib; };
 
-  modules = builtins.attrValues (generateModulesAuto ./.);
+  mkOptionsDoc =
+    modules:
+    let
+      eval = lib.evalModules {
+        modules = modules ++ [
+          { _module.check = false; }
+        ];
+      };
+    in
+    nixosOptionsDoc {
+      inherit (eval) options;
+    };
 
-  eval = lib.evalModules {
-    modules = modules ++ [
-      { _module.check = false; }
-    ];
-  };
-
-  optionsDoc = nixosOptionsDoc {
-    inherit (eval) options;
-  };
-
+  nixosDoc = mkOptionsDoc (attrValues modules.nixosModules);
+  darwinDoc = mkOptionsDoc (attrValues modules.darwinModules);
 in
-runCommand "module-options.md" { } ''
-  cat ${optionsDoc.optionsCommonMark} >> $out
+runCommand "module-options" { } ''
+  mkdir -p $out
+
+  cat ${nixosDoc.optionsCommonMark} | ${mdformat}/bin/mdformat - > $out/nixos-options.md
+  cat ${darwinDoc.optionsCommonMark} | ${mdformat}/bin/mdformat - > $out/darwin-options.md
 ''
