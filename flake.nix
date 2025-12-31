@@ -70,7 +70,7 @@
       mkHome = import ./lib/mkhome.nix { inherit nixpkgs inputs; };
     in
     {
-      nixosModules = import ./modules { lib = nixpkgs.lib; };
+      inherit (import ./modules { lib = nixpkgs.lib; }) nixosModules darwinModules;
 
       nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
         system = "x86_64-linux";
