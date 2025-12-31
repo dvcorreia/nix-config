@@ -5,7 +5,7 @@
 }:
 
 let
-  sshKeys = import ./../secrets/ssh-keys.nix { };
+  sshKeys = import ./../secrets/ssh-keys.nix;
   installationScript = inputs.agenix-shell.lib.installationScript system {
     secrets = {
       TF_VAR_hcloud_token.file = ./../secrets/hetzner-homelab-api-token.age;

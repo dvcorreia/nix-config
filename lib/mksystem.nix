@@ -24,7 +24,7 @@ let
   homeManagerModule =
     if darwin then inputs.home-manager.darwinModules else inputs.home-manager.nixosModules;
 
-  sshKeys = import ../secrets/ssh-keys.nix { };
+  sshKeys = import ../secrets/ssh-keys.nix;
 
   specialArgs = {
     inherit inputs sshKeys;

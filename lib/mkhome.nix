@@ -16,7 +16,7 @@ let
   };
 
   userHomeManagerConfig = ../users/${user}/home-manager.nix;
-  sshKeys = import ../secrets/ssh-keys.nix { };
+  sshKeys = import ../secrets/ssh-keys.nix;
 
   specialArgs = {
     inherit inputs sshKeys;

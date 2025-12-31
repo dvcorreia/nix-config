@@ -1,5 +1,5 @@
 let
-  keys = import ./ssh-keys.nix { };
+  keys = import ./ssh-keys.nix;
 in
 {
   "cloudflare-dns-token.age".publicKeys = [ keys.dvcorreia ];

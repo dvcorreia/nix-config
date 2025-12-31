@@ -41,7 +41,7 @@
 
   users.users =
     let
-      sshKeys = import ../../secrets/ssh-keys.nix { };
+      sshKeys = import ../../secrets/ssh-keys.nix;
     in
     {
       root.openssh.authorizedKeys.keys = with sshKeys; [
