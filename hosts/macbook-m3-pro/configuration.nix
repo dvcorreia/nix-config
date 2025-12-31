@@ -4,7 +4,7 @@
 }:
 
 {
-  imports = with inputs.self.nixosModules; [
+  imports = with inputs.self.darwinModules; [
     ../darwin-shared.nix
     services-ollama
   ];
