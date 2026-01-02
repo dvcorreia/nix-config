@@ -96,6 +96,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/sines/configuration.nix
+          agenix.nixosModules.default
           inputs.disko.nixosModules.disko
         ];
         specialArgs = { inherit inputs; };

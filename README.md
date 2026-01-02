@@ -51,3 +51,4 @@ home-manager switch --flake .
 - https://github.com/MatthewCroughan/nixcfg
 - https://github.com/mitchellh/nixos-config
 - https://github.com/redyf/nixdots
+- https://git.jolheiser.com/infra/tree/main/
