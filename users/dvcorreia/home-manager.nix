@@ -160,8 +160,7 @@ in
 
   programs.git = {
     enable = true;
-    userName = "Diogo Correia";
-    userEmail = "dv_correia@hotmail.com";
+
     ignores = [
       "**/.vscode/settings.json"
       "**/.direnv/"
@@ -172,7 +171,11 @@ in
 
     lfs.enable = true;
 
-    extraConfig = {
+    settings = {
+      user = {
+        name = "Diogo Correia";
+        email = "dv_correia@hotmail.com";
+      };
       branch.autosetuprebase = "always"; # rebase on git pull
       color.ui = true;
       github.user = "dvcorreia";
