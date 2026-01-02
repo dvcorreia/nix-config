@@ -10,6 +10,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./pocket-id.nix
   ];
 
   boot.loader.grub.enable = true;
@@ -75,6 +76,9 @@
 
   services.nginx = {
     enable = true;
+
+    recommendedTlsSettings = true;
+    recommendedProxySettings = true;
 
     virtualHosts."saraclara.com" = {
       addSSL = true;

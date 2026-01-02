@@ -1,1 +1,2 @@
 terraform.tfstate linguist-generated=true
+secrets/*.age linguist-generated=true

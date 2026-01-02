@@ -22,6 +22,7 @@ pkgs.mkShell {
     openssh
     opentofu
     inputs.agenix.packages.${system}.default
+    nixos-rebuild
   ];
 
   shellHook = ''
