@@ -77,12 +77,6 @@
         user = "dvcorreia";
       };
 
-      darwinConfigurations.macbook-pro-intel = mkSystem "macbook-pro-intel" {
-        system = "x86_64-darwin";
-        user = "dvcorreia";
-        darwin = true;
-      };
-
       darwinConfigurations.macbook-m3-pro = mkSystem "macbook-m3-pro" {
         system = "aarch64-darwin";
         user = "dvcorreia";

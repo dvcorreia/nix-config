@@ -5,9 +5,8 @@ Repo contains configuration for personal machines.
 | Hostname            | OS            | Description                                              | Specifications                                                                                         |
 | ------------------- | ------------- | -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | `macbook-m3-pro`    | MacOS Sequoia | My precious personal laptop                              | Macbook Pro 14" 2023 w/ M3 Pro CPU 36GB RAM and 1TB SSD                                                |
-| `macbook-pro-intel` | MacOS Sonoma  | Backup college laptop that also helps me test x86 things | Macbook Pro 13" 2018 w/ 2.3 GHz Quad-core Intel i5 CPU 8GB LPDDR3 RAM and 256GB SSD                    |
 | `proart-7950x`      | NixOS         | Desktop computer that surely will be a server someday    | ProArt X670E-Creator WiFi motherboard w/ AMD 7950x 2x32GB 6000MHz CL30 RAM and 1TB SDD Samsung 990 Pro |
-| `sines`             | NixOS         | Hetzner server used as my internet entrypoint            | Hetzner CX23 at the Helsinki datacenter                                             |
+| `sines`             | NixOS         | Hetzner server used as my internet entrypoint            | Hetzner CX23 at the Helsinki datacenter                                                                |
 
 And a few others like:
 

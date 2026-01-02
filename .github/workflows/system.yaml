@@ -14,7 +14,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        host: ["proart-7950x"]
+        host: ["proart-7950x", "sines"]
 
     steps:
       - name: Checkout repository
@@ -41,7 +41,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        host: ["macbook-pro-intel", "macbook-m3-pro"]
+        host: ["macbook-m3-pro"]
 
     steps:
       - name: Checkout repository
