@@ -21,12 +21,12 @@ terraform {
     }
 
     state {
-      method = method.aes_gcm.default_encryption_method
+      method   = method.aes_gcm.default_encryption_method
       enforced = true
     }
 
     plan {
-      method = method.aes_gcm.default_encryption_method
+      method   = method.aes_gcm.default_encryption_method
       enforced = true
     }
   }

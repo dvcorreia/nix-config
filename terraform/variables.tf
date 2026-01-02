@@ -1,5 +1,5 @@
 variable "passphrase" {
-  sensitive = true
+  sensitive   = true
   description = "OpenTofu state/plan passphrase"
 }
 
