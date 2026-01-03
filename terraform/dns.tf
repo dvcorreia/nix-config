@@ -46,13 +46,25 @@ resource "cloudflare_dns_record" "dvcorreia_com_aaaa" {
   comment = local.dns_record_comment
 }
 
-resource "cloudflare_dns_record" "dvcorreia_com_subdomain_cname" {
+resource "cloudflare_dns_record" "dvcorreia_com_subdomain_a" {
   for_each = local.dvcorreia_com_subdomains
 
   zone_id = data.cloudflare_zone.dvcorreia_com.id
   name    = "${each.key}.${local.dvcorreia_com_domain}"
-  content = local.dvcorreia_com_domain
-  type    = "CNAME"
+  content = hcloud_primary_ip.sines_primary_ip.ip_address
+  type    = "A"
+  proxied = each.value
+  ttl     = 1
+  comment = local.dns_record_comment
+}
+
+resource "cloudflare_dns_record" "dvcorreia_com_subdomain_aaaa" {
+  for_each = local.dvcorreia_com_subdomains
+
+  zone_id = data.cloudflare_zone.dvcorreia_com.id
+  name    = "${each.key}.${local.dvcorreia_com_domain}"
+  content = hcloud_primary_ip.sines_primary_ipv6.ip_address
+  type    = "AAAA"
   proxied = each.value
   ttl     = 1
   comment = local.dns_record_comment
