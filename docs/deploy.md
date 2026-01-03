@@ -37,3 +37,14 @@ nix run github:nix-community/nixos-anywhere -- \
 
 This installs NixOS on the target machine using the specified flake configuration.
 You will probably need you Yubikey for this.
+
+## Update a NixOS Server
+
+```bash
+nixos-rebuild switch \
+  --flake .#target-nixos-config \
+  --target-host "root@$(cd terraform && tofu output --raw target_machine_ipv4)" \
+  --build-host "root@$(cd terraform && tofu output --raw target_machine_ipv4)" \
+  --use-remote-sudo \
+  --fast
+```

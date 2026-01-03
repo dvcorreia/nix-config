@@ -124,6 +124,7 @@
               git
               gnumake
               agenix.packages.${system}.default
+              nixos-rebuild
             ];
           };
 
