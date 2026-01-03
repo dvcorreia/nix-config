@@ -7,8 +7,10 @@ locals {
 locals {
   dvcorreia_com_domain = "dvcorreia.com"
   dvcorreia_com_subdomains = {
-    # name    proxy status
-    id = true
+    id = {
+      proxied     = true
+      description = "Pocket ID OIDC server"
+    }
   }
 }
 
@@ -53,9 +55,17 @@ resource "cloudflare_dns_record" "dvcorreia_com_subdomain_a" {
   name    = "${each.key}.${local.dvcorreia_com_domain}"
   content = hcloud_primary_ip.sines_primary_ip.ip_address
   type    = "A"
-  proxied = each.value
-  ttl     = 1
-  comment = local.dns_record_comment
+
+  proxied = try(each.value.proxied, true)
+  ttl     = try(each.value.ttl, 1)
+
+  comment = join(
+    " | ",
+    compact([
+      try(each.value.description, null),
+      local.dns_record_comment,
+    ])
+  )
 }
 
 resource "cloudflare_dns_record" "dvcorreia_com_subdomain_aaaa" {
@@ -65,7 +75,16 @@ resource "cloudflare_dns_record" "dvcorreia_com_subdomain_aaaa" {
   name    = "${each.key}.${local.dvcorreia_com_domain}"
   content = hcloud_primary_ip.sines_primary_ipv6.ip_address
   type    = "AAAA"
-  proxied = each.value
-  ttl     = 1
-  comment = local.dns_record_comment
+
+  proxied = try(each.value.proxied, true)
+  ttl     = try(each.value.ttl, 1)
+
+  comment = join(
+    " | ",
+    compact([
+      try(each.value.description, null),
+      local.dns_record_comment,
+    ])
+  )
 }
+
