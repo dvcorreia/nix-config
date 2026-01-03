@@ -11,6 +11,11 @@ locals {
       proxied     = true
       description = "Pocket ID OIDC server"
     }
+    mail = {
+      proxied     = false
+      ttl         = 10800
+      description = "Mail server"
+    }
   }
 }
 
