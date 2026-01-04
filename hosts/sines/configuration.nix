@@ -10,6 +10,8 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
+    ./acme.nix
+    ./websites
     ./pocket-id.nix
   ];
 
@@ -72,49 +74,6 @@
       PasswordAuthentication = false;
       PermitRootLogin = "prohibit-password";
     };
-  };
-
-  services.nginx = {
-    enable = true;
-
-    recommendedTlsSettings = true;
-    recommendedProxySettings = true;
-
-    virtualHosts."saraclara.com" = {
-      addSSL = true;
-      enableACME = true;
-      locations."/" = {
-        return = ''200 '<img src="https://gifsec.com/wp-content/uploads/2022/09/middle-finger-gif-3.gif" />' '';
-        extraConfig = ''
-          default_type text/html;
-        '';
-      };
-    };
-
-    virtualHosts."dvcorreia.com" = {
-      addSSL = true;
-      enableACME = true;
-
-      root = "${inputs.dvcorreia-website.packages.${pkgs.system}.default}/share/dvcorreia-website";
-
-      locations."/" = {
-        index = "index.html";
-        tryFiles = "$uri $uri/ =404";
-        extraConfig = ''
-          error_page 404 /404.html;
-        '';
-      };
-    };
-  };
-
-  networking.firewall.allowedTCPPorts = [
-    80
-    443
-  ];
-
-  security.acme = {
-    acceptTerms = true;
-    defaults.email = "dv_correia@hotmail.com";
   };
 
   system.stateVersion = "24.11";
