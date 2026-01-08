@@ -72,11 +72,6 @@
     {
       inherit (import ./modules { lib = nixpkgs.lib; }) nixosModules darwinModules;
 
-      nixosConfigurations."proart-7950x" = mkSystem "proart-7950x" rec {
-        system = "x86_64-linux";
-        user = "dvcorreia";
-      };
-
       darwinConfigurations.macbook-m3-pro = mkSystem "macbook-m3-pro" {
         system = "aarch64-darwin";
         user = "dvcorreia";
@@ -90,6 +85,15 @@
         system = "x86_64-linux";
         user = "dvcorreia";
         wsl = true;
+      };
+
+      nixosConfigurations."proart-7950x" = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/proart-7950x/configuration.nix
+          inputs.disko.nixosModules.disko
+        ];
+        specialArgs = { inherit inputs; };
       };
 
       nixosConfigurations.sines = nixpkgs.lib.nixosSystem {

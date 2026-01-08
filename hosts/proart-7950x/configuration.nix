@@ -6,51 +6,87 @@
 }:
 {
   imports = [
-    ../nixos-shared.nix
     ./hardware-configuration.nix
+    ./disko.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  # Define your hostname.
-  networking.hostName = "proart-7950x";
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  networking.networkmanager.enable = true;
-  networking.firewall.allowedTCPPorts = [
-    6443 # k3s: required so that pods can reach the API server (running on port 6443 by default)
-  ];
-
-  # K3s cluster configuration
-  services.k3s.enable = true;
-  services.k3s.role = "server";
-  services.k3s.extraFlags = toString [
-    "--tls-san 100.96.133.89" # tailscale IP
-    "--write-kubeconfig-mode \"0644\""
-    #"--write.kubeconfig-mode 644" # allow kubeconfig to be read by other unprivileged users on the host
-  ];
-
-  # Enable sound with pipewire.
-  services.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+  boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
   };
+
+  networking = {
+    networkmanager.enable = true;
+    hostName = "proart-7950x";
+  };
+
+  nix = {
+    settings = {
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+      auto-optimise-store = true;
+      trusted-users = [ "dvcorreia" ];
+    };
+
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 120d";
+    };
+  };
+
+  users.users =
+    let
+      sshKeys = import ../../secrets/ssh-keys.nix;
+    in
+    {
+      root.openssh.authorizedKeys.keys = with sshKeys; [
+        dvcorreia
+        yubikey1-ed25519-sk
+      ];
+
+      dvcorreia = {
+        isNormalUser = true;
+        extraGroups = [ "wheel" ];
+
+        openssh.authorizedKeys.keys = with sshKeys; [
+          dvcorreia
+          yubikey1-ed25519-sk
+        ];
+      };
+    };
+
+  time.timeZone = "Europe/Lisbon";
+
+  console.keyMap = "pt-latin1";
+
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    supportedLocales = [
+      "C.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
+      "pt_PT.UTF-8/UTF-8"
+    ];
+    extraLocaleSettings = {
+      LC_MEASUREMENT = "pt_PT.UTF-8";
+      LC_MONETARY = "pt_PT.UTF-8";
+      LC_TIME = "pt_PT.UTF-8";
+    };
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
+
+  services.openssh = {
+    enable = true;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "prohibit-password";
+    };
+  };
+
+  system.stateVersion = "25.11";
 }
