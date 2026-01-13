@@ -41,6 +41,7 @@
     };
 
     ghostty.url = "github:ghostty-org/ghostty";
+    vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";
   };
@@ -91,6 +92,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/proart-7950x/configuration.nix
+          inputs.vscode-server.nixosModules.default
           inputs.disko.nixosModules.disko
         ];
         specialArgs = { inherit inputs; };
