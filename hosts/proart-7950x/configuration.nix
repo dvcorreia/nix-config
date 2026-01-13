@@ -36,6 +36,10 @@
     };
   };
 
+  environment.systemPackages = with pkgs; [
+    ghostty # for the 'xterm-ghostty': unknown terminal type
+  ];
+
   users.users =
     let
       sshKeys = import ../../secrets/ssh-keys.nix;
