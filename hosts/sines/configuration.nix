@@ -40,6 +40,7 @@
   environment.systemPackages = with pkgs; [
     gnumake
     git
+    ghostty # for the 'xterm-ghostty': unknown terminal type
   ];
 
   users.users =
