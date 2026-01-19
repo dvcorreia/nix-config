@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 
@@ -18,6 +19,7 @@
     git
     vagrant
     uv
+    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.opencode
   ];
 
   # allow uv to run dynamically linked Python interpreters
