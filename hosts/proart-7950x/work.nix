@@ -8,6 +8,10 @@
 
 # sometimes I need a linux machine to work
 {
+  imports = [
+    inputs.vscode-server.nixosModules.default
+  ];
+
   nixpkgs.config.allowUnfreePredicate =
     pkg:
     builtins.elem (lib.getName pkg) [

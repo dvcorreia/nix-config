@@ -13,6 +13,8 @@
     ./acme.nix
     ./websites
     ./pocket-id.nix
+    inputs.agenix.nixosModules.default
+    inputs.disko.nixosModules.disko
   ];
 
   boot.loader.grub.enable = true;
@@ -45,7 +47,7 @@
 
   users.users =
     let
-      sshKeys = import ../../secrets/ssh-keys.nix;
+      inherit (inputs.self) sshKeys;
     in
     {
       root.openssh.authorizedKeys.keys = with sshKeys; [

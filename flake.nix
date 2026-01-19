@@ -13,11 +13,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
     homebrew-core = {
       url = "github:homebrew/homebrew-core";
@@ -57,6 +52,8 @@
       ...
     }@inputs:
     let
+      inherit (self) outputs;
+
       supportedSystems = [
         "x86_64-linux"
         "x86_64-darwin"
@@ -65,59 +62,67 @@
       ];
 
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+      nixpkgsFor = forAllSystems (
+        system:
+        import nixpkgs {
+          inherit system;
+          overlays = [
+            self.overlays.packages
+            self.overlays.unstable-packages
+          ];
+        }
+      );
 
-      mkSystem = import ./lib/mksystem.nix { inherit nixpkgs inputs; };
-      mkHome = import ./lib/mkhome.nix { inherit nixpkgs inputs; };
+      sshKeys = import ./secrets/ssh-keys.nix;
     in
     {
-      inherit (import ./modules { lib = nixpkgs.lib; }) nixosModules darwinModules;
+      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
-      darwinConfigurations.macbook-m3-pro = mkSystem "macbook-m3-pro" {
+      overlays = {
+        packages = final: _prev: import ./pkgs final.pkgs;
+
+        # when applied, the unstable nixpkgs set will
+        # be accessible through 'pkgs.unstable'
+        unstable-packages = final: _prev: {
+          unstable = import inputs.nixpkgs-unstable {
+            system = final.system;
+          };
+        };
+      };
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
+
+      inherit sshKeys;
+
+      darwinConfigurations.macbook-m3-pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        user = "dvcorreia";
-        darwin = true;
         modules = [
-          agenix.nixosModules.default
+          ./hosts/macbook-m3-pro/configuration.nix
         ];
-      };
-
-      nixosConfigurations.wsl = mkSystem "wsl" {
-        system = "x86_64-linux";
-        user = "dvcorreia";
-        wsl = true;
-      };
-
-      nixosConfigurations."proart-7950x" = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        modules = [
-          ./hosts/proart-7950x/configuration.nix
-          inputs.vscode-server.nixosModules.default
-          inputs.disko.nixosModules.disko
-        ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs outputs;
+        };
       };
 
       nixosConfigurations.sines = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules = [
           ./hosts/sines/configuration.nix
-          agenix.nixosModules.default
-          inputs.disko.nixosModules.disko
         ];
-        specialArgs = { inherit inputs; };
+        specialArgs = {
+          inherit inputs outputs;
+        };
       };
 
-      packages = forAllSystems (system: {
-        docs = (nixpkgsFor.${system}).callPackage ./modules/docs.nix { };
-        homeConfigurations = {
-          dvcorreia = mkHome "dvcorreia" { inherit system; };
-          "dvcorreia@wsl" = mkHome "dvcorreia@wsl" {
-            inherit system;
-            isWSL = true;
-          };
+      nixosConfigurations.proart-7950x = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/proart-7950x/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs outputs;
         };
-      });
+      };
 
       devShells = forAllSystems (
         system:
@@ -140,6 +145,5 @@
         }
       );
 
-      formatter = forAllSystems (system: (nixpkgsFor.${system}).nixfmt-tree);
     };
 }

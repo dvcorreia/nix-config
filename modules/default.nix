@@ -7,4 +7,5 @@ in
 {
   nixosModules = generateModulesAuto ./nixos;
   darwinModules = generateModulesAuto ./darwin;
+  homeManagerModules = generateModulesAuto ./home-manager;
 }
