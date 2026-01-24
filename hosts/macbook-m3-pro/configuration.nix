@@ -11,7 +11,6 @@ in
   imports = [
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
-    ../../modules/darwin/wallpaper.nix
   ];
 
   # The user should already exist, but we need to set this up so Nix knows
@@ -43,8 +42,6 @@ in
 
   # add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  system.defaults.wallpaper.file = ./wallpaper.jpg;
 
   nix = {
     settings = {
