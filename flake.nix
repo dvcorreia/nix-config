@@ -94,6 +94,8 @@
 
       inherit sshKeys;
 
+      modules = (import ./modules) { lib = nixpkgs.lib; };
+
       darwinConfigurations.macbook-m3-pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
