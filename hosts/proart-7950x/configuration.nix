@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  inputs,
   ...
 }:
 {
@@ -9,6 +10,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./work.nix
+    inputs.disko.nixosModules.disko
   ];
 
   boot.loader = {
@@ -43,7 +45,7 @@
 
   users.users =
     let
-      sshKeys = import ../../secrets/ssh-keys.nix;
+      inherit (inputs.self) sshKeys;
     in
     {
       root.openssh.authorizedKeys.keys = with sshKeys; [

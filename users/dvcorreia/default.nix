@@ -1,17 +1,14 @@
-{ isWSL, inputs, ... }:
-
 {
-  currentSystem,
-  currentSystemUser,
   config,
   lib,
   pkgs,
+  inputs,
+  currentSystem,
   ...
 }:
 
 let
   isDarwin = pkgs.stdenv.isDarwin;
-  isLinux = pkgs.stdenv.isLinux;
 
   shellAliases = {
     ga = "git add";
@@ -26,20 +23,9 @@ let
     ll = "ls -lha --color=auto -F";
     k = "kubectl";
     cat = "bat";
-  }
-  // (
-    if isLinux && !isWSL then
-      {
-        pbcopy = "xclip";
-        pbpaste = "xclip -o";
-      }
-    else
-      { }
-  );
+  };
 
   dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
-
-  ghosttyPackage = inputs.ghostty.packages.${pkgs.stdenv.hostPlatform.system}.default;
 in
 {
   nix = {
@@ -59,8 +45,8 @@ in
   };
 
   home = {
-    username = currentSystemUser;
-    homeDirectory = if isDarwin then "/Users/${currentSystemUser}" else "/home/${currentSystemUser}";
+    username = "dvcorreia";
+    homeDirectory = if isDarwin then "/Users/dvcorreia" else "/home/dvcorreia";
 
     # The state version is required and should stay at the version you
     # originally installed. DO NOT CHANGE!
@@ -69,61 +55,25 @@ in
 
   xdg.enable = true;
 
-  services.ssh-agent.enable = isWSL;
+  home.packages = with pkgs; [
+    lsof # lsof -n -i :80 | grep LISTEN
+    wget
+    jq
+    bat # cat w/ sintax highlighting
+    ripgrep
+    tree
+    watch
+    ffmpeg
+    nixfmt-rfc-style
+    unzip
+    glow # markdown reader
 
-  # Packages I always want installed. Most packages I install using
-  # per-project flakes sourced with direnv and nix-shell, so this is
-  # not a huge list.
-  home.packages =
-    with pkgs;
-    [
-      lsof # lsof -n -i :80 | grep LISTEN
-      wget
-      jq
-      bat # cat w/ sintax highlighting
-      ripgrep
-      tree
-      watch
-      ffmpeg
-      nixfmt-rfc-style
-      unzip
-      glow # markdown reader
+    nodePackages.typescript
+    nodejs
+  ];
 
-      nodePackages.typescript
-      nodejs
-    ]
-    ++ (lib.optionals isDarwin [ ])
-    ++ (
-      lib.optionals (isLinux && !isWSL) [
-        telegram-desktop
-        transmission_4-gtk
-        stremio
-      ]
-      ++ (lib.optionals (currentSystem != "aarch64-linux") [
-        spotify
-      ])
-    );
-
-  #---------------------------------------------------------------------
-  # Env vars and dotfiles
-  #---------------------------------------------------------------------
   home.sessionVariables = {
     EDITOR = "nvim";
-  };
-
-  #---------------------------------------------------------------------
-  # Programs
-  #---------------------------------------------------------------------
-
-  programs.bash = {
-    enable = true;
-    shellOptions = [ ];
-    historyControl = [
-      "ignoredups"
-      "ignorespace"
-    ];
-
-    inherit shellAliases;
   };
 
   programs.zsh = {
@@ -157,6 +107,37 @@ in
   };
 
   programs.lf.enable = true;
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.go.enable = true;
+
+  programs.ghostty = {
+    enable = currentSystem != "aarch64-linux";
+
+    package = if !pkgs.stdenv.isDarwin then pkgs.unstable.ghostty else null;
+
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+
+    settings = {
+      theme = "Github Dark Default";
+      font-thicken = pkgs.stdenv.isDarwin;
+      window-padding-x = 8;
+      window-padding-y = 4;
+      window-padding-balance = true;
+      window-padding-color = "extend";
+      window-decoration = "auto";
+      window-theme = "system";
+
+      # just don't like the graphical indication
+      macos-secure-input-indication = false;
+    };
+  };
 
   programs.git = {
     enable = true;
@@ -199,53 +180,6 @@ in
         };
       }
     ];
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.go.enable = true;
-
-  programs.kitty = {
-    enable = isLinux && !isWSL;
-    shellIntegration.enableZshIntegration = true;
-
-    keybindings = {
-      # Clipboard
-      "ctrl+v" = "paste_from_clipboard";
-      "ctrl+c" = "copy_or_interrupt";
-
-      # Miscellaneous
-      "ctrl+plus" = "increase_font_size";
-      "ctrl+minus" = "decrease_font_size";
-      "ctrl+0" = "restore_font_size";
-    };
-  };
-
-  programs.ghostty = {
-    enable = !isWSL && (currentSystem != "aarch64-linux");
-
-    package = if isLinux then ghosttyPackage else null;
-
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-
-    settings = {
-      theme = "Github Dark Default";
-      font-thicken = isDarwin;
-      window-padding-x = 8;
-      window-padding-y = 4;
-      window-padding-balance = true;
-      window-padding-color = "extend";
-      window-decoration = "auto";
-      window-theme = "system";
-
-      # just don't like the graphical indication
-      macos-secure-input-indication = false;
-    };
   };
 
   programs.neovim = {
@@ -301,21 +235,8 @@ in
     '';
   };
 
-  programs.chromium = {
-    enable = isLinux && !isWSL;
-
-    dictionaries = [ pkgs.hunspellDictsChromium.en_US ];
-
-    extensions = [
-      { id = "gcbommkclmclpchllfjekcdonpmejbdp"; } # https everywhere
-      { id = "cjpalhdlnbpafiamejdnhcphjbkeiagm"; } # ublock origin
-      { id = "fmkadmapgofadopljbjfkapdkoienihi"; } # react developer tools
-      { id = "lmhkpmbekcpmknklioeibfkpmmfibljd"; } # redux devtools
-    ];
-  };
-
   programs.vscode = {
-    enable = !isWSL;
+    enable = true;
 
     profiles.default = {
       extensions =
@@ -353,7 +274,5 @@ in
         "[nix]"."editor.tabSize" = 2;
       };
     };
-
   };
-
 }
