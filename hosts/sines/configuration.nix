@@ -13,6 +13,7 @@
     ./acme.nix
     ./websites
     ./pocket-id.nix
+    ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
   ];
@@ -20,22 +21,6 @@
   boot.loader.grub.enable = true;
 
   networking.hostName = "sines";
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      auto-optimise-store = true;
-      trusted-users = [ "dvcorreia" ];
-    };
-
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 7d";
-    };
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget

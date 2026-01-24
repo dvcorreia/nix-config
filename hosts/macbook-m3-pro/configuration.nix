@@ -9,6 +9,7 @@ let
 in
 {
   imports = [
+    ../../modules/nix.nix
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
   ];
@@ -42,29 +43,6 @@ in
 
   # add ability to used TouchID for sudo authentication
   security.pam.services.sudo_local.touchIdAuth = true;
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "cgroups"
-        "dynamic-derivations"
-        "flakes"
-        "nix-command"
-        "recursive-nix"
-      ];
-      auto-optimise-store = false; # not true because of https://github.com/NixOS/nix/issues/7273
-      sandbox = true;
-    };
-
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 14d";
-      interval = {
-        Hour = 21;
-        Minute = 0;
-      };
-    };
-  };
 
   nixpkgs = {
     overlays = [
