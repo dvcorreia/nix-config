@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./work.nix
+    ../../modules/nix.nix
     inputs.disko.nixosModules.disko
   ];
 
@@ -21,22 +22,6 @@
   networking = {
     networkmanager.enable = true;
     hostName = "proart-7950x";
-  };
-
-  nix = {
-    settings = {
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-      auto-optimise-store = true;
-      trusted-users = [ "dvcorreia" ];
-    };
-
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 120d";
-    };
   };
 
   environment.systemPackages = with pkgs; [
