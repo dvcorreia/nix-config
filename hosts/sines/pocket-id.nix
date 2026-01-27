@@ -13,7 +13,7 @@
       UNIX_SOCKET = "/run/pocket-id/pocket-id.sock";
       UNIX_SOCKET_MODE = "0660";
       ENCRYPTION_KEY_FILE = config.age.secrets.pocket-id.path;
-      APP_NAME = "dvcorreia ID";
+      APP_NAME = "Garfo ID";
       TRUST_PROXY = true;
       EMAILS_VERIFIED = true;
       UI_CONFIG_DISABLED = true;
