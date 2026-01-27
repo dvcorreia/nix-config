@@ -15,7 +15,6 @@ in
           "flakes"
           "nix-command"
           "recursive-nix"
-          "repl-flake"
         ];
 
         trusted-users = [
