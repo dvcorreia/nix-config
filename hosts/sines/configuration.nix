@@ -13,6 +13,7 @@
     ./acme.nix
     ./websites
     ./pocket-id.nix
+    ./headscale.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko

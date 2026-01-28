@@ -11,4 +11,8 @@ in
     dvcorreia
     keys.sines
   ];
+  "headscale-oidc.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
 }
