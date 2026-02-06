@@ -104,4 +104,5 @@ Here is a set of things I want to explore:
 - https://github.com/fzakaria/nix-home
 - https://github.com/Misterio77/nix-starter-configs
 - https://github.com/redyf/nixdots
+- https://github.com/oddlama/nix-config
 - https://git.jolheiser.com/infra
