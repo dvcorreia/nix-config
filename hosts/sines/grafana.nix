@@ -53,6 +53,20 @@
         role_attribute_path = "contains(groups[*], 'admin') && 'Editor' || 'Viewer'";
       };
     };
+
+    provision = {
+      enable = true;
+
+      datasources.settings.datasources = [
+        {
+          name = "Sines Prometheus";
+          type = "prometheus";
+          url = "http://${config.services.prometheus.listenAddress}:${toString config.services.prometheus.port}";
+          isDefault = true;
+          editable = false;
+        }
+      ];
+    };
   };
 
   services.nginx.virtualHosts.${config.services.grafana.settings.server.domain} = {

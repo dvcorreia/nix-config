@@ -13,6 +13,7 @@
     ./acme.nix
     ./websites
     ./pocket-id.nix
+    ./prometheus.nix
     ./grafana.nix
     ./headscale.nix
     ../../modules/nix.nix
