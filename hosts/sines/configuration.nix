@@ -13,6 +13,7 @@
     ./acme.nix
     ./websites
     ./pocket-id.nix
+    ./grafana.nix
     ./headscale.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default

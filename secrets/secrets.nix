@@ -15,4 +15,12 @@ in
     dvcorreia
     keys.sines
   ];
+  "grafana-secret-key.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
+  "grafana-oauth2-client-secret.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
 }

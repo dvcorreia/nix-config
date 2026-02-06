@@ -16,6 +16,10 @@ locals {
       ttl         = 3600
       description = "Headscale server"
     }
+    monitor = {
+      proxied     = true
+      description = "Grafana for infrastructure monitor"
+    }
     mail = {
       proxied     = false
       ttl         = 10800
