@@ -230,6 +230,7 @@ in
   environment.systemPackages = with pkgs; [
     gnumake
     openssh
+    tailscale
   ];
 
   fonts.packages = with pkgs; [
