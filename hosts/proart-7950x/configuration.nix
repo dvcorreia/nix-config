@@ -10,7 +10,9 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./work.nix
+    ./tailscale.nix
     ../../modules/nix.nix
+    inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
   ];
 

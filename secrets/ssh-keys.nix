@@ -5,7 +5,7 @@ rec {
   users = [ dvcorreia ];
 
   macbook-m3-pro = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKLdXLVtZ/HGcNTAKeE/FfCPDrS5sThJoRVy3VWC8zQB root@macbook-m3-pro";
-  proart-7950x = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPGjGkrPMyfQtBUg36jRIZhIh73B/dkxzQoevLxcniW5 root@proart-7950x";
+  proart-7950x = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIfbL8KOx2NgGY+zyjuf8Br3TbSNDQH94+bCBEpIprkG root@proart-7950x";
   sines = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPH27q8PZj+P768SF7sDt7KA2pHR9YM6b0bVDpa3iRBq root@sines";
   systems = [
     macbook-m3-pro

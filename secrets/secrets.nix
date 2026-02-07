@@ -6,6 +6,10 @@ in
   "cloudflare-dns-token.age".publicKeys = [ dvcorreia ];
   "hetzner-homelab-api-token.age".publicKeys = [ dvcorreia ];
   "opentofu-encryption-key.age".publicKeys = [ dvcorreia ];
+  "proart-tailscale-preauth-key.age".publicKeys = [
+    dvcorreia
+    keys.proart-7950x
+  ];
 
   "pocket-id.age".publicKeys = [
     dvcorreia

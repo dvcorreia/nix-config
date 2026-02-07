@@ -12,6 +12,12 @@ in
 
   environment.systemPackages = with pkgs; [ headscale ];
 
+  # it is fine to manually authenticate here
+  services.tailscale = {
+    enable = true;
+    openFirewall = true;
+  };
+
   services.headscale = {
     enable = true;
     address = "127.0.0.1"; # default
