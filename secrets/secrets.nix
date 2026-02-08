@@ -27,4 +27,8 @@ in
     dvcorreia
     keys.sines
   ];
+  "gh-actions-runner-dvcorreia-nix-config.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
 }
