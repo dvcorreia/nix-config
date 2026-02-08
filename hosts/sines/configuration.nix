@@ -16,6 +16,7 @@
     ./prometheus.nix
     ./grafana.nix
     ./headscale.nix
+    ./github-runners.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
