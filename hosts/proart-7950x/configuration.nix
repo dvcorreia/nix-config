@@ -10,6 +10,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./work.nix
+    ./github-runners.nix
     ./tailscale.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
