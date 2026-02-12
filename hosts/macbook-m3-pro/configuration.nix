@@ -231,6 +231,7 @@ in
     gnumake
     openssh
     tailscale
+    unstable.opencode
   ];
 
   fonts.packages = with pkgs; [
