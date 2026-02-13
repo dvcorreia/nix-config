@@ -12,6 +12,7 @@
     ./work.nix
     ./github-runners.nix
     ./tailscale.nix
+    ./prometheus.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
