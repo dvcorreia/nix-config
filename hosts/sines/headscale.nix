@@ -45,6 +45,7 @@ in
         allowed_users = [
           "dv_correia@hotmail.com"
           "sarasantosclara@gmail.com"
+          "avjavj@proton.me"
         ];
       };
     };
