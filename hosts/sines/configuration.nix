@@ -15,7 +15,7 @@
     ./pocket-id.nix
     ./prometheus.nix
     ./grafana.nix
-    ./headscale.nix
+    ./headscale
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko

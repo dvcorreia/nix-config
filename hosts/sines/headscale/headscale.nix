@@ -5,18 +5,12 @@ let
 in
 {
   age.secrets.headscale-oidc = {
-    file = ../../secrets/headscale-oidc.age;
+    file = ../../../secrets/headscale-oidc.age;
     owner = config.services.headscale.user;
     group = config.services.headscale.group;
   };
 
   environment.systemPackages = with pkgs; [ headscale ];
-
-  # it is fine to manually authenticate here
-  services.tailscale = {
-    enable = true;
-    openFirewall = true;
-  };
 
   services.headscale = {
     enable = true;
@@ -48,6 +42,7 @@ in
           "avjavj@proton.me"
         ];
       };
+      policy.path = ./policies.jsonc;
     };
   };
 
