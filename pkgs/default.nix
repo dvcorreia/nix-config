@@ -1,3 +1,3 @@
 pkgs: {
-  docs = pkgs.callPackage ./docs { };
+  docs = pkgs.callPackage ./docs.nix { };
 }
