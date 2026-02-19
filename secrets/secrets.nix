@@ -10,6 +10,10 @@ in
     dvcorreia
     keys.proart-7950x
   ];
+  "ups-passwd.age".publicKeys = [
+    dvcorreia
+    keys.proart-7950x
+  ];
 
   "pocket-id.age".publicKeys = [
     dvcorreia
