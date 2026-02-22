@@ -232,6 +232,7 @@ in
     openssh
     tailscale
     unstable.opencode
+    gh
   ];
 
   fonts.packages = with pkgs; [
