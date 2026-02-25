@@ -28,3 +28,20 @@ variable "ssh_pub_key" {
   type        = string
   description = "Path to public SSH key that will be copied on the VMs"
 }
+
+variable "ovh_application_key" {
+  type        = string
+  description = "OVH Application Key"
+}
+
+variable "ovh_application_secret" {
+  type        = string
+  sensitive   = true
+  description = "OVH Application Secret"
+}
+
+variable "ovh_consumer_key" {
+  type        = string
+  sensitive   = true
+  description = "OVH Consumer Key"
+}

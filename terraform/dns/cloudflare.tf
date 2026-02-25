@@ -28,9 +28,7 @@ locals {
   }
 }
 
-data "cloudflare_zone" "dvcorreia_com" {
-  zone_id = var.cloudflare_zone_id
-}
+
 
 resource "cloudflare_dns_record" "dvcorreia_com_cname" {
   zone_id = data.cloudflare_zone.dvcorreia_com.id
@@ -101,4 +99,3 @@ resource "cloudflare_dns_record" "dvcorreia_com_subdomain_aaaa" {
     ])
   )
 }
-

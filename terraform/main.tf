@@ -9,6 +9,11 @@ terraform {
       source  = "hetznercloud/hcloud"
       version = "~> 1.60"
     }
+
+    ovh = {
+      source  = "ovh/ovh"
+      version = "~> 2.11"
+    }
   }
 
   encryption {
@@ -38,4 +43,15 @@ provider "cloudflare" {
 
 provider "hcloud" {
   token = var.hcloud_token
+}
+
+provider "ovh" {
+  endpoint           = "ovh-eu"
+  application_key    = var.ovh_application_key
+  application_secret = var.ovh_application_secret
+  consumer_key       = var.ovh_consumer_key
+}
+
+data "cloudflare_zone" "dvcorreia_com" {
+  zone_id = var.cloudflare_zone_id
 }
