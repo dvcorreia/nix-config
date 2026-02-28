@@ -25,8 +25,13 @@
   };
 
   networking = {
-    networkmanager.enable = true;
     hostName = "proart-7950x";
+    networkmanager.enable = true;
+  };
+
+  networking = {
+    interfaces.eno1.wakeOnLan.enable = true;
+    firewall.allowedUDPPorts = [ 9 ];
   };
 
   environment.systemPackages = with pkgs; [
