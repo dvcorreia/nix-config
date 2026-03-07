@@ -28,6 +28,10 @@ let
   dotAliases = import (inputs.self + "/lib/dotaliases.nix") { };
 in
 {
+  imports = [
+    ./fzf.nix
+  ];
+
   nix = {
     package = lib.mkDefault pkgs.nix;
 
@@ -88,13 +92,6 @@ in
       size = 10000;
       path = "${config.xdg.dataHome}/zsh/history";
     };
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableBashIntegration = true;
-    enableZshIntegration = true;
-    tmux.enableShellIntegration = true;
   };
 
   programs.tmux = {
