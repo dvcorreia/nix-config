@@ -15,9 +15,11 @@ in
     enable = true;
     openFirewall = true;
     authKeyFile = config.age.secrets.proart-tailscale-preauth-key.path;
+    useRoutingFeatures = "both";
     extraUpFlags = [
       "--login-server=${headscaleUrl}"
       "--accept-dns=true" # accept MagicDNS
+      "--advertise-exit-node"
     ];
   };
 }
