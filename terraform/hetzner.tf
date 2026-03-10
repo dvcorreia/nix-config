@@ -14,7 +14,7 @@ data "hcloud_datacenter" "helsinki_datacenter" {
 
 resource "hcloud_primary_ip" "sines_primary_ip" {
   name          = "sines-primary-ip"
-  datacenter    = data.hcloud_datacenter.helsinki_datacenter.name
+  location      = data.hcloud_datacenter.helsinki_datacenter.location.name
   type          = "ipv4"
   assignee_type = "server"
   auto_delete   = true
@@ -22,7 +22,7 @@ resource "hcloud_primary_ip" "sines_primary_ip" {
 
 resource "hcloud_primary_ip" "sines_primary_ipv6" {
   name          = "sines-primary-ipv6"
-  datacenter    = data.hcloud_datacenter.helsinki_datacenter.name
+  location      = data.hcloud_datacenter.helsinki_datacenter.location.name
   type          = "ipv6"
   assignee_type = "server"
   auto_delete   = true
@@ -32,7 +32,7 @@ resource "hcloud_server" "sines" {
   name        = "sines"
   image       = "debian-13"
   server_type = "cx23"
-  datacenter  = data.hcloud_datacenter.helsinki_datacenter.name
+  location    = data.hcloud_datacenter.helsinki_datacenter.location.name
   ssh_keys    = [hcloud_ssh_key.default.id]
   public_net {
     ipv4 = hcloud_primary_ip.sines_primary_ip.id
