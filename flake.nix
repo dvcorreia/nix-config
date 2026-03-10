@@ -151,6 +151,9 @@
                 opentofu
                 agenix.packages.${system}.default
                 nixos-rebuild
+
+                opencode
+                terraform-mcp-server
               ];
 
               shellHook = ''
