@@ -7,8 +7,20 @@ on:
   pull_request:
 
 jobs:
+  check:
+    name: Check
+    runs-on: [self-hosted, nixos, x86_64-linux]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Check flake
+        run: nix flake check --all-systems
+
   linux:
     name: Linux
+    needs: [check]
     runs-on: [self-hosted, nixos, x86_64-linux]
 
     strategy:
@@ -26,6 +38,7 @@ jobs:
   # reference: https://github.com/sagikazarmark/nix-config/blob/main/.github/workflows/system.yaml
   darwin:
     name: Darwin
+    needs: [check]
 
     # https://github.com/orgs/community/discussions/69211#discussioncomment-7941899
     runs-on: macos-14
