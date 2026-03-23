@@ -47,6 +47,7 @@ in
   nixpkgs = {
     overlays = [
       inputs.self.overlays.unstable-packages
+      inputs.self.overlays.patches
     ];
     config = {
       allowUnfreePredicate =

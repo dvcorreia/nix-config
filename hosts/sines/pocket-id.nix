@@ -53,7 +53,7 @@
           };
         in
         {
-          return = ''200 '${response}' '';
+          return = "200 '${response}' ";
           extraConfig = ''
             default_type application/jrd+json;
           '';
