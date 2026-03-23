@@ -70,6 +70,7 @@
           overlays = [
             self.overlays.packages
             self.overlays.unstable-packages
+            self.overlays.patches
           ];
         }
       );
@@ -89,6 +90,8 @@
             system = final.system;
           };
         };
+
+        patches = import ./overlays/patches.nix;
       };
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
