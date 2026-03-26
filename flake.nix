@@ -96,6 +96,8 @@
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
+      checks = import ./tests { inherit nixpkgsFor inputs; };
+
       inherit sshKeys;
 
       modules = (import ./modules) { lib = nixpkgs.lib; };
