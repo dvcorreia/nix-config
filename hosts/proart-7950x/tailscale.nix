@@ -1,6 +1,8 @@
 {
   config,
   inputs,
+  lib,
+  pkgs,
   ...
 }:
 
@@ -21,5 +23,19 @@ in
       "--accept-dns=true" # accept MagicDNS
       "--advertise-exit-node"
     ];
+  };
+
+  networking.firewall.trustedInterfaces = [ "tailscale0" ];
+
+  # enable udp gro forwarding for better tailscale exit node throughput
+  services.networkd-dispatcher = lib.mkIf config.services.tailscale.enable {
+    enable = true;
+    rules."50-tailscale" = {
+      onState = [ "routable" ];
+      script = ''
+        NETDEV=$(ip -o route get 8.8.8.8 | cut -f 5 -d " ")
+        ${pkgs.ethtool}/bin/ethtool -K "$NETDEV" rx-udp-gro-forwarding on rx-gro-list off
+      '';
+    };
   };
 }

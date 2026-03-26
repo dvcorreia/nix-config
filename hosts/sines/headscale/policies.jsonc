@@ -5,8 +5,18 @@
 			"action": "accept",
 			"src": ["autogroup:member"],
 			"dst": ["autogroup:self:*"]
+		},
+		// Allow exit node traffic (internet access via exit nodes)
+		{
+			"action": "accept",
+			"src": ["autogroup:member"],
+			"dst": ["autogroup:internet:*"]
 		}
 	],
+
+	"autoApprovers": {
+		"exitNode": ["dv_correia@hotmail.com"]
+	},
 
 	"ssh": [
 		// Allow users to securely SSH into their own devices
