@@ -36,10 +36,6 @@
     };
 
     "dvcorreia.com".locations = {
-      "/.well-known/openid-configuration" = {
-        proxyPass = "http://unix:${config.services.pocket-id.settings.UNIX_SOCKET}";
-      };
-
       "/.well-known/webfinger" =
         let
           response = builtins.toJSON {
