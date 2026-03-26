@@ -9,7 +9,7 @@
     addSSL = true;
     enableACME = true;
 
-    root = "${inputs.dvcorreia-website.packages.${pkgs.system}.default}/share/dvcorreia-website";
+    root = "${inputs.dvcorreia-website.packages.${pkgs.system}.default}/share/dvcorreia-com";
 
     locations."/" = {
       index = "index.html";
