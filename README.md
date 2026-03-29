@@ -91,6 +91,39 @@ nixos-rebuild switch \
   --fast
 ```
 
+## Deploy
+
+This repository uses [deploy-rs](https://github.com/serokell/deploy-rs) for deployment.
+
+### Manual Deployment
+
+Deploy all hosts:
+
+```bash
+nix run .#deploy
+```
+
+Deploy a specific host:
+
+```bash
+nix run .#deploy -- .#sines
+```
+
+Dry-run (no changes applied):
+
+```bash
+nix run .#deploy -- --dry-activate
+```
+
+### CI/CD Deployment
+
+Pushing to `main` triggers automatic deployment:
+
+1. Builds all NixOS configurations
+2. Deploys to `proart-7950x` and `sines`
+
+macOS (`macbook-m3-pro`) builds but does not auto-deploy.
+
 ## To Explore
 
 Here is a set of things I want to explore:

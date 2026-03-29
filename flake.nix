@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -50,6 +55,7 @@
       darwin,
       agenix,
       agenix-shell,
+      deploy-rs,
       ...
     }@inputs:
     let
@@ -96,7 +102,9 @@
 
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
-      checks = import ./tests { inherit nixpkgsFor inputs; };
+      checks =
+        (import ./tests { inherit nixpkgsFor inputs; })
+        // builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
       inherit sshKeys;
 
@@ -129,6 +137,26 @@
         ];
         specialArgs = {
           inherit inputs outputs;
+        };
+      };
+
+      deploy.nodes = {
+        proart-7950x = {
+          hostname = "proart-7950x";
+          sshUser = "deploy";
+          user = "root";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.proart-7950x;
+          };
+        };
+
+        sines = {
+          hostname = "sines.dvcorreia.com";
+          sshUser = "deploy";
+          user = "root";
+          profiles.system = {
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sines;
+          };
         };
       };
 

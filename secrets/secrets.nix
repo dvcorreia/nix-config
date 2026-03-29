@@ -35,4 +35,9 @@ in
     dvcorreia
     keys.proart-7950x
   ];
+
+  "deploy-ssh-key.age".publicKeys = [
+    dvcorreia
+    keys.proart-7950x
+  ];
 }

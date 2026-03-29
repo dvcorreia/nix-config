@@ -5,6 +5,7 @@ on:
     branches:
       - main
   pull_request:
+  workflow_dispatch:
 
 jobs:
   check:
@@ -35,12 +36,27 @@ jobs:
       - name: Build NixOS config
         run: nix build .#nixosConfigurations.${{ matrix.host }}.config.system.build.toplevel
 
-  # reference: https://github.com/sagikazarmark/nix-config/blob/main/.github/workflows/system.yaml
+  deploy:
+    name: Deploy
+    needs: [linux]
+    runs-on: [self-hosted, nixos, x86_64-linux]
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+
+      - name: Deploy
+        run: |
+          eval $(ssh-agent -a /tmp/ssh-agent.sock)
+          ssh-add /var/lib/deploy/.ssh/id_ed25519
+          export SSH_AUTH_SOCK=/tmp/ssh-agent.sock
+          nix run .#deploy
+
   darwin:
     name: Darwin
     needs: [check]
 
-    # https://github.com/orgs/community/discussions/69211#discussioncomment-7941899
     runs-on: macos-14
 
     strategy:
@@ -64,7 +80,6 @@ jobs:
           name: dvcorreia
           authToken: "${{ secrets.CACHIX_AUTH_TOKEN }}"
 
-      # https://github.com/actions/runner-images/issues/2840#issuecomment-790492173
       - name: Free up disk space
         run: |
           sudo rm -rf /usr/share/dotnet

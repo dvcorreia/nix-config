@@ -17,6 +17,7 @@
     ./grafana.nix
     ./headscale
     ../../modules/nix.nix
+    ../../modules/nixos/deploy-user.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
   ];

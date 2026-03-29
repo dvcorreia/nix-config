@@ -14,7 +14,9 @@
     ./tailscale.nix
     ./prometheus.nix
     ./nut.nix
+    ./deploy.nix
     ../../modules/nix.nix
+    ../../modules/nixos/deploy-user.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
   ];
