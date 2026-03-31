@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    microvm = {
+      url = "github:microvm-nix/microvm.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -126,6 +131,17 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/proart-7950x/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs outputs;
+        };
+      };
+
+      nixosConfigurations.pdmos = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          inputs.microvm.nixosModules.microvm
+          ./hosts/pdmos/configuration.nix
         ];
         specialArgs = {
           inherit inputs outputs;

@@ -12,6 +12,7 @@
     ./disko.nix
     ./acme.nix
     ./websites
+    ./pdmos.nix
     ./pocket-id.nix
     ./prometheus.nix
     ./grafana.nix
@@ -19,6 +20,7 @@
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
+    inputs.microvm.nixosModules.host
   ];
 
   boot.loader.grub.enable = true;
