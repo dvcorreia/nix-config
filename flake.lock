@@ -131,11 +131,11 @@
         "nixpkgs": "nixpkgs_2"
       },
       "locked": {
-        "lastModified": 1770484243,
-        "narHash": "sha256-9FrgSIeIfRI5XDNtk0SvQN7+8TMP3lAEuCWwhv7N1aM=",
+        "lastModified": 1774727164,
+        "narHash": "sha256-yCNWg6nnqp0pTU/9XibxOYYvgg+HWcmlfid6513+w5E=",
         "owner": "dvcorreia",
         "repo": "dvcorreia.com",
-        "rev": "5c64d282d10a6f7e7baa81620868da1b9048689a",
+        "rev": "b65f7a665577ef88abfdad5b329270d5dae90844",
         "type": "github"
       },
       "original": {
