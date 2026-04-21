@@ -39,6 +39,11 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";
+
+    sensei-code-challenge = {
+      url = "git+ssh://git@github.com/dvcorreia/sensei-code-challenge";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -3,5 +3,6 @@ _: {
     ./dvcorreia_com.nix
     ./saraclara_com.nix
     ./vacinacao_pt
+    ./sensei.nix
   ];
 }
