@@ -1,104 +1,33 @@
-locals {
-  dns_record_comment = "Managed by Terraform (gh:dvcorreia/nix-config)"
+data "cloudflare_zone" "dvcorreia_com" {
+  zone_id = "6f9c7fc4fe11ede15a136982bedcad85"
 }
 
-# ----------- dvcorreia.com ----------- #
-
 locals {
-  dvcorreia_com_domain = "dvcorreia.com"
-  dvcorreia_com_subdomains = {
-    id = {
-      proxied     = true
-      description = "Pocket ID OIDC server"
-    }
-    headscale = {
-      proxied     = false # https://headscale.net/stable/ref/integration/reverse-proxy/#cloudflare
-      ttl         = 3600
-      description = "Headscale server"
-    }
-    monitor = {
-      proxied     = true
-      description = "Grafana for infrastructure monitor"
-    }
-    mail = {
-      proxied     = false
-      ttl         = 10800
-      description = "Mail server"
+  dvcorreia_com = {
+    subdomains = {
+      id = {
+        proxied     = true
+        description = "Pocket ID OIDC server"
+      }
+      headscale = {
+        proxied     = false # https://headscale.net/stable/ref/integration/reverse-proxy/#cloudflare
+        ttl         = 3600
+        description = "Headscale server"
+      }
+      monitor = {
+        proxied     = true
+        description = "Grafana for infrastructure monitor"
+      }
     }
   }
 }
 
-data "cloudflare_zone" "dvcorreia_com" {
-  zone_id = var.cloudflare_zone_id
+module "dvcorreia_com_dns" {
+  source = "./modules/cloudflare_dns"
+
+  domain     = "dvcorreia.com"
+  zone_id    = data.cloudflare_zone.dvcorreia_com.id
+  ipv4       = hcloud_primary_ip.sines_primary_ip.ip_address
+  ipv6       = hcloud_primary_ip.sines_primary_ipv6.ip_address
+  subdomains = local.dvcorreia_com.subdomains
 }
-
-resource "cloudflare_dns_record" "dvcorreia_com_cname" {
-  zone_id = data.cloudflare_zone.dvcorreia_com.id
-  name    = "www"
-  content = local.dvcorreia_com_domain
-  type    = "CNAME"
-  proxied = true
-  ttl     = 1
-  comment = local.dns_record_comment
-}
-
-resource "cloudflare_dns_record" "dvcorreia_com_a" {
-  zone_id = data.cloudflare_zone.dvcorreia_com.id
-  name    = "@"
-  content = hcloud_primary_ip.sines_primary_ip.ip_address
-  type    = "A"
-  proxied = true
-  ttl     = 1
-  comment = local.dns_record_comment
-}
-
-resource "cloudflare_dns_record" "dvcorreia_com_aaaa" {
-  zone_id = data.cloudflare_zone.dvcorreia_com.id
-  name    = "@"
-  content = hcloud_primary_ip.sines_primary_ipv6.ip_address
-  type    = "AAAA"
-  proxied = true
-  ttl     = 1
-  comment = local.dns_record_comment
-}
-
-resource "cloudflare_dns_record" "dvcorreia_com_subdomain_a" {
-  for_each = local.dvcorreia_com_subdomains
-
-  zone_id = data.cloudflare_zone.dvcorreia_com.id
-  name    = "${each.key}.${local.dvcorreia_com_domain}"
-  content = hcloud_primary_ip.sines_primary_ip.ip_address
-  type    = "A"
-
-  proxied = try(each.value.proxied, true)
-  ttl     = try(each.value.ttl, 1)
-
-  comment = join(
-    " | ",
-    compact([
-      try(each.value.description, null),
-      local.dns_record_comment,
-    ])
-  )
-}
-
-resource "cloudflare_dns_record" "dvcorreia_com_subdomain_aaaa" {
-  for_each = local.dvcorreia_com_subdomains
-
-  zone_id = data.cloudflare_zone.dvcorreia_com.id
-  name    = "${each.key}.${local.dvcorreia_com_domain}"
-  content = hcloud_primary_ip.sines_primary_ipv6.ip_address
-  type    = "AAAA"
-
-  proxied = try(each.value.proxied, true)
-  ttl     = try(each.value.ttl, 1)
-
-  comment = join(
-    " | ",
-    compact([
-      try(each.value.description, null),
-      local.dns_record_comment,
-    ])
-  )
-}
-

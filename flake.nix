@@ -166,7 +166,6 @@
               '';
 
               TF_VAR_ssh_pub_key = sshKeys.yubikey1-ed25519-sk;
-              TF_VAR_cloudflare_zone_id = "6f9c7fc4fe11ede15a136982bedcad85";
               TF_VAR_cloudflare_account_id = "35db5f9742873a380407761666ef726b";
             };
         }
