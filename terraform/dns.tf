@@ -25,11 +25,6 @@ locals {
       ttl         = 10800
       description = "Mail server"
     }
-    sensei = {
-      proxied     = false
-      ttl         = 3600
-      description = "Sensei people detection API (demo)"
-    }
   }
 }
 
