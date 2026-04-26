@@ -6,6 +6,7 @@
 
 let
   currentSystem = "aarch64-darwin";
+  inherit (inputs.self) sshKeys;
 in
 {
   imports = [
@@ -20,7 +21,10 @@ in
     home = "/Users/dvcorreia";
     shell = pkgs.zsh;
 
-    openssh.authorizedKeys.keys = inputs.self.sshKeys.users;
+    openssh.authorizedKeys.keys = [
+      sshKeys.dvcorreia
+      sshKeys.yubikey1-ed25519-sk
+    ];
   };
 
   system.primaryUser = "dvcorreia";
@@ -235,6 +239,8 @@ in
     unstable.opencode
     gh
   ];
+
+  services.openssh.enable = true;
 
   fonts.packages = with pkgs; [
     monaspace
