@@ -122,7 +122,7 @@ in
     enableZshIntegration = true;
 
     settings = {
-      theme = "Github Dark Default";
+      theme = "dark:Aizen Dark,light:Aizen Light";
       font-thicken = pkgs.stdenv.isDarwin;
       window-padding-x = 8;
       window-padding-y = 4;
