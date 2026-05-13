@@ -5,7 +5,7 @@ let
 in
 {
   age.secrets.headscale-oidc = {
-    file = ../../../secrets/headscale-oidc.age;
+    rekeyFile = ../../../secrets/headscale-oidc.age;
     owner = config.services.headscale.user;
     group = config.services.headscale.group;
   };

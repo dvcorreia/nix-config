@@ -1,13 +1,13 @@
 { config, ... }:
 {
   age.secrets.grafana-secret-key = {
-    file = ../../secrets/grafana-secret-key.age;
+    rekeyFile = ../../secrets/grafana-secret-key.age;
     owner = "grafana"; # does not expose config.services.grafana.user
     group = "grafana"; # does not expose config.services.grafana.group
   };
 
   age.secrets.grafana-oauth2-client-secret = {
-    file = ../../secrets/grafana-oauth2-client-secret.age;
+    rekeyFile = ../../secrets/grafana-oauth2-client-secret.age;
     owner = "grafana";
     group = "grafana";
   };

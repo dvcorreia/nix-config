@@ -1,7 +1,7 @@
 { config, ... }:
 {
   age.secrets.pocket-id = {
-    file = ../../secrets/pocket-id.age;
+    rekeyFile = ../../secrets/pocket-id.age;
     owner = config.services.pocket-id.user;
     group = config.services.pocket-id.group;
   };

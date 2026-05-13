@@ -2,3 +2,4 @@
 result
 .terraform
 *.tfstate.backup
+secrets/rekeyed/

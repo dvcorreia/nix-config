@@ -27,7 +27,10 @@
       url = "github:ryantm/agenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     agenix-shell.url = "github:aciceri/agenix-shell";
 
     disko = {
@@ -49,6 +52,7 @@
       home-manager,
       darwin,
       agenix,
+      agenix-rekey,
       agenix-shell,
       ...
     }@inputs:
@@ -137,7 +141,7 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
-              inputs.agenix.overlays.default
+              agenix-rekey.overlays.default
             ];
           };
         in
@@ -158,7 +162,8 @@
                 gnumake
                 openssh
                 opentofu
-                pkgs.agenix
+                rage
+                pkgs.agenix-rekey
                 nixos-rebuild
 
                 opencode
@@ -174,5 +179,10 @@
             };
         }
       );
+
+      agenix-rekey = agenix-rekey.configure {
+        userFlake = self;
+        inherit (self) nixosConfigurations darwinConfigurations;
+      };
     };
 }

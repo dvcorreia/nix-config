@@ -16,7 +16,9 @@
     ./nut.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
+    inputs.agenix-rekey.nixosModules.default
     inputs.disko.nixosModules.disko
+    ../../modules/agenix-rekey.nix
   ];
 
   boot.loader = {

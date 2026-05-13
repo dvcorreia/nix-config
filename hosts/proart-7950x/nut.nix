@@ -1,7 +1,7 @@
 { config, ... }:
 {
   age.secrets.ups-passwd = {
-    file = ../../secrets/ups-passwd.age;
+    rekeyFile = ../../secrets/ups-passwd.age;
   };
 
   power.ups = {
