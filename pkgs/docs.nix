@@ -8,7 +8,7 @@
 
 let
   inherit (builtins) attrValues;
-  modules = import ../modules { inherit lib; };
+  modules = import ../modules;
 
   mkOptionsDoc =
     modules:

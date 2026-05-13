@@ -53,8 +53,6 @@
       ...
     }@inputs:
     let
-      inherit (self) outputs;
-
       supportedSystems = [
         "x86_64-linux"
         "x86_64-darwin"
@@ -63,19 +61,6 @@
       ];
 
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
-      nixpkgsFor = forAllSystems (
-        system:
-        import nixpkgs {
-          inherit system;
-          overlays = [
-            self.overlays.packages
-            self.overlays.unstable-packages
-            self.overlays.patches
-          ];
-        }
-      );
-
-      sshKeys = import ./secrets/ssh-keys.nix;
     in
     {
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
@@ -86,7 +71,7 @@
         # when applied, the unstable nixpkgs set will
         # be accessible through 'pkgs.unstable'
         unstable-packages = final: _prev: {
-          unstable = import inputs.nixpkgs-unstable {
+          unstable = import nixpkgs-unstable {
             system = final.system;
           };
         };
@@ -94,13 +79,7 @@
         patches = import ./overlays/patches.nix;
       };
 
-      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
-
-      checks = import ./tests { inherit nixpkgsFor inputs; };
-
-      inherit sshKeys;
-
-      modules = (import ./modules) { lib = nixpkgs.lib; };
+      inherit (import ./modules) nixosModules darwinModules homeManagerModules;
 
       darwinConfigurations.macbook-m3-pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -108,7 +87,7 @@
           ./hosts/macbook-m3-pro/configuration.nix
         ];
         specialArgs = {
-          inherit inputs outputs;
+          inherit inputs;
         };
       };
 
@@ -118,7 +97,7 @@
           ./hosts/sines/configuration.nix
         ];
         specialArgs = {
-          inherit inputs outputs;
+          inherit inputs;
         };
       };
 
@@ -128,14 +107,39 @@
           ./hosts/proart-7950x/configuration.nix
         ];
         specialArgs = {
-          inherit inputs outputs;
+          inherit inputs;
         };
       };
+
+      checks =
+        let
+          nixpkgsFor = forAllSystems (
+            system:
+            import nixpkgs {
+              inherit system;
+              overlays = [
+                self.overlays.packages
+                self.overlays.unstable-packages
+                self.overlays.patches
+              ];
+            }
+          );
+        in
+        import ./tests { inherit nixpkgsFor inputs; };
+
+      sshKeys = import ./secrets/ssh-keys.nix;
+
+      formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
       devShells = forAllSystems (
         system:
         let
-          pkgs = nixpkgsFor.${system};
+          pkgs = import nixpkgs {
+            inherit system;
+            overlays = [
+              inputs.agenix.overlays.default
+            ];
+          };
         in
         {
           default =
@@ -154,7 +158,7 @@
                 gnumake
                 openssh
                 opentofu
-                agenix.packages.${system}.default
+                pkgs.agenix
                 nixos-rebuild
 
                 opencode
@@ -165,7 +169,7 @@
                 source ${pkgs.lib.getExe installationScript}
               '';
 
-              TF_VAR_ssh_pub_key = sshKeys.yubikey1-ed25519-sk;
+              TF_VAR_ssh_pub_key = self.sshKeys.yubikey1-ed25519-sk;
               TF_VAR_cloudflare_account_id = "35db5f9742873a380407761666ef726b";
             };
         }
