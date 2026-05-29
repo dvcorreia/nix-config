@@ -234,6 +234,7 @@ in
 
   programs.vscode = {
     enable = true;
+    mutableExtensionsDir = false;
 
     profiles.default = {
       extensions =
@@ -245,6 +246,12 @@ in
           ms-python.vscode-pylance
           tsandall.opa
           editorconfig.editorconfig
+          astro-build.astro-vscode
+          hashicorp.terraform
+          myriad-dreamin.tinymist
+          svelte.svelte-vscode
+          tamasfe.even-better-toml
+          unifiedjs.vscode-mdx
         ]
         ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
           {
