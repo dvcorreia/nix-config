@@ -34,6 +34,13 @@
     firewall.allowedUDPPorts = [ 9 ];
   };
 
+  nixpkgs = {
+    overlays = [
+      inputs.self.overlays.unstable-packages
+    ];
+    hostPlatform = "x86_64-linux";
+  };
+
   environment.systemPackages = with pkgs; [
     ghostty # for the 'xterm-ghostty': unknown terminal type
   ];
