@@ -7,6 +7,9 @@
 }:
 
 # sometimes I need a linux machine to work
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
   imports = [
     inputs.vscode-server.nixosModules.default
@@ -17,13 +20,14 @@
     builtins.elem (lib.getName pkg) [
       "vagrant"
       "Oracle_VirtualBox_Extension_Pack"
+      "virtualbox-extpack"
     ];
 
   environment.systemPackages = with pkgs; [
     git
     vagrant
     uv
-    inputs.nixpkgs-unstable.legacyPackages.${pkgs.system}.opencode
+    inputs.nixpkgs-unstable.legacyPackages.${system}.opencode
   ];
 
   # allow uv to run dynamically linked Python interpreters

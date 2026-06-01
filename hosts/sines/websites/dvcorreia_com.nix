@@ -4,12 +4,15 @@
   ...
 }:
 
+let
+  inherit (pkgs.stdenv.hostPlatform) system;
+in
 {
   services.nginx.virtualHosts."dvcorreia.com" = {
     addSSL = true;
     enableACME = true;
 
-    root = "${inputs.dvcorreia-website.packages.${pkgs.system}.default}/share/dvcorreia-com";
+    root = "${inputs.dvcorreia-website.packages.${system}.default}/share/dvcorreia-com";
 
     locations."/" = {
       index = "index.html";

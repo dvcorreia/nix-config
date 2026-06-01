@@ -26,7 +26,7 @@
       ))
     ];
 
-    extraLuaConfig = ''
+    initLua = ''
       vim.g.mapleader = ' '
       vim.g.maplocalleader = ' '
 

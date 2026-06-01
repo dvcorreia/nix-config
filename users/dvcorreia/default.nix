@@ -40,7 +40,7 @@ in
 
     # The state version is required and should stay at the version you
     # originally installed. DO NOT CHANGE!
-    stateVersion = "24.05";
+    stateVersion = "26.05";
   };
 
   xdg.enable = true;
@@ -54,11 +54,11 @@ in
     tree
     watch
     ffmpeg
-    nixfmt-rfc-style
+    nixfmt
     unzip
     glow # markdown reader
 
-    nodePackages.typescript
+    typescript
     nodejs
   ];
 
