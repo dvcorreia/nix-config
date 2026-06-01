@@ -6,6 +6,9 @@
 
   services.github-runners.dvcorreia-nix-config = {
     enable = true;
+    package = pkgs.unstable.github-runner;
+    nodeRuntimes = [ "node24" ];
+
     name = "proart-7950x";
     url = "https://github.com/dvcorreia/nix-config";
 
