@@ -24,5 +24,8 @@ switch-home:
 format:
 	nix-shell -p nixfmt --command "nixfmt **/*.nix"
 
+deploy:
+	nix run github:serokell/deploy-rs -- .#$(NIXNAME)
+
 install/nix-darwin:
 	nix run $(NIX_OPTS) nix-darwin -- switch --flake ~/.config/nix-darwin

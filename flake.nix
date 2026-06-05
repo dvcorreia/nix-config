@@ -35,6 +35,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -50,6 +55,7 @@
       darwin,
       agenix,
       agenix-shell,
+      deploy-rs,
       ...
     }@inputs:
     let
@@ -110,6 +116,27 @@
         };
       };
 
+      deploy.nodes = {
+        sines = {
+          hostname = "sines.dvcorreia.loc";
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.sines;
+          };
+        };
+
+        proart-7950x = {
+          hostname = "proart-7950x.dvcorreia.loc";
+          remoteBuild = true;
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.proart-7950x;
+          };
+        };
+      };
+
       checks =
         let
           nixpkgsFor = forAllSystems (
@@ -123,8 +150,12 @@
               ];
             }
           );
+          testChecks = import ./tests { inherit nixpkgsFor inputs; };
+          deployChecks = builtins.mapAttrs (
+            system: deployLib: deployLib.deployChecks self.deploy
+          ) deploy-rs.lib;
         in
-        import ./tests { inherit nixpkgsFor inputs; };
+        nixpkgs.lib.recursiveUpdate deployChecks testChecks;
 
       sshKeys = import ./secrets/ssh-keys.nix;
 
@@ -159,6 +190,7 @@
                 opentofu
                 pkgs.agenix
                 nixos-rebuild
+                inputs.deploy-rs.packages.${system}.default
 
                 opencode
                 terraform-mcp-server
