@@ -185,8 +185,8 @@ in
       mutableTaps = true;
       user = "dvcorreia";
       taps = with inputs; {
-        "homebrew/homebrew-core" = homebrew-core;
-        "homebrew/homebrew-cask" = homebrew-cask;
+        "homebrew/homebrew-core" = inputs.homebrew-core;
+        "homebrew/homebrew-cask" = inputs.homebrew-cask;
       };
     };
 
@@ -206,6 +206,7 @@ in
     ];
     casks = [
       "ghostty"
+      "tailscale"
       "google-chrome"
       "brave-browser"
       "telegram"
@@ -225,11 +226,6 @@ in
       "signal"
       "jordanbaird-ice" # menu bar management tool
     ];
-
-    # MAS apps must have been installed or bought before on your Apple ID
-    masApps = {
-      Tailscale = 1475387142;
-    };
   };
 
   environment.systemPackages = with pkgs; [
@@ -247,7 +243,6 @@ in
     jetbrains-mono
     mononoki
     fira
-    iosevka
   ];
 
   system.stateVersion = 5;

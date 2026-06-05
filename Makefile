@@ -22,7 +22,7 @@ switch-home:
 	home-manager switch --flake .
 
 format:
-	nix-shell -p nixfmt-rfc-style --command "nixfmt **/*.nix"
+	nix-shell -p nixfmt --command "nixfmt **/*.nix"
 
 install/nix-darwin:
 	nix run $(NIX_OPTS) nix-darwin -- switch --flake ~/.config/nix-darwin
