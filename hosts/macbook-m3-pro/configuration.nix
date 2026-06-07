@@ -239,6 +239,23 @@ in
   nix = {
     distributedBuilds = true;
 
+    linux-builder = {
+      enable = true;
+      ephemeral = true;
+      supportedFeatures = [
+        "kvm"
+        "nixos-test"
+      ];
+
+      config.virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 4 * 1024;
+        };
+        cores = 4;
+      };
+    };
+
     buildMachines =
       let
         inherit (inputs.self.nixosConfigurations) proart-7950x sines;
