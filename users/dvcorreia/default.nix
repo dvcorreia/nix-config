@@ -16,6 +16,8 @@ in
     ./neovim.nix
     ./vscode.nix
     ./zsh.nix
+    ./mcp.nix
+    ./opencode.nix
   ];
 
   nix = {
