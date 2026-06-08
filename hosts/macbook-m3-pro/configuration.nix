@@ -236,6 +236,50 @@ in
     gh
   ];
 
+  nix = {
+    distributedBuilds = true;
+
+    linux-builder = {
+      enable = true;
+      ephemeral = true;
+      supportedFeatures = [
+        "kvm"
+        "nixos-test"
+      ];
+
+      config.virtualisation = {
+        darwin-builder = {
+          diskSize = 40 * 1024;
+          memorySize = 4 * 1024;
+        };
+        cores = 4;
+      };
+    };
+
+    buildMachines =
+      let
+        inherit (inputs.self.nixosConfigurations) proart-7950x sines;
+        proart-7950x-hostname = proart-7950x.config.networking.hostName;
+        tailscaleDomain = sines.config.services.headscale.settings.dns.base_domain;
+      in
+      [
+        {
+          hostName = "${proart-7950x-hostname}.${tailscaleDomain}";
+          system = "x86_64-linux";
+          sshUser = "dvcorreia";
+          sshKey = "/Users/dvcorreia/.ssh/id_ed25519";
+          protocol = "ssh-ng";
+          maxJobs = 16;
+          speedFactor = 2;
+          supportedFeatures = [
+            "kvm"
+            "nixos-test"
+            "big-parallel"
+          ];
+        }
+      ];
+  };
+
   services.openssh.enable = true;
 
   fonts.packages = with pkgs; [
