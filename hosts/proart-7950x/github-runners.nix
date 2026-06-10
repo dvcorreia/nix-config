@@ -26,8 +26,8 @@
     serviceOverrides = {
       CPUQuota = "800%"; # 8 cores
       TasksMax = 8192;
-      MemoryMax = "48G";
-      MemorySwapMax = "64G";
+      MemoryMax = "32G";
+      MemorySwapMax = "48G";
       OOMScoreAdjust = 500; # kill first if the system runs out of memory
     };
   };

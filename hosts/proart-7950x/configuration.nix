@@ -14,6 +14,7 @@
     ./tailscale.nix
     ./prometheus.nix
     ./nut.nix
+    ./ollama.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
