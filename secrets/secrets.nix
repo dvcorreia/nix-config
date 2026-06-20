@@ -35,4 +35,9 @@ in
     dvcorreia
     keys.proart-7950x
   ];
+
+  "open-webui-env-file.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
 }

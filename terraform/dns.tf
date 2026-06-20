@@ -18,6 +18,10 @@ locals {
         proxied     = true
         description = "Grafana for infrastructure monitor"
       }
+      ai = {
+        proxied     = true
+        description = "Open WebUI"
+      }
     }
   }
 }

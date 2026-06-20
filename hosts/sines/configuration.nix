@@ -15,6 +15,7 @@
     ./pocket-id.nix
     ./prometheus.nix
     ./grafana.nix
+    ./open-webui.nix
     ./headscale
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
@@ -24,6 +25,12 @@
   boot.loader.grub.enable = true;
 
   networking.hostName = "sines";
+
+  nixpkgs.config.allowUnfreePredicate =
+    pkg:
+    builtins.elem (lib.getName pkg) [
+      "open-webui"
+    ];
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
