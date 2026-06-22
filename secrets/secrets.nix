@@ -31,6 +31,10 @@ in
     dvcorreia
     keys.sines
   ];
+  "mailserver-dvcorreia-password.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
   "gh-actions-runner-dvcorreia-nix-config.age".publicKeys = [
     dvcorreia
     keys.proart-7950x

@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     ghostty.url = "github:ghostty-org/ghostty";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
@@ -105,6 +110,7 @@
         system = "x86_64-linux";
         modules = [
           ./hosts/sines/configuration.nix
+          inputs.nixos-mailserver.nixosModules.default
         ];
         specialArgs = {
           inherit inputs;

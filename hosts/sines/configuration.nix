@@ -11,6 +11,7 @@
     ./hardware-configuration.nix
     ./disko.nix
     ./acme.nix
+    ./mailserver.nix
     ./websites
     ./pocket-id.nix
     ./prometheus.nix
