@@ -45,6 +45,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nixos-mailserver = {
+      url = "gitlab:simple-nixos-mailserver/nixos-mailserver/nixos-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";

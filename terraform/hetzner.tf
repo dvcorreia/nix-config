@@ -28,6 +28,18 @@ resource "hcloud_primary_ip" "sines_primary_ipv6" {
   auto_delete   = true
 }
 
+resource "hcloud_rdns" "sines_ipv4" {
+  primary_ip_id = hcloud_primary_ip.sines_primary_ip.id
+  ip_address    = hcloud_primary_ip.sines_primary_ip.ip_address
+  dns_ptr       = "mail.dvcorreia.com"
+}
+
+resource "hcloud_rdns" "sines_ipv6" {
+  primary_ip_id = hcloud_primary_ip.sines_primary_ipv6.id
+  ip_address    = hcloud_primary_ip.sines_primary_ipv6.ip_address
+  dns_ptr       = "mail.dvcorreia.com"
+}
+
 resource "hcloud_server" "sines" {
   name        = "sines"
   image       = "debian-13"
