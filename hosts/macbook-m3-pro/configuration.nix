@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   pkgs,
   ...
@@ -192,6 +193,7 @@ in
 
   homebrew = {
     enable = true;
+    enableZshIntegration = config.programs.zsh.enable;
     onActivation = {
       autoUpdate = true;
       cleanup = "zap";
