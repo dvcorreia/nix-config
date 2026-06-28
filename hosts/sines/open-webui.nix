@@ -24,7 +24,7 @@
       ENABLE_OAUTH_SIGNUP = "true";
       ENABLE_LOGIN_FORM = "false";
 
-      ENABLE_PERSISTENT_CONFIG= "false";
+      ENABLE_PERSISTENT_CONFIG = "false";
 
       WEBUI_SESSION_COOKIE_SECURE = "true";
       WEBUI_SESSION_COOKIE_SAME_SITE = "lax"; # because of the OAuth redirects
