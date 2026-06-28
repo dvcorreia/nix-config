@@ -15,6 +15,7 @@
     ./prometheus.nix
     ./nut.nix
     ./ollama.nix
+    ./hermes-agent.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
