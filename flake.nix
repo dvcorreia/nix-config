@@ -89,7 +89,9 @@
         patches = import ./overlays/patches.nix;
       };
 
-      inherit (import ./modules) nixosModules darwinModules homeManagerModules;
+      nixosModules = import ./modules/nixos;
+      darwinModules = import ./modules/darwin;
+      homeManagerModules = import ./modules/nixos;
 
       darwinConfigurations.macbook-m3-pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
