@@ -49,6 +49,11 @@
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";
+
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
