@@ -9,7 +9,7 @@
   imports = [
     ./hardware-configuration.nix
     ./disko.nix
-    ./work.nix
+    # ./work.nix  # disabled: troubleshooting kernel panics with virtualbox modules
     ./github-runners.nix
     ./tailscale.nix
     ./prometheus.nix
