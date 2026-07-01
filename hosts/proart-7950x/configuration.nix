@@ -26,6 +26,8 @@
     efi.canTouchEfiVariables = true;
   };
 
+  boot.binfmt.emulatedSystems = [ "aarch64-linux" ];
+
   networking = {
     hostName = "proart-7950x";
     networkmanager.enable = true;

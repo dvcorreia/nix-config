@@ -128,6 +128,16 @@
         };
       };
 
+      nixosConfigurations.rpi3b-home = nixpkgs.lib.nixosSystem {
+        system = "aarch64-linux";
+        modules = [
+          ./hosts/rpi3b-home/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
+
       deploy.nodes = {
         sines = {
           hostname = "sines.dvcorreia.loc";
@@ -145,6 +155,15 @@
             user = "root";
             sshUser = "root";
             path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.proart-7950x;
+          };
+        };
+
+        rpi3b-home = {
+          hostname = "rpi3b-home.local";
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi3b-home;
           };
         };
       };

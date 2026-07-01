@@ -170,7 +170,10 @@ in
       [
         {
           hostName = "${proart-7950x-hostname}.${tailscaleDomain}";
-          system = "x86_64-linux";
+          systems = [
+            "x86_64-linux"
+            "aarch64-linux"
+          ];
           sshUser = "dvcorreia";
           sshKey = "/Users/dvcorreia/.ssh/id_ed25519";
           protocol = "ssh-ng";
