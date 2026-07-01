@@ -7,6 +7,7 @@ Repo contains configuration for personal machines.
 | `macbook-m3-pro`    | MacOS Tahoe   | My precious personal laptop                   | Macbook Pro 14" 2023 w/ M3 Pro CPU 36GB RAM and 1TB SSD                                                |
 | `proart-7950x`      | NixOS         | Server at my parents home                     | ProArt X670E-Creator WiFi motherboard w/ AMD 7950x 2x32GB 6000MHz CL30 RAM and 1TB SSD Samsung 990 Pro |
 | `sines`             | NixOS         | Hetzner server used as my internet entrypoint | Hetzner CX23 at the Helsinki datacenter                                                                |
+| `rpi3b-home`        | NixOS (ARM)   | Raspberry Pi 3B+ I have at home               | Broadcom BCM2837B0 (aarch64), 1GB RAM, booting from SD card                                            |
 
 ## Bootstrap PC
 
@@ -69,6 +70,48 @@ nix run github:nix-community/nixos-anywhere -- \
 This installs NixOS on the target machine using the specified flake configuration.
 
 To then update the configuration, use deploy-rs as described in the Deploy section above.
+
+### Raspberry Pi
+
+#### Bootstrap
+
+Build a flashable, uncompressed SD card image:
+
+```bash
+nix build .#nixosConfigurations.rpi3b-home.config.system.build.sdImage
+```
+
+Flash it to the SD card (macOS). Use `diskutil list` to find the device first,
+and double-check it before writing:
+
+```bash
+diskutil list
+diskutil unmountDisk /dev/diskN
+sudo dd if=result/sd-image/*.img of=/dev/rdiskN bs=1M status=progress
+diskutil eject /dev/diskN
+```
+
+Boot the Pi (wired Ethernet, DHCP) and connect over SSH:
+
+```bash
+ssh root@rpi3b-home.local
+```
+
+> [!NOTE]
+> After the first boot, capture the Pi's SSH host key into `secrets/ssh-keys.nix`
+> so `agenix` can encrypt secrets to it once you start running services on it.
+
+#### Update
+
+From then on, iterate with `deploy-rs`:
+
+```bash
+deploy .#rpi3b-home
+```
+
+Builds are offloaded from the Mac to `proart-7950x` (which emulates
+`aarch64-linux` via `boot.binfmt`), falling back to the Mac's local
+`nix.linux-builder`. The Pi itself should never build anything.
 
 ## References
 

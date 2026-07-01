@@ -26,7 +26,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        host: ["proart-7950x", "sines"]
+        host: ["proart-7950x", "sines", "rpi3b-home"]
 
     steps:
       - name: Checkout repository
