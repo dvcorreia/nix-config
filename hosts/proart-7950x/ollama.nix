@@ -1,6 +1,11 @@
 { config, pkgs, ... }:
 
 {
+  # Disabling MGLRU to avoid list_del corruption panics in lru_gen_del_folio
+  # when ollama loads/unloads large models. NOT SURE IF THIS WORKS YET.
+  # TODO: eventually remove when stable kernel gets updated
+  boot.kernelParams = [ "lru_gen.enabled=0" ];
+
   services.ollama = {
     enable = true;
     package = pkgs.ollama-cpu;
