@@ -16,6 +16,6 @@ pkgs.testers.nixosTest {
     server.start()
     server.wait_for_unit("nginx.service")
     server.wait_for_open_port(80)
-    server.succeed("curl -sSf http://localhost/index.html | grep -q 'dvcorreia'")
+    server.succeed("curl -sSf http://localhost/index.html | grep -F 'dvcorreia' > /dev/null")
   '';
 }
