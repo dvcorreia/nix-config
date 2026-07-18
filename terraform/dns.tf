@@ -110,3 +110,12 @@ resource "cloudflare_dns_record" "srs_dvcorreia_com_spf" {
   ttl     = 10800
   comment = "SPF record for SRS domain"
 }
+
+resource "cloudflare_dns_record" "srs_dvcorreia_com_dmarc" {
+  zone_id = data.cloudflare_zone.dvcorreia_com.id
+  name    = "_dmarc.srs"
+  content = "v=DMARC1; p=reject; aspf=r; adkim=s"
+  type    = "TXT"
+  ttl     = 86400
+  comment = "DMARC record for SRS domain"
+}

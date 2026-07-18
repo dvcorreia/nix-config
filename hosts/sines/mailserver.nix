@@ -21,6 +21,15 @@
 
     enableSubmission = true;
 
+    fullTextSearch = {
+      enable = true;
+      autoIndex = true;
+      fallback = false;
+    };
+    indexDir = "/var/lib/dovecot/indices";
+
+    dmarcReporting.enable = true;
+
     srs = {
       enable = true;
       domain = "srs.dvcorreia.com";
