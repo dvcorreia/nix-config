@@ -45,7 +45,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    ghostty.url = "github:ghostty-org/ghostty";
     vscode-server.url = "github:nix-community/nixos-vscode-server";
 
     dvcorreia-website.url = "github:dvcorreia/dvcorreia.com";
