@@ -86,7 +86,7 @@ in
     {
       enable = true;
       enableRosetta = isAarch64;
-      mutableTaps = true;
+      mutableTaps = false;
       user = "dvcorreia";
       taps = with inputs; {
         "homebrew/homebrew-core" = inputs.homebrew-core;
@@ -111,7 +111,7 @@ in
     ];
     casks = [
       "ghostty"
-      "tailscale"
+      "tailscale-app"
       "google-chrome"
       "brave-browser"
       "telegram"
