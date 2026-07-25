@@ -6,7 +6,7 @@ updates:
   - package-ecosystem: "nix"
     directory: "/" # location of package manifests
     schedule:
-      interval: "weekly"
+      interval: "monthly"
     groups:
       nix-flake-inputs:
         patterns:
