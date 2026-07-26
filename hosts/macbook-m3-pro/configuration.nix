@@ -129,7 +129,6 @@ in
       "kicad"
       "docker-desktop"
       "signal"
-      "jordanbaird-ice" # menu bar management tool
     ];
   };
 
