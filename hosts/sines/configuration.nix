@@ -21,6 +21,7 @@
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
     inputs.disko.nixosModules.disko
+    ../../modules/nixos/instatic.nix
   ];
 
   boot.loader.grub.enable = true;

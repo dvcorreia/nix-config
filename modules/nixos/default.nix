@@ -1,1 +1,3 @@
-{ }
+{
+  instatic = import ./instatic.nix;
+}

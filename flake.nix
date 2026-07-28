@@ -58,6 +58,11 @@
       url = "github:NousResearch/hermes-agent";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bun2nix = {
+      url = "github:nix-community/bun2nix?ref=2.1.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -82,10 +87,13 @@
       forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
     in
     {
-      packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
+      packages = forAllSystems (system:
+        import ./pkgs (nixpkgs.legacyPackages.${system}.extend inputs.bun2nix.overlays.default)
+      );
 
       overlays = {
-        packages = final: _prev: import ./pkgs final.pkgs;
+        packages = final: _prev:
+          import ./pkgs (final.pkgs.extend inputs.bun2nix.overlays.default);
 
         # when applied, the unstable nixpkgs set will
         # be accessible through 'pkgs.unstable'
