@@ -56,6 +56,9 @@
         "workbench.startupEditor" = "none";
         "workbench.sideBar.location" = "right";
         "[nix]"."editor.tabSize" = 2;
+
+        "update.mode" = "none"; # avoids the annoying dialog to update vscode
+
         "window.autoDetectColorScheme" = true;
         "workbench.preferredDarkColorTheme" = "Pierre Dark";
         "workbench.preferredLightColorTheme" = "Pierre Light";
