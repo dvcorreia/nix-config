@@ -10,6 +10,10 @@ in
     dvcorreia
     keys.proart-7950x
   ];
+  "sines-tailscale-preauth-key.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
   "ups-passwd.age".publicKeys = [
     dvcorreia
     keys.proart-7950x
