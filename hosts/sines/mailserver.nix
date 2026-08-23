@@ -10,6 +10,16 @@
     group = config.mailserver.storage.group;
   };
 
+  # Plaintext password for the send-only noreply account. Pocket ID also reads
+  # this secret for SMTP auth, so it is owned by the pocket-id user (the
+  # mailserver reads it at build/activation time as root).
+  age.secrets.mailserver-noreply-password = {
+    file = ../../secrets/mailserver-noreply-password.age;
+    owner = config.services.pocket-id.user;
+    group = config.services.pocket-id.group;
+    mode = "0640";
+  };
+
   mailserver = {
     enable = true;
     stateVersion = 5;
@@ -42,6 +52,10 @@
           "postmaster@dvcorreia.com"
           "me@dvcorreia.com"
         ];
+      };
+      "noreply@dvcorreia.com" = {
+        passwordFile = config.age.secrets.mailserver-noreply-password.path;
+        sendOnly = true;
       };
     };
   };

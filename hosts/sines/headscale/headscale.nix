@@ -36,6 +36,9 @@ in
         client_id = "headscale";
         client_secret_path = config.age.secrets.headscale-oidc.path;
         pkce.enabled = true;
+        # Pocket ID already marks emails verified (EMAILS_VERIFIED=true), so
+        # don't reject logins based on the email_verified claim.
+        email_verified_required = false;
         allowed_users = [
           "dv_correia@hotmail.com"
           "sarasantosclara@gmail.com"

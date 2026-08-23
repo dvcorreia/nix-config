@@ -18,6 +18,16 @@
       EMAILS_VERIFIED = true;
       UI_CONFIG_DISABLED = true;
       ANALYTICS_DISABLED = true;
+
+      # Email verification via the local mailserver's send-only noreply account.
+      SMTP_HOST = "127.0.0.1";
+      SMTP_PORT = "465";
+      SMTP_TLS = "tls";
+      SMTP_FROM = "noreply@dvcorreia.com";
+      SMTP_USER = "noreply@dvcorreia.com";
+      SMTP_PASSWORD_FILE = config.age.secrets.mailserver-noreply-password.path;
+      SMTP_SKIP_CERT_VERIFY = true;
+      EMAIL_VERIFICATION_ENABLED = true;
     };
   };
 
