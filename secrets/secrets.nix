@@ -14,6 +14,10 @@ in
     dvcorreia
     keys.sines
   ];
+  "rpi3b-home-tailscale-preauth-key.age".publicKeys = [
+    dvcorreia
+    keys.rpi3b-home
+  ];
   "ups-passwd.age".publicKeys = [
     dvcorreia
     keys.proart-7950x

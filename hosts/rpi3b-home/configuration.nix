@@ -10,6 +10,7 @@
 {
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
+    ./tailscale.nix
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default
   ];
