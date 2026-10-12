@@ -22,6 +22,10 @@
       url = "github:homebrew/homebrew-cask";
       flake = false;
     };
+    homebrew-opencode = {
+      url = "github:anomalyco/homebrew-tap";
+      flake = false;
+    };
 
     agenix = {
       url = "github:ryantm/agenix";
@@ -226,8 +230,6 @@
                 pkgs.agenix
                 nixos-rebuild
                 inputs.deploy-rs.packages.${system}.default
-
-                opencode
                 terraform-mcp-server
               ];
 

@@ -91,6 +91,7 @@ in
       taps = with inputs; {
         "homebrew/homebrew-core" = inputs.homebrew-core;
         "homebrew/homebrew-cask" = inputs.homebrew-cask;
+        "anomalyco/homebrew-tap" = inputs.homebrew-opencode;
       };
     };
 
@@ -105,9 +106,11 @@ in
     taps = [
       "homebrew/core"
       "homebrew/cask"
+      "anomalyco/tap"
     ];
     brews = [
       "cookcli"
+      "anomalyco/tap/opencode-v2"
     ];
     casks = [
       "ghostty"
@@ -136,7 +139,6 @@ in
     gnumake
     openssh
     tailscale
-    unstable.opencode
     gh
   ];
 

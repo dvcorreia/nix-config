@@ -27,7 +27,6 @@ in
     git
     vagrant
     uv
-    inputs.nixpkgs-unstable.legacyPackages.${system}.opencode
   ];
 
   # allow uv to run dynamically linked Python interpreters

@@ -533,6 +533,22 @@
         "type": "github"
       }
     },
+    "homebrew-opencode": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791813292,
+        "narHash": "sha256-150NYpVBzKwDWrd+T258LoQLNTyA3cRQQvFA7DQbMkE=",
+        "owner": "anomalyco",
+        "repo": "homebrew-tap",
+        "rev": "5c3968d4279104656e097da9d423d33b435b9549",
+        "type": "github"
+      },
+      "original": {
+        "owner": "anomalyco",
+        "repo": "homebrew-tap",
+        "type": "github"
+      }
+    },
     "mcp-nixos": {
       "inputs": {
         "devshell": "devshell",
@@ -810,6 +826,7 @@
         "home-manager": "home-manager_2",
         "homebrew-cask": "homebrew-cask",
         "homebrew-core": "homebrew-core",
+        "homebrew-opencode": "homebrew-opencode",
         "mcp-nixos": "mcp-nixos",
         "nix-homebrew": "nix-homebrew",
         "nixos-mailserver": "nixos-mailserver",
