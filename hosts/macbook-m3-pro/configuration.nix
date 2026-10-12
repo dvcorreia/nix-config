@@ -116,6 +116,7 @@ in
       "ghostty"
       "tailscale-app"
       "google-chrome"
+      "firefox"
       "brave-browser"
       "telegram"
       "transmission"
