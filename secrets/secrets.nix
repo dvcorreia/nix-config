@@ -53,4 +53,9 @@ in
     dvcorreia
     keys.proart-7950x
   ];
+
+  "ble-scale-sync-env.age".publicKeys = [
+    dvcorreia
+    keys.rpi3b-home
+  ];
 }

@@ -11,10 +11,14 @@
   imports = [
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ../../modules/nix.nix
+    ./ble-scale-sync.nix
     inputs.agenix.nixosModules.default
   ];
 
-  nixpkgs.hostPlatform = "aarch64-linux";
+  nixpkgs = {
+    hostPlatform = "aarch64-linux";
+    overlays = [ inputs.self.overlays.packages ];
+  };
 
   networking = {
     hostName = "rpi3b-home";

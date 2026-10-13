@@ -85,7 +85,7 @@
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
       overlays = {
-        packages = final: _prev: import ./pkgs final.pkgs;
+        packages = _final: prev: import ./pkgs prev;
 
         # when applied, the unstable nixpkgs set will
         # be accessible through 'pkgs.unstable'
