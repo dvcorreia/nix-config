@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 {
   age.secrets.gh-actions-runner-dvcorreia-nix-config = {
-    file = ../../secrets/gh-actions-runner-dvcorreia-nix-config.age;
+    rekeyFile = ../../secrets/gh-actions-runner-dvcorreia-nix-config.age;
   };
 
   services.github-runners.dvcorreia-nix-config = {

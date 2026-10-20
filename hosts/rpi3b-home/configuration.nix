@@ -12,7 +12,9 @@
     "${modulesPath}/installer/sd-card/sd-image-aarch64.nix"
     ./tailscale.nix
     ../../modules/nix.nix
+    ../../modules/agenix-rekey.nix
     inputs.agenix.nixosModules.default
+    inputs.agenix-rekey.nixosModules.default
   ];
 
   nixpkgs.hostPlatform = "aarch64-linux";

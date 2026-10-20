@@ -9,7 +9,7 @@ in
   ];
 
   age.secrets.hermes-env = {
-    file = ../../secrets/hermes-env.age;
+    rekeyFile = ../../secrets/hermes-env.age;
     owner = config.services.hermes-agent.user;
     group = config.services.hermes-agent.group;
   };

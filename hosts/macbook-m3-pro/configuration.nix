@@ -12,6 +12,10 @@ in
 {
   imports = [
     ../../modules/nix.nix
+    ../../modules/agenix-rekey.nix
+    ./devshell-secrets.nix
+    inputs.agenix.darwinModules.default
+    inputs.agenix-rekey.darwinModules.default
     inputs.self.darwinModules.system-defaults
     inputs.nix-homebrew.darwinModules.nix-homebrew
     inputs.home-manager.darwinModules.home-manager
@@ -30,6 +34,8 @@ in
   };
 
   system.primaryUser = "dvcorreia";
+
+  networking.hostName = "macbook-m3-pro";
 
   home-manager = {
     useGlobalPkgs = true;

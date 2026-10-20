@@ -32,6 +32,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    agenix-rekey = {
+      url = "github:oddlama/agenix-rekey";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     agenix-shell.url = "github:aciceri/agenix-shell";
 
     disko = {
@@ -71,7 +76,7 @@
       nixpkgs-unstable,
       home-manager,
       darwin,
-      agenix,
+      agenix-rekey,
       agenix-shell,
       deploy-rs,
       ...
@@ -198,6 +203,13 @@
 
       sshKeys = import ./secrets/ssh-keys.nix;
 
+      agenix-rekey = agenix-rekey.configure {
+        userFlake = self;
+        inherit (self) nixosConfigurations darwinConfigurations;
+        systems = supportedSystems;
+        agePackage = p: p.age;
+      };
+
       formatter = forAllSystems (system: nixpkgs.legacyPackages.${system}.nixfmt-tree);
 
       devShells = forAllSystems (
@@ -206,28 +218,42 @@
           pkgs = import nixpkgs {
             inherit system;
             overlays = [
-              inputs.agenix.overlays.default
+              agenix-rekey.overlays.default
             ];
           };
         in
         {
           default =
             let
-              installationScript = agenix-shell.lib.installationScript system {
-                secrets = {
-                  TF_VAR_hcloud_token.file = ./secrets/hetzner-homelab-api-token.age;
-                  TF_VAR_cloudflare_api_token.file = ./secrets/cloudflare-dns-token.age;
-                  TF_VAR_passphrase.file = ./secrets/opentofu-encryption-key.age;
-                };
-              };
+              installationScript =
+                (agenix-shell.lib.installationScript system {
+                  identityPaths = [ "${./secrets/security-key-identity.pub}" ];
+                  secrets = {
+                    TF_VAR_hcloud_token.file = ./secrets/hetzner-homelab-api-token.age;
+                    TF_VAR_cloudflare_api_token.file = ./secrets/cloudflare-dns-token.age;
+                    TF_VAR_passphrase.file = ./secrets/opentofu-encryption-key.age;
+                  };
+                }).override
+                  {
+                    agenix-shell-module = {
+                      imports = [ agenix-shell.flakeModules.default ];
+                      perSystem.agenix-shell.agePackage = pkgs.writeShellScriptBin "age" ''
+                        export PATH=${pkgs.lib.makeBinPath [ pkgs.age-plugin-fido2-hmac ]}:"$PATH"
+                        exec ${pkgs.lib.getExe pkgs.age} "$@"
+                      '';
+                    };
+                  };
             in
             pkgs.mkShell {
               packages = with pkgs; [
+                age
+                age-plugin-fido2-hmac
                 git
                 gnumake
+                libfido2
                 openssh
                 opentofu
-                pkgs.agenix
+                pkgs.agenix-rekey
                 nixos-rebuild
                 inputs.deploy-rs.packages.${system}.default
                 terraform-mcp-server

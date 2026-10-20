@@ -4,7 +4,7 @@ let
   headscaleUrl = inputs.self.nixosConfigurations.sines.config.services.headscale.settings.server_url;
 in
 {
-  age.secrets.rpi3b-home-tailscale-preauth-key.file = ../../secrets/rpi3b-home-tailscale-preauth-key.age;
+  age.secrets.rpi3b-home-tailscale-preauth-key.rekeyFile = ../../secrets/rpi3b-home-tailscale-preauth-key.age;
 
   services.tailscale = {
     enable = true;

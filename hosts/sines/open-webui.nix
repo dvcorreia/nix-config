@@ -2,7 +2,7 @@
 
 {
   age.secrets.open-webui-env-file = {
-    file = ../../secrets/open-webui-env-file.age;
+    rekeyFile = ../../secrets/open-webui-env-file.age;
   };
 
   services.open-webui = {

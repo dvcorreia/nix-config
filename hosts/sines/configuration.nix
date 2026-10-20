@@ -19,7 +19,9 @@
     ./open-webui.nix
     ./headscale
     ../../modules/nix.nix
+    ../../modules/agenix-rekey.nix
     inputs.agenix.nixosModules.default
+    inputs.agenix-rekey.nixosModules.default
     inputs.disko.nixosModules.disko
   ];
 

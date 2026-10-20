@@ -30,7 +30,8 @@ sudo bootstrap-darwin-system <hostname>
 Enter the infrastructure development shell environment:
 
 > [!NOTE]
-> Be sure you are in a machine with SSH keys capable of decrypt the secrets.
+> Connect the Security Key used by `secrets/security-key-identity.pub`.
+> Entering the shell prompts for its PIN and touch to decrypt the OpenTofu secrets.
 
 ```bash
 nix develop
@@ -46,6 +47,25 @@ tofu apply
 ```
 
 This initializes, provisions or updates the required infrastructure resources.
+
+### Secrets
+
+Repository secrets are encrypted to the FIDO2 master identity. With the Security
+Key connected, use the devshell to edit a secret and update its host copies:
+
+```bash
+agenix edit secrets/<name>.age
+agenix rekey
+git add secrets/
+```
+
+Commit both the master ciphertext and generated copies in `secrets/rekeyed/`
+before deploying. Hosts declare secrets with `age.secrets.<name>.rekeyFile` and
+decrypt their copies using their own SSH host keys.
+
+The OpenTofu secrets remain master-only and are decrypted by `agenix-shell`.
+Re-encrypting the stored state passphrase preserves its value; rotating that
+passphrase requires an OpenTofu encryption fallback migration.
 
 ## Deploy
 

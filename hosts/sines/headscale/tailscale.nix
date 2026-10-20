@@ -8,7 +8,7 @@ let
   headscaleUrl = inputs.self.nixosConfigurations.sines.config.services.headscale.settings.server_url;
 in
 {
-  age.secrets.sines-tailscale-preauth-key.file = ../../../secrets/sines-tailscale-preauth-key.age;
+  age.secrets.sines-tailscale-preauth-key.rekeyFile = ../../../secrets/sines-tailscale-preauth-key.age;
 
   services.tailscale = {
     enable = true;

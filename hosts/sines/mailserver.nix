@@ -5,7 +5,7 @@
   ];
 
   age.secrets.mailserver-dvcorreia-password = {
-    file = ../../secrets/mailserver-dvcorreia-password.age;
+    rekeyFile = ../../secrets/mailserver-dvcorreia-password.age;
     owner = config.mailserver.storage.owner;
     group = config.mailserver.storage.group;
   };
