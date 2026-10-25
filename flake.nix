@@ -149,6 +149,7 @@
       deploy.nodes = {
         sines = {
           hostname = "sines.dvcorreia.loc";
+          remoteBuild = true;
           profiles.system = {
             user = "root";
             sshUser = "root";
