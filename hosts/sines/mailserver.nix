@@ -46,6 +46,16 @@
     };
   };
 
+  # kresd bypasses tailscale MagicDNS, so forward tailnet names to tailscale
+  services.kresd.extraConfig = ''
+    policy.add(
+      policy.suffix(
+        policy.STUB({ "100.100.100.100" }),
+        policy.todnames({ "${config.services.headscale.settings.dns.base_domain}" })
+      )
+    )
+  '';
+
   services.nginx.virtualHosts.${config.mailserver.fqdn} = {
     enableACME = true;
     forceSSL = true;
