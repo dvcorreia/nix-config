@@ -83,6 +83,20 @@
     {
       packages = forAllSystems (system: import ./pkgs nixpkgs.legacyPackages.${system});
 
+      apps = forAllSystems (
+        system:
+        let
+          diskoLocked = (builtins.fromJSON (builtins.readFile ./flake.lock)).nodes.disko.locked;
+        in
+        {
+          # Format a NAS data disk over SSH (see apps/disk.nix).
+          disk = import ./apps/disk.nix {
+            pkgs = nixpkgs.legacyPackages.${system};
+            diskoRef = "github:${diskoLocked.owner}/${diskoLocked.repo}/${diskoLocked.rev}";
+          };
+        }
+      );
+
       overlays = {
         packages = final: _prev: import ./pkgs final.pkgs;
 
@@ -141,6 +155,16 @@
         };
       };
 
+      nixosConfigurations.nas = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/nas/configuration.nix
+        ];
+        specialArgs = {
+          inherit inputs;
+        };
+      };
+
       deploy.nodes = {
         sines = {
           hostname = "sines.dvcorreia.loc";
@@ -168,6 +192,16 @@
             user = "root";
             sshUser = "root";
             path = deploy-rs.lib.aarch64-linux.activate.nixos self.nixosConfigurations.rpi3b-home;
+          };
+        };
+
+        nas = {
+          hostname = "nas.dvcorreia.loc";
+          remoteBuild = true;
+          profiles.system = {
+            user = "root";
+            sshUser = "root";
+            path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nas;
           };
         };
       };

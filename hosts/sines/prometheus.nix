@@ -36,6 +36,24 @@
             }
           ];
       }
+      {
+        job_name = "nas";
+        static_configs =
+          let
+            inherit (inputs.self.nixosConfigurations) nas;
+            inherit (nas.config.networking) hostName;
+            inherit (nas.config.services.prometheus.exporters.node) port;
+            smartctlPort = nas.config.services.prometheus.exporters.smartctl.port;
+          in
+          [
+            {
+              targets = [
+                "${tsAddress hostName}:${toString port}"
+                "${tsAddress hostName}:${toString smartctlPort}"
+              ];
+            }
+          ];
+      }
     ];
 
   services.prometheus.exporters.node = {

@@ -18,6 +18,10 @@ in
     dvcorreia
     keys.rpi3b-home
   ];
+  "nas-tailscale-preauth-key.age".publicKeys = [
+    dvcorreia
+    keys.nas
+  ];
   "ups-passwd.age".publicKeys = [
     dvcorreia
     keys.proart-7950x

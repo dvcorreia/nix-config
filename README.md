@@ -8,6 +8,7 @@ Repo contains configuration for personal machines.
 | `proart-7950x`      | NixOS         | Server at my parents home                     | ProArt X670E-Creator WiFi motherboard w/ AMD 7950x 2x32GB 6000MHz CL30 RAM and 1TB SSD Samsung 990 Pro |
 | `sines`             | NixOS         | Hetzner server used as my internet entrypoint | Hetzner CX23 at the Helsinki datacenter                                                                |
 | `rpi3b-home`        | NixOS (ARM)   | Raspberry Pi 3B+ I have at home               | Broadcom BCM2837B0 (aarch64), 1GB RAM, booting from SD card                                            |
+| `nas`               | NixOS         | Home NAS following Perfect Media Server       | CWWK Motherboard Core i5 8265U4C/8T, 8GB RAM                                                           |
 
 ## Bootstrap PC
 
@@ -54,6 +55,7 @@ Deploy configurations to remote hosts using `deploy-rs`:
 ```bash
 deploy .#sines
 deploy .#proart-7950x
+deploy .#nas
 ```
 
 ### Setup NixOS Server
