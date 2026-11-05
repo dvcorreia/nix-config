@@ -48,8 +48,4 @@ in
     keys.proart-7950x
   ];
 
-  "hermes-env.age".publicKeys = [
-    dvcorreia
-    keys.proart-7950x
-  ];
 }
