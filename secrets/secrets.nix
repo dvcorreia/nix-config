@@ -48,11 +48,6 @@ in
     keys.proart-7950x
   ];
 
-  "open-webui-env-file.age".publicKeys = [
-    dvcorreia
-    keys.sines
-  ];
-
   "hermes-env.age".publicKeys = [
     dvcorreia
     keys.proart-7950x
