@@ -39,9 +39,7 @@ jobs:
   darwin:
     name: Darwin
     needs: [check]
-
-    # https://github.com/orgs/community/discussions/69211#discussioncomment-7941899
-    runs-on: macos-14
+    runs-on: macos-latest
 
     strategy:
       fail-fast: false
