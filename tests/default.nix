@@ -7,5 +7,6 @@
     in
     {
       dvcorreia-website = import ./dvcorreia-website.nix { inherit pkgs inputs; };
+      nas-storage = import ./nas-storage.nix { inherit pkgs; };
     };
 }
