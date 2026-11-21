@@ -27,6 +27,10 @@ in
     dvcorreia
     keys.sines
   ];
+  "miniflux-oauth2-client-secret.age".publicKeys = [
+    dvcorreia
+    keys.sines
+  ];
   "headscale-oidc.age".publicKeys = [
     dvcorreia
     keys.sines

@@ -3,29 +3,27 @@ resource "hcloud_ssh_key" "default" {
   public_key = var.ssh_pub_key
 }
 
-# datacenters list:
-# https://docs.hetzner.com/cloud/general/locations/#what-datacenters-are-there
+# locations list:
+# https://docs.hetzner.com/cloud/general/locations/#what-locations-are-there
 
-data "hcloud_datacenter" "helsinki_datacenter" {
-  name = "hel1-dc2"
+data "hcloud_location" "helsinki" {
+  name = "hel1"
 }
 
 # ----------- sines ----------- #
 
 resource "hcloud_primary_ip" "sines_primary_ip" {
-  name          = "sines-primary-ip"
-  location      = data.hcloud_datacenter.helsinki_datacenter.location.name
-  type          = "ipv4"
-  assignee_type = "server"
-  auto_delete   = true
+  name        = "sines-primary-ip"
+  location    = data.hcloud_location.helsinki.name
+  type        = "ipv4"
+  auto_delete = true
 }
 
 resource "hcloud_primary_ip" "sines_primary_ipv6" {
-  name          = "sines-primary-ipv6"
-  location      = data.hcloud_datacenter.helsinki_datacenter.location.name
-  type          = "ipv6"
-  assignee_type = "server"
-  auto_delete   = true
+  name        = "sines-primary-ipv6"
+  location    = data.hcloud_location.helsinki.name
+  type        = "ipv6"
+  auto_delete = true
 }
 
 resource "hcloud_rdns" "sines_ipv4" {
@@ -44,7 +42,7 @@ resource "hcloud_server" "sines" {
   name        = "sines"
   image       = "debian-13"
   server_type = "cx23"
-  location    = data.hcloud_datacenter.helsinki_datacenter.location.name
+  location    = data.hcloud_location.helsinki.name
   ssh_keys    = [hcloud_ssh_key.default.id]
   public_net {
     ipv4 = hcloud_primary_ip.sines_primary_ip.id
