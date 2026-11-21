@@ -11,7 +11,7 @@
     ./acme.nix
     ./mailserver.nix
     ./websites
-    ./pocket-id.nix
+    ./kanidm.nix
     ./prometheus.nix
     ./grafana.nix
     ./headscale

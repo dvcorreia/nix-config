@@ -9,7 +9,33 @@
   age.secrets.grafana-oauth2-client-secret = {
     file = ../../secrets/grafana-oauth2-client-secret.age;
     owner = "grafana";
-    group = "grafana";
+    group = "kanidm";
+    mode = "0440";
+  };
+
+  services.kanidm.provision = {
+    groups = {
+      grafana_users.members = [ "grafana_editors" ];
+      grafana_editors.members = [ "dvcorreia" ];
+    };
+
+    systems.oauth2.grafana = {
+      displayName = "Grafana";
+      originUrl = "${config.services.grafana.settings.server.root_url}login/generic_oauth";
+      originLanding = config.services.grafana.settings.server.root_url;
+      basicSecretFile = config.age.secrets.grafana-oauth2-client-secret.path;
+      preferShortUsername = true;
+      scopeMaps.grafana_users = [
+        "openid"
+        "email"
+        "profile"
+        "groups"
+      ];
+      claimMaps.grafana_role = {
+        joinType = "array";
+        valuesByGroup.grafana_editors = [ "Editor" ];
+      };
+    };
   };
 
   services.grafana = {
@@ -44,13 +70,14 @@
         client_id = "grafana";
         client_secret = "$__file{${config.age.secrets.grafana-oauth2-client-secret.path}}";
         scopes = "openid email profile groups";
-        auth_url = "${config.services.pocket-id.settings.APP_URL}/authorize";
-        token_url = "${config.services.pocket-id.settings.APP_URL}/api/oidc/token";
-        api_url = "${config.services.pocket-id.settings.APP_URL}/api/oidc/userinfo";
+        auth_url = "${config.services.kanidm.server.settings.origin}/ui/oauth2";
+        token_url = "${config.services.kanidm.server.settings.origin}/oauth2/token";
+        api_url = "${config.services.kanidm.server.settings.origin}/oauth2/openid/grafana/userinfo";
         use_pkce = true;
-        email_attribute_name = "email:primary"; # default
+        login_attribute_path = "preferred_username";
+        email_attribute_path = "email";
         allow_assign_grafana_admin = false; # default
-        role_attribute_path = "contains(groups[*], 'admin') && 'Editor' || 'Viewer'";
+        role_attribute_path = "contains(grafana_role[*], 'Editor') && 'Editor' || 'Viewer'";
       };
     };
 

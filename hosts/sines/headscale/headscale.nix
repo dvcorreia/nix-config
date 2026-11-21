@@ -7,7 +7,33 @@ in
   age.secrets.headscale-oidc = {
     file = ../../../secrets/headscale-oidc.age;
     owner = config.services.headscale.user;
-    group = config.services.headscale.group;
+    group = "kanidm";
+    mode = "0440";
+  };
+
+  services.kanidm.provision = {
+    groups.headscale_users.members = [
+      "dvcorreia"
+      "sara"
+    ];
+
+    systems.oauth2.headscale = {
+      displayName = "Headscale";
+      originUrl = "${config.services.headscale.settings.server_url}/oidc/callback";
+      originLanding = config.services.headscale.settings.server_url;
+      basicSecretFile = config.age.secrets.headscale-oidc.path;
+      preferShortUsername = true;
+      scopeMaps.headscale_users = [
+        "openid"
+        "email"
+        "profile"
+      ];
+    };
+  };
+
+  systemd.services.headscale = {
+    wants = [ "kanidm.service" ];
+    after = [ "kanidm.service" ];
   };
 
   environment.systemPackages = with pkgs; [ headscale ];
@@ -32,15 +58,10 @@ in
         ];
       };
       oidc = {
-        issuer = "https://id.dvcorreia.com";
+        issuer = "${config.services.kanidm.server.settings.origin}/oauth2/openid/headscale";
         client_id = "headscale";
         client_secret_path = config.age.secrets.headscale-oidc.path;
         pkce.enabled = true;
-        allowed_users = [
-          "dv_correia@hotmail.com"
-          "sarasantosclara@gmail.com"
-          "avjavj@proton.me"
-        ];
       };
       policy.path = ./policies.jsonc;
     };
