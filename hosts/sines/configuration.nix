@@ -14,6 +14,7 @@
     ./pocket-id.nix
     ./prometheus.nix
     ./grafana.nix
+    ./miniflux.nix
     ./headscale
     ../../modules/nix.nix
     inputs.agenix.nixosModules.default

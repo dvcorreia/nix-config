@@ -18,6 +18,10 @@ locals {
         proxied     = true
         description = "Grafana for infrastructure monitor"
       }
+      rss = {
+        proxied     = true
+        description = "Miniflux reader"
+      }
       ai = {
         proxied     = true
         description = "Open WebUI"
