@@ -140,6 +140,7 @@ in
     gnumake
     openssh
     tailscale
+    ghostty-bin.terminfo # for the 'xterm-ghostty': unknown terminal type
     gh
   ];
 
