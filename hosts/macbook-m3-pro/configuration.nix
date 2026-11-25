@@ -31,6 +31,11 @@ in
 
   system.primaryUser = "dvcorreia";
 
+  networking = {
+    hostName = "macbook-m3-pro";
+    localHostName = config.networking.hostName;
+  };
+
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
