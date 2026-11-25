@@ -1,6 +1,16 @@
-{ currentSystem, pkgs, ... }:
+{
+  currentSystem,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
+  # Apple's /bin/zsh looks up the terminal before TERMINFO_DIRS is set
+  home.file.".terminfo/78/xterm-ghostty" = lib.mkIf pkgs.stdenv.isDarwin {
+    source = "${pkgs.ghostty-bin.terminfo}/share/terminfo/78/xterm-ghostty";
+  };
+
   programs.ghostty = {
     enable = currentSystem != "aarch64-linux";
 
